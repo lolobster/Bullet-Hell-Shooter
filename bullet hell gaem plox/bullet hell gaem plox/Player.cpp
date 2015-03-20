@@ -45,7 +45,7 @@ void Player::playerController(float deltaTime)
 			if (sf::Keyboard::isKeyPressed(kb_left))
 			{
 				// liikettä vasempaan
-				posX -= +0.5 * deltaTime;
+				posX -= 0.5 * deltaTime;
 			}
 			if (sf::Keyboard::isKeyPressed(kb_right))
 			{
