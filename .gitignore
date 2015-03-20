@@ -51,6 +51,7 @@ ipch/
 *.aps
 *.ncb
 *.opensdf
+*.suo
 *.sdf
 *.cachefile
 
