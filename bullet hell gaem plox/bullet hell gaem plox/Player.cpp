@@ -45,22 +45,22 @@ void Player::playerController(float deltaTime)
 			if (sf::Keyboard::isKeyPressed(kb_left))
 			{
 				// liikettä vasempaan
-				posX += -0.2 * deltaTime;
+				posX -= +0.5 * deltaTime;
 			}
 			if (sf::Keyboard::isKeyPressed(kb_right))
 			{
 				// liikettä oikeaan
-				posX += 0.2 * deltaTime;
+				posX += 0.5 * deltaTime;
 			}
 			if (sf::Keyboard::isKeyPressed(kb_forward))
 			{
 				// liikettä ylöspäin
-				posY += 0.2 * deltaTime;
+				posY -= 0.5 * deltaTime;
 			}
 			if (sf::Keyboard::isKeyPressed(kb_reverse))
 			{
 				// liikettä alaspäin
-				posY += -0.2 * deltaTime;
+				posY += 0.5 * deltaTime;
 			}
 
 			pl_sprite.setPosition(posX, posY);
