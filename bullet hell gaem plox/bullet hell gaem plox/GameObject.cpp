@@ -31,7 +31,7 @@ void GameObject::textureManager()
 	pl_text.loadFromFile("Bat.png");
 	pl_text.setSmooth(true);// tasoittaa reunat
 	pl_sprite.setTexture(pl_text);
-	pl_sprite.setPosition(550, 1000);
+	pl_sprite.setPosition(950, 900);
 	// MITEN VITUSSA PELAAJA SAA TEXTURET???!?!???!??
 
 
