@@ -24,9 +24,9 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 {
 	bool paused = 0;
 	Event event;
-	sf::Texture texture;
-	sf::Clock clock;
-	sf::Time updateGame = sf::milliseconds(10);
+	Texture texture;
+	Clock clock;
+	Time updateGame = microseconds(10);
 
 	Player play; // pointteri pleijerille EIKÄ OLE POINTTERI
 
@@ -35,7 +35,7 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 
 	while (window.isOpen()) // ajaa ohjelmaa niin kauan kuin ikkuna on auki
 	{
-		sf::Time elapsed = clock.restart();
+		Time elapsed = clock.restart();
 		updateGame += elapsed;
 
 		
@@ -49,17 +49,17 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 
 				switch (event.type) // tarkistaa ikkunan eventit joka looppauksella
 				{
-				case sf::Event::Closed: // ikkuna suljetaan
+				case Event::Closed: // ikkuna suljetaan
 				{
 
 					window.close();
 					break;
 				}
-				case sf::Event::LostFocus:
+				case Event::LostFocus:
 				{
 					paused = true;
 				}
-				case sf::Event::GainedFocus:
+				case Event::GainedFocus:
 				{
 					paused = false;
 				}
@@ -92,27 +92,27 @@ void menu(RenderWindow& window)
 		{
 			switch (event.type) // tarkistaa ikkunan eventit joka looppauksella
 			{
-			case sf::Event::Closed: // ikkuna suljetaan
+			case Event::Closed: // ikkuna suljetaan
 			{
 
 				window.close();
 				break;
 			}
-			case sf::Event::KeyPressed: // nappulaa painetaan
+			case Event::KeyPressed: // nappulaa painetaan
 			{
 				switch (event.key.code)
 				{
-				case sf::Keyboard::Up:
+				case Keyboard::Up:
 				{
 					menu.moveUp();
 					break;
 				}
-				case sf::Keyboard::Down:
+				case Keyboard::Down:
 				{
 					menu.moveDown();
 					break;
 				}
-				case sf::Keyboard::Return:
+				case Keyboard::Return:
 				{
 					switch (menu.getPressedItem())
 					{
@@ -142,7 +142,7 @@ void menu(RenderWindow& window)
 				break;
 			}
 			}
-			window.clear(sf::Color::Black);
+			window.clear(Color::Black);
 			menu.draw(window);
 			window.display();
 		}
