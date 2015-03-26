@@ -26,24 +26,25 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 	Event event;
 	Texture texture;
 	Clock clock;
-	Time updateGame = microseconds(10);
+	Time updateGame = clock.getElapsedTime();
+	float elapsed = updateGame.asMicroseconds();
 
 	Player play; // pointteri pleijerille EIKÄ OLE POINTTERI
 
 	play.textureManager(); // lataa tekstuurit
-	window.setVerticalSyncEnabled(true);
+	window.setVerticalSyncEnabled(false);
 
 	while (window.isOpen()) // ajaa ohjelmaa niin kauan kuin ikkuna on auki
 	{
-		Time elapsed = clock.restart();
-		updateGame += elapsed;
+		clock.restart();
+		//updateGame += elapsed;
 
 		
-		play.playerController(elapsed.asMilliseconds());
+		play.playerController(elapsed);
 
-		while (window.pollEvent(event))
-		{
-			if (paused) // kato toimiiko
+		(window.pollEvent(event));  // TÄMÄ PERKELE TÄSSÄ PISTI LIIKKUMAAAAAAAAAAAAAAAAANANNANNAANANANA BÄTMÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄN
+		{							// eli siis poistin while loopin
+			if (paused)
 				continue;
 			{
 
