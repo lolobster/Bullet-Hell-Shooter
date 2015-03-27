@@ -42,16 +42,16 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 
 		play.updateBackGround(elapsed);
 		play.playerController(elapsed);
-
+		
 		(window.pollEvent(event));  // TÄMÄ PERKELE TÄSSÄ PISTI LIIKKUMAAAAANANANANANANA BÄTMÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄN
 		{							// eli siis poistin while loopin
 			if (paused)
 				continue;
 			{
 
-				switch (event.type) // tarkistaa ikkunan eventit joka looppauksella
+				switch (event.type)
 				{
-				case Event::Closed: // ikkuna suljetaan
+				case Event::Closed:
 				{
 
 					window.close();
@@ -65,7 +65,6 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 				{
 					paused = false;
 				}
-
 				default: // määrittämätöntä eventtiä ei prosessoida
 				{
 					break;
@@ -73,7 +72,7 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 				}
 
 
-				play.render(&window); //piirtää
+				play.render(&window);
 
 				window.display();
 			}

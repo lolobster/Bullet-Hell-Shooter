@@ -6,16 +6,21 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
+using namespace sf;
+
 class GameObject
 {
 public:
+	GameObject::GameObject() { }
 	GameObject(int health);
+	explicit GameObject(const Texture& bullet_text);
 	float speed;
 	sf::Vector2f position() const;
 
 	void setPosition(const sf::Vector2f& value);  // vektori sisältää positionit
 	void updateBackGround(float deltaTime);
-	virtual void update(sf::RenderWindow &window, float elapsedTime);
+	void setTextureRectangle(const IntRect& value);
+	//virtual void update(sf::RenderWindow &window, float elapsedTime);
 	virtual void textureManager(float deltaTime);
 	virtual void render(sf::RenderWindow* window);  //renderöinti
 	virtual~GameObject();
@@ -25,13 +30,15 @@ protected:
 	int health;
 	float bgY;
 	float bgX;
-	sf::Vector2f _origin;
-	sf::Sprite pl_sprite;
-	sf::Texture pl_text;
-	sf::Sprite bg_sprite;
-	sf::Texture bg_text;
-	sf::Sprite ene_sprite;
-	sf::Texture ene_text;
+	Vector2f _origin;
+	Sprite pl_sprite;
+	Texture pl_text;
+	Sprite bg_sprite;
+	Texture bg_text;
+	Texture bullet_text;
+	Sprite bullet_sprite;
+	Sprite ene_sprite;
+	Texture ene_text;
 };
 
 #endif

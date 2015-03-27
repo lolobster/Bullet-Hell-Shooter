@@ -7,13 +7,13 @@ using namespace sf;
 GameObject::GameObject(int h)
 {
 	health = h;
-	textureManager(0);
+	//textureManager(0);
 }
 
-void GameObject::update(sf::RenderWindow &window, float elapsedTime)
-{
-	// käytä time::elapsed
-}
+//void GameObject::update(sf::RenderWindow &window, float elapsedTime)
+//{
+//	// käytä time::elapsed
+//}
 
 Vector2f GameObject::position() const
 {
@@ -23,6 +23,13 @@ Vector2f GameObject::position() const
 void GameObject::setPosition(const Vector2f& value)  // asettaa uuden positionin
 {
 	pl_sprite.setPosition(value - _origin);
+}
+
+void GameObject::setTextureRectangle(const IntRect& value)  // jotain bullettien spawnaamiselle
+{
+	bullet_sprite.setTextureRect(value);
+	_origin.x = 0.5f*value.width;
+	_origin.y = 0.5f*value.height;
 }
 
 void GameObject::textureManager(float deltaTime)
@@ -41,6 +48,10 @@ void GameObject::textureManager(float deltaTime)
 	//bg_sprite.setPosition(0, 0);
 	bgY = 0;
 	bg_sprite.setTextureRect(IntRect(0, bgY, 1920, 1200));
+
+	bullet_text.loadFromFile("bullet.png");
+	bullet_text.setSmooth(true);// tasoittaa reunat
+	bullet_sprite.setTexture(bullet_text);
 
 
 	// BULLETILLE TEXTUUUUUUUUUURITTTTT
@@ -72,6 +83,7 @@ void GameObject::render(sf::RenderWindow* window)  // renderöinti sprölölö
 	window->draw(bg_sprite);
 	window->draw(pl_sprite);
 	window->draw(ene_sprite);
+	window->draw(bullet_sprite); // ei varmaan toimi
 }
 
 GameObject::~GameObject()

@@ -26,16 +26,18 @@ void Player::onHit()
 }
 
 
-void Player::playerController(float deltaTime)
+void Player::playerController(const float deltaTime)
 {
 			Mouse mouse;
+			Vector2f playerPos(posX, posY);
+			playerPos = _player.position();
 
 			if (Mouse::isButtonPressed(btn_shoot))
 			{
 				//posX = mouse.getPosition().x; // mouse position on X axis is aquired
 				//posY = mouse.getPosition().y; // mouse position on Y axis is aquired
 
-				//shoot(posX, posY); //begin shoot action
+				shoot(deltaTime); //begin shoot action
 			}
 			if (Mouse::isButtonPressed(btn_use))
 			{
@@ -64,15 +66,62 @@ void Player::playerController(float deltaTime)
 				// liikettä alaspäin
 				posY += 0.4 * deltaTime;
 			}
-			/*if (Keyboard::isKeyPressed(sf::Keyboard::Escape))
-			{
-				menu();
-			}*/
-
+	
 			pl_sprite.setPosition(posX, posY);
 }
 
-void Player::shoot(float, float)
+void Player::shoot(const float deltaTime)
 {
+	static const float FIRE_INTERVAL = 0.1f;
 
+	fireTimer -= deltaTime;
+	Vector2f sijainti;
+
+	if (fireTimer <= 0.0f)
+	{
+		sijainti.y = -40.0f;
+		spawnBullet(sijainti);
+		sijainti.y = 40.0f;
+		spawnBullet(sijainti);
+		fireTimer = FIRE_INTERVAL;
+	}
+}
+
+void Player::spawnBullet(const Vector2f& sijainti) // ei toimi vielä asjgaga
+{
+	GameObject bullet(bullet_text);
+	const IntRect textureRectangle(0, 119, 50, 10);
+	bullet.setTextureRectangle(textureRectangle);
+	bullet.setPosition(_player.position() + sijainti);
+	bullet_list.push_back(bullet);
+
+}
+
+void Player::drawBullet(RenderWindow* window) // i have no idea what i'm doing D:
+{
+	for (it = bullet_list.begin(); it != bullet_list.end(); it++)
+		it->render(window);
+}
+
+void Player::updateBullet(const float deltaTime)
+{
+	Vector2f bulletPos;
+	static const float BULLET_SPEED = 1500.0f;
+
+
+	for (it = bullet_list.begin(); it != bullet_list.end(); it++)
+	{
+		bulletPos = it->position();
+		bulletPos.y += BULLET_SPEED*deltaTime;
+		it->setPosition(bulletPos);
+
+		if (bulletPos.y > 1200 | bulletPos.y < 0)
+		{
+			it = bullet_list.erase(it);
+		}
+		else
+		{
+			it++;
+		}
+	}
 }

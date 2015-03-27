@@ -7,6 +7,9 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <iostream>
+#include <list>
+
+using namespace sf;
 
 class Player: public GameObject
 {
@@ -15,25 +18,34 @@ public:
 	~Player();
 
 	void onHit();
-	void playerController(float deltaTime);
-	void shoot(float, float);
+	void playerController(const float deltaTime);
+	void shoot(const float deltaTime);
+	void spawnBullet(const Vector2f& sijainti);
+	void updateBullet(const float deltaTime);
+	void drawBullet(RenderWindow* window);
 
 private:
 	int health;
 	int deaths;
 	float speed;
 
+	Texture bullet_text;
+	GameObject _player;
+	std::list<GameObject> bullet_list;		// list johon laitetaan bulletteja
+	std::list<GameObject>::iterator it;		// piirtoa varten
+
 	//Buttons
-	sf::Mouse::Button btn_shoot = sf::Mouse::Left;
-	sf::Mouse::Button btn_use = sf::Mouse::Right;
+	Mouse::Button btn_shoot = Mouse::Left;
+	Mouse::Button btn_use = Mouse::Right;
 
 	//Keys
-	sf::Keyboard::Key kb_forward = sf::Keyboard::W;
-	sf::Keyboard::Key kb_reverse = sf::Keyboard::S;
-	sf::Keyboard::Key kb_left = sf::Keyboard::A;
-	sf::Keyboard::Key kb_right = sf::Keyboard::D;
+	Keyboard::Key kb_forward = Keyboard::W;
+	Keyboard::Key kb_reverse = Keyboard::S;
+	Keyboard::Key kb_left = Keyboard::A;
+	Keyboard::Key kb_right = Keyboard::D;
 
 	float posX;
 	float posY;
+	float fireTimer;
 };
 
