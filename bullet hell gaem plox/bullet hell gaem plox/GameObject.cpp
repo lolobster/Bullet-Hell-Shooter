@@ -7,7 +7,7 @@ using namespace sf;
 GameObject::GameObject(int h)
 {
 	health = h;
-	textureManager();
+	textureManager(0);
 }
 
 void GameObject::update(sf::RenderWindow &window, float elapsedTime)
@@ -25,28 +25,45 @@ void GameObject::setPosition(const Vector2f& value)  // asettaa uuden positionin
 	pl_sprite.setPosition(value - _origin);
 }
 
-void GameObject::textureManager()
+void GameObject::textureManager(float deltaTime)
 {
 
-	pl_text.loadFromFile("Bat.png");
+	pl_text.loadFromFile("Player.png");
 	pl_text.setSmooth(true);// tasoittaa reunat
 	pl_sprite.setTexture(pl_text);
-	pl_sprite.setPosition(550, 1000);
-	// MITEN VITUSSA PELAAJA SAA TEXTURET???!?!???!??
-
+	pl_sprite.setPosition(950, 900);
 
 	bg_text.loadFromFile("bg.png");
 	bg_text.setSmooth(false);
+	bg_text.setRepeated(true);
 	bg_sprite.setTexture(bg_text);
-	// LAITA TAUSTA RULLAAMAAN
+	////// liikkuva tausta
+	//bg_sprite.setPosition(0, 0);
+	bgY = 0;
+	bg_sprite.setTextureRect(IntRect(0, bgY, 1920, 1200));
 
-	// BULLETILLE JA ENEMYLLE TEXTUUUUUUUUUURITTTTT
+
+	// BULLETILLE TEXTUUUUUUUUUURITTTTT
 	ene_text.loadFromFile("base_enemy.png");
 	ene_text.setSmooth(true);
 	ene_sprite.setTexture(ene_text);
 }
+void GameObject::updateBackGround(float deltaTime)
+{
 
-void GameObject::render(sf::RenderWindow* window)  // renderöinti
+	if (bgY < 1200)
+	{
+		bgY -= 0.05 * deltaTime;
+	}
+	else
+	{
+		bgY = 0;
+	}
+
+	bg_sprite.setTextureRect(IntRect(0, bgY, 1920, 1200));
+}
+
+void GameObject::render(sf::RenderWindow* window)  // renderöinti sprölölö
 {
 
 	window->clear(sf::Color::Black); // täyttää koko ikkunan mustalla värillä

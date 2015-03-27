@@ -17,9 +17,6 @@ public:
 	void onHit();
 	void playerController(float deltaTime);
 	void shoot(float, float);
-	//void move(float, float);
-
-	void onDeath(int deaths);
 
 private:
 	int health;

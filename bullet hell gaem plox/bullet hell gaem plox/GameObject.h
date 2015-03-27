@@ -10,20 +10,21 @@ class GameObject
 {
 public:
 	GameObject(int health);
-	//float setPosX;
-	//float setPosY;
 	float speed;
 	sf::Vector2f position() const;
 
 	void setPosition(const sf::Vector2f& value);  // vektori sisältää positionit
+	void updateBackGround(float deltaTime);
 	virtual void update(sf::RenderWindow &window, float elapsedTime);
-	virtual void textureManager();
+	virtual void textureManager(float deltaTime);
 	virtual void render(sf::RenderWindow* window);  //renderöinti
 	virtual~GameObject();
 
 protected:
 
 	int health;
+	float bgY;
+	float bgX;
 	sf::Vector2f _origin;
 	sf::Sprite pl_sprite;
 	sf::Texture pl_text;

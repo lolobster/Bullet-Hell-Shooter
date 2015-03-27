@@ -1,5 +1,7 @@
 #include "Player.h"
+#include "Menu.h"
 
+using namespace sf;
 
 Player::Player()
 	: GameObject(health)
@@ -26,42 +28,46 @@ void Player::onHit()
 
 void Player::playerController(float deltaTime)
 {
-			sf::Mouse mouse;
+			Mouse mouse;
 
-			if (sf::Mouse::isButtonPressed(btn_shoot))
+			if (Mouse::isButtonPressed(btn_shoot))
 			{
 				//posX = mouse.getPosition().x; // mouse position on X axis is aquired
 				//posY = mouse.getPosition().y; // mouse position on Y axis is aquired
 
 				//shoot(posX, posY); //begin shoot action
 			}
-			if (sf::Mouse::isButtonPressed(btn_use))
+			if (Mouse::isButtonPressed(btn_use))
 			{
 				// add functions
 			}
 
 			// LIIKKEET //
 
-			if (sf::Keyboard::isKeyPressed(kb_left))
+			if (Keyboard::isKeyPressed(kb_left))
 			{
 				// liikettä vasempaan
-				posX -= 0.5 * deltaTime;
+				posX -= 0.4 * deltaTime;
 			}
-			if (sf::Keyboard::isKeyPressed(kb_right))
+			if (Keyboard::isKeyPressed(kb_right))
 			{
 				// liikettä oikeaan
-				posX += 0.5 * deltaTime;
+				posX += 0.4 * deltaTime;
 			}
-			if (sf::Keyboard::isKeyPressed(kb_forward))
+			if (Keyboard::isKeyPressed(kb_forward))
 			{
 				// liikettä ylöspäin
-				posY -= 0.5 * deltaTime;
+				posY -= 0.4 * deltaTime;
 			}
-			if (sf::Keyboard::isKeyPressed(kb_reverse))
+			if (Keyboard::isKeyPressed(kb_reverse))
 			{
 				// liikettä alaspäin
-				posY += 0.5 * deltaTime;
+				posY += 0.4 * deltaTime;
 			}
+			/*if (Keyboard::isKeyPressed(sf::Keyboard::Escape))
+			{
+				menu();
+			}*/
 
 			pl_sprite.setPosition(posX, posY);
 }

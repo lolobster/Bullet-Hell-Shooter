@@ -2,15 +2,20 @@
 #include <SFML/Window/Event.hpp>
 #include "GameObject.h"
 #include "Player.h"
+#include "Menu.h"
 
 using namespace sf;
 
 static void loop(RenderWindow& window);
+void menu(RenderWindow& window);
+
 
 int main()
 {
-	RenderWindow window(VideoMode(1200u, 1100u), "BULLET HELL SHOOTER 9000", sf::Style::Resize | sf::Style::Close/* | sf::Style::Titlebar*/); // asettaa ikkunan koon, muokattavissa
-	loop(window);
+	float x = 1920; // original 600u / best 1920
+	float y = 1200; // original 600u / best 1200
+	RenderWindow window(VideoMode(x, y), "BULLET HELL SHOOTER 9000", sf::Style::Resize | sf::Style::Close/* | sf::Style::Titlebar*/); // asettaa ikkunan koon, muokattavissa
+	menu(window);
 	
 	return 0;
 }
@@ -19,42 +24,44 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 {
 	bool paused = 0;
 	Event event;
-	sf::Texture texture;
-	sf::Clock clock;
-	sf::Time updateGame = sf::milliseconds(10);
+	Texture texture;
+	Clock clock;
+	Time updateGame = clock.getElapsedTime();
+	float elapsed = updateGame.asMicroseconds();
 
 	Player play; // pointteri pleijerille EIKÄ OLE POINTTERI
+				 //ei nii :DDDDD
 
-	play.textureManager(); // lataa tekstuurit
-	window.setVerticalSyncEnabled(true);
+	play.textureManager(elapsed); // lataa tekstuurit
+	window.setVerticalSyncEnabled(false);
 
 	while (window.isOpen()) // ajaa ohjelmaa niin kauan kuin ikkuna on auki
 	{
-		sf::Time elapsed = clock.restart();
-		updateGame += elapsed;
+		clock.restart();
+		//updateGame += elapsed;
 
-		
-		play.playerController(elapsed.asMilliseconds());
+		play.updateBackGround(elapsed);
+		play.playerController(elapsed);
 
-		while (window.pollEvent(event))
-		{
-			if (paused) // kato toimiiko
+		(window.pollEvent(event));  // TÄMÄ PERKELE TÄSSÄ PISTI LIIKKUMAAAAANANANANANANA BÄTMÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄN
+		{							// eli siis poistin while loopin
+			if (paused)
 				continue;
 			{
 
 				switch (event.type) // tarkistaa ikkunan eventit joka looppauksella
 				{
-				case sf::Event::Closed: // ikkuna suljetaan
+				case Event::Closed: // ikkuna suljetaan
 				{
 
 					window.close();
 					break;
 				}
-				case sf::Event::LostFocus:
+				case Event::LostFocus:
 				{
 					paused = true;
 				}
-				case sf::Event::GainedFocus:
+				case Event::GainedFocus:
 				{
 					paused = false;
 				}
@@ -72,5 +79,74 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 			}
 		}
 
+	}
+}
+void menu(RenderWindow& window)
+{
+	Event event;
+
+	Menu menu(window.getSize().x, window.getSize().y);
+	menu.draw(window);
+
+	while (window.isOpen())
+	{
+		while (window.pollEvent(event))
+		{
+			switch (event.type) // tarkistaa ikkunan eventit joka looppauksella
+			{
+			case Event::Closed: // ikkuna suljetaan
+			{
+
+				window.close();
+				break;
+			}
+			case Event::KeyPressed: // nappulaa painetaan
+			{
+				switch (event.key.code)
+				{
+				case Keyboard::Up:
+				{
+					menu.moveUp();
+					break;
+				}
+				case Keyboard::Down:
+				{
+					menu.moveDown();
+					break;
+				}
+				case Keyboard::Return:
+				{
+					switch (menu.getPressedItem())
+					{
+					case 0:	//Menu item 0 (Play) gets pressed
+					{
+						loop(window);
+						break;
+					}
+					case 1: //Menu item 1 (Options) gets pressed
+					{
+						break;
+					}
+					case 2: //Menu item 2 (Exit) gets pressed
+					{
+						window.close();
+						break;
+					}
+					}
+					break;
+				}
+				}
+				break;
+			}
+
+			default: // määrittämätöntä eventtiä ei prosessoida
+			{
+				break;
+			}
+			}
+			window.clear(Color::Black);
+			menu.draw(window);
+			window.display();
+		}
 	}
 }
