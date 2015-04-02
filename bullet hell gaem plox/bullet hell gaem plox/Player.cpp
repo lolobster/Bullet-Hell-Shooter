@@ -50,22 +50,22 @@ void Player::playerController(const float deltaTime)
 			if (Keyboard::isKeyPressed(kb_left))
 			{
 				// liikettä vasempaan
-				posX -= 0.4 * deltaTime;
+				posX -= 0.24 * deltaTime;
 			}
 			if (Keyboard::isKeyPressed(kb_right))
 			{
 				// liikettä oikeaan
-				posX += 0.4 * deltaTime;
+				posX += 0.24 * deltaTime;
 			}
 			if (Keyboard::isKeyPressed(kb_forward))
 			{
 				// liikettä ylöspäin
-				posY -= 0.4 * deltaTime;
+				posY -= 0.15 * deltaTime;
 			}
 			if (Keyboard::isKeyPressed(kb_reverse))
 			{
 				// liikettä alaspäin
-				posY += 0.4 * deltaTime;
+				posY += 0.15 * deltaTime;
 			}
 	
 			pl_sprite.setPosition(posX, posY);
@@ -78,7 +78,7 @@ void Player::shoot(const float deltaTime)
 	fireTimer -= deltaTime;
 	Vector2f sijainti;
 
-	if (fireTimer <= 0.2f)
+	if (fireTimer <= 0.0f)
 	{
 		sijainti.y = -40.0f;
 		spawnBullet(sijainti);
@@ -91,8 +91,8 @@ void Player::shoot(const float deltaTime)
 void Player::spawnBullet(const Vector2f& sijainti) // ei toimi vielä asjgaga
 {
 	GameObject bullet(bullet_text);
-	const IntRect textureRectangle(0, 119, 50, 10);
-	bullet.setTextureRectangle(textureRectangle);
+	/*const IntRect textureRectangle(0, 119, 50, 10);
+	bullet.setTextureRectangle(textureRectangle);*/
 	bullet.setPosition(_player.position() + sijainti);
 	bullet_list.push_back(bullet);
 	//drawBullet(window);
