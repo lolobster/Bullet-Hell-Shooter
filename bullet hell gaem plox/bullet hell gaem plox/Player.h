@@ -17,6 +17,8 @@ public:
 	Player();
 	~Player();
 
+	GameObject(bullet_text); // ei ehkä toimi
+
 	void onHit();
 	void playerController(const float deltaTime);
 	void shoot(const float deltaTime);
@@ -24,15 +26,17 @@ public:
 	void updateBullet(const float deltaTime);
 	void drawBullet(RenderWindow* window);
 
+	std::list<GameObject> bullet_list;		// list johon laitetaan bulletteja
+	std::list<GameObject>::iterator it;		// piirtoa varten
+
 private:
 	int health;
 	int deaths;
 	float speed;
 
-	Texture bullet_text;
+	//Texture bullet_text;
 	GameObject _player;
-	std::list<GameObject> bullet_list;		// list johon laitetaan bulletteja
-	std::list<GameObject>::iterator it;		// piirtoa varten
+
 
 	//Buttons
 	Mouse::Button btn_shoot = Mouse::Left;

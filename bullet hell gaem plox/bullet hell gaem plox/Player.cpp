@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Menu.h"
+#include "GameObject.h"
 
 using namespace sf;
 
@@ -77,7 +78,7 @@ void Player::shoot(const float deltaTime)
 	fireTimer -= deltaTime;
 	Vector2f sijainti;
 
-	if (fireTimer <= 0.0f)
+	if (fireTimer <= 0.2f)
 	{
 		sijainti.y = -40.0f;
 		spawnBullet(sijainti);
@@ -94,6 +95,7 @@ void Player::spawnBullet(const Vector2f& sijainti) // ei toimi vielä asjgaga
 	bullet.setTextureRectangle(textureRectangle);
 	bullet.setPosition(_player.position() + sijainti);
 	bullet_list.push_back(bullet);
+	//drawBullet(window);
 
 }
 
@@ -112,10 +114,10 @@ void Player::updateBullet(const float deltaTime)
 	for (it = bullet_list.begin(); it != bullet_list.end(); it++)
 	{
 		bulletPos = it->position();
-		bulletPos.y += BULLET_SPEED*deltaTime;
+		bulletPos.y += BULLET_SPEED * deltaTime;
 		it->setPosition(bulletPos);
 
-		if (bulletPos.y > 1200 | bulletPos.y < 0)
+		if (bulletPos.y > 1000 | bulletPos.y < 0)
 		{
 			it = bullet_list.erase(it);
 		}

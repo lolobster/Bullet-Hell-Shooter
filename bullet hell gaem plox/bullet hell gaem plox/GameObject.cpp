@@ -1,4 +1,5 @@
 #include "GameObject.h"
+#include "Player.h"
 #include <string>
 #include <iostream>
 
@@ -38,7 +39,7 @@ void GameObject::textureManager(float deltaTime)
 	pl_text.loadFromFile("Player.png");
 	pl_text.setSmooth(true);// tasoittaa reunat
 	pl_sprite.setTexture(pl_text);
-	pl_sprite.setPosition(950, 900);
+	pl_sprite.setPosition(950, 800);
 
 	bg_text.loadFromFile("bg.png");
 	bg_text.setSmooth(false);
@@ -47,7 +48,7 @@ void GameObject::textureManager(float deltaTime)
 	////// liikkuva tausta
 	//bg_sprite.setPosition(0, 0);
 	bgY = 0;
-	bg_sprite.setTextureRect(IntRect(0, bgY, 1920, 1200));
+	bg_sprite.setTextureRect(IntRect(0, bgY, 1020, 1000));
 
 	bullet_text.loadFromFile("bullet.png");
 	bullet_text.setSmooth(true);// tasoittaa reunat
@@ -62,16 +63,16 @@ void GameObject::textureManager(float deltaTime)
 void GameObject::updateBackGround(float deltaTime)
 {
 
-	if (bgY < 1200)
+	if (bgY < 1000)
 	{
-		bgY -= 0.05 * deltaTime;
+		bgY -= 0.04 * deltaTime;
 	}
 	else
 	{
 		bgY = 0;
 	}
 
-	bg_sprite.setTextureRect(IntRect(0, bgY, 1920, 1200));
+	bg_sprite.setTextureRect(IntRect(0, bgY, 1900, 1000));
 }
 
 void GameObject::render(sf::RenderWindow* window)  // renderöinti sprölölö
@@ -79,11 +80,10 @@ void GameObject::render(sf::RenderWindow* window)  // renderöinti sprölölö
 
 	window->clear(sf::Color::Black); // täyttää koko ikkunan mustalla värillä
 
-
+	window->draw(bullet_sprite); // ei varmaan toimi
 	window->draw(bg_sprite);
 	window->draw(pl_sprite);
 	window->draw(ene_sprite);
-	window->draw(bullet_sprite); // ei varmaan toimi
 }
 
 GameObject::~GameObject()

@@ -12,8 +12,8 @@ void menu(RenderWindow& window);
 
 int main()
 {
-	float x = 1920; // original 600u / best 1920
-	float y = 1200; // original 600u / best 1200
+	float x = 1900; // original 600u / best 1920
+	float y = 1000; // original 600u / best 1200
 	RenderWindow window(VideoMode(x, y), "BULLET HELL SHOOTER 9000", sf::Style::Resize | sf::Style::Close/* | sf::Style::Titlebar*/); // asettaa ikkunan koon, muokattavissa
 	menu(window);
 	
@@ -31,6 +31,7 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 
 	Player play; // pointteri pleijerille EIKÄ OLE POINTTERI
 				 //ei nii :DDDDD
+				 // kekekekekekek
 
 	play.textureManager(elapsed); // lataa tekstuurit
 	window.setVerticalSyncEnabled(false);
