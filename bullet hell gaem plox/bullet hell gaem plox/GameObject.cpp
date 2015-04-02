@@ -45,8 +45,7 @@ void GameObject::textureManager(float deltaTime)
 	bg_text.setSmooth(false);
 	bg_text.setRepeated(true);
 	bg_sprite.setTexture(bg_text);
-	////// liikkuva tausta
-	//bg_sprite.setPosition(0, 0);
+
 	bgY = 0;
 	bg_sprite.setTextureRect(IntRect(0, bgY, 1020, 1000));
 
@@ -54,8 +53,6 @@ void GameObject::textureManager(float deltaTime)
 	bullet_text.setSmooth(true);// tasoittaa reunat
 	bullet_sprite.setTexture(bullet_text);
 
-
-	// BULLETILLE TEXTUUUUUUUUUURITTTTT
 	ene_text.loadFromFile("base_enemy.png");
 	ene_text.setSmooth(true);
 	ene_sprite.setTexture(ene_text);
