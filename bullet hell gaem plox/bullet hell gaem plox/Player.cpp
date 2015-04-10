@@ -98,8 +98,8 @@ void Player::shoot(const float deltaTime)
 void Player::spawnBullet(const Vector2f& sijainti) // ei toimi vielä asjgaga
 {
 	GameObject bullet(bullet_text);
-	const IntRect textureRectangle(0, 119, 50, 10);
-	bullet.setTextureRectangle(textureRectangle);
+	/*const IntRect textureRectangle(0, 119, 50, 10);
+	bullet.setTextureRectangle(textureRectangle);*/
 	bullet.setPosition(_player.position() + sijainti);
 	bullet_list.push_back(bullet);
 	/*drawBullet(bullet_list);*/
@@ -112,7 +112,7 @@ void Player::render(RenderWindow* window) // i have no idea what i'm doing D:
 	window->draw(pl_sprite);
 
 	for (it = bullet_list.begin(); it != bullet_list.end(); it++)
-		it->render(window);
+		window->draw(bullet_sprite);
 }
 
 void Player::updateBullet(const float deltaTime)

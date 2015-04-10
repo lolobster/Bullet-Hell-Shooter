@@ -47,6 +47,7 @@ void GameObject::textureManager(float deltaTime)
 	bullet_text.loadFromFile("bullet.png");
 	bullet_text.setSmooth(true);// tasoittaa reunat
 	bullet_sprite.setTexture(bullet_text);
+	bullet_sprite.setScale(Vector2f(0.15f, 0.15f));
 
 	ene_text.loadFromFile("base_enemy.png");
 	ene_text.setSmooth(true);
@@ -67,11 +68,10 @@ void GameObject::updateBackGround(float deltaTime)
 	bg_sprite.setTextureRect(IntRect(0, bgY, 1900, 1000));
 }
 
-//void GameObject::render(RenderWindow* window)  // renderöinti sprölölö
-//{
-//
-//	
-//}
+void GameObject::render(RenderWindow* window)  // renderöinti sprölölö
+{
+	
+}
 
 GameObject::~GameObject()
 {

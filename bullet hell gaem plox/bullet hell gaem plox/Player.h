@@ -52,5 +52,7 @@ private:
 	float posX;
 	float posY;
 	float fireTimer;
+
+	Vector2f playerPos;
 };
 
