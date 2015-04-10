@@ -56,7 +56,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>glew.lib;freetype.lib;jpeg.lib;opengl32.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;winmm.lib;sfml-graphics-s-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>$(SolutionDir)..\SFML-2.2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>

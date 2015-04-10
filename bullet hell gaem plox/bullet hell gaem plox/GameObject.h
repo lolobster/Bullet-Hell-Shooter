@@ -13,16 +13,14 @@ class GameObject
 public:
 	GameObject::GameObject() { }
 	GameObject(int health);
-	explicit GameObject(const Texture& bullet_text);
 	float speed;
-	sf::Vector2f position() const;
+	Vector2f position() const;
 
-	void setPosition(const sf::Vector2f& value);  // vektori sisältää positionit
+	void setPosition(const Vector2f& value);
 	void updateBackGround(float deltaTime);
 	void setTextureRectangle(const IntRect& value);
-	//virtual void update(sf::RenderWindow &window, float elapsedTime);
 	virtual void textureManager(float deltaTime);
-	virtual void render(sf::RenderWindow* window);  //renderöinti
+	virtual void render(RenderWindow* window);
 	virtual~GameObject();
 
 protected:
@@ -30,6 +28,7 @@ protected:
 	int health;
 	float bgY;
 	float bgX;
+
 	Vector2f _origin;
 	Sprite pl_sprite;
 	Texture pl_text;

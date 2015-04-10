@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Menu.h"
+#include "GameObject.h"
 
 using namespace sf;
 
@@ -13,6 +14,13 @@ Player::Player()
 
 Player::~Player()
 {
+}
+
+void Player::updatePlayer(const Time& elapsedTime)
+{
+	const float elapsed = elapsedTime.asMicroseconds();
+	//playerController(elapsed);
+	updateBullet(elapsed);
 }
 
 void Player::onHit()
@@ -49,22 +57,22 @@ void Player::playerController(const float deltaTime)
 			if (Keyboard::isKeyPressed(kb_left))
 			{
 				// liikettä vasempaan
-				posX -= 0.4 * deltaTime;
+				posX -= 0.24 * deltaTime;
 			}
 			if (Keyboard::isKeyPressed(kb_right))
 			{
 				// liikettä oikeaan
-				posX += 0.4 * deltaTime;
+				posX += 0.24 * deltaTime;
 			}
 			if (Keyboard::isKeyPressed(kb_forward))
 			{
 				// liikettä ylöspäin
-				posY -= 0.4 * deltaTime;
+				posY -= 0.15 * deltaTime;
 			}
 			if (Keyboard::isKeyPressed(kb_reverse))
 			{
 				// liikettä alaspäin
-				posY += 0.4 * deltaTime;
+				posY += 0.15 * deltaTime;
 			}
 	
 			pl_sprite.setPosition(posX, posY);
@@ -94,11 +102,15 @@ void Player::spawnBullet(const Vector2f& sijainti) // ei toimi vielä asjgaga
 	bullet.setTextureRectangle(textureRectangle);
 	bullet.setPosition(_player.position() + sijainti);
 	bullet_list.push_back(bullet);
-
+	/*drawBullet(bullet_list);*/
 }
 
-void Player::drawBullet(RenderWindow* window) // i have no idea what i'm doing D:
+void Player::render(RenderWindow* window) // i have no idea what i'm doing D:
 {
+	window->draw(bg_sprite);
+
+	window->draw(pl_sprite);
+
 	for (it = bullet_list.begin(); it != bullet_list.end(); it++)
 		it->render(window);
 }
@@ -106,16 +118,16 @@ void Player::drawBullet(RenderWindow* window) // i have no idea what i'm doing D
 void Player::updateBullet(const float deltaTime)
 {
 	Vector2f bulletPos;
-	static const float BULLET_SPEED = 1500.0f;
+	static const float BULLET_SPEED = 1.0f;
 
 
-	for (it = bullet_list.begin(); it != bullet_list.end(); it++)
+	for (it = bullet_list.begin(); it != bullet_list.end();)
 	{
 		bulletPos = it->position();
-		bulletPos.y += BULLET_SPEED*deltaTime;
+		bulletPos.y += BULLET_SPEED * deltaTime;
 		it->setPosition(bulletPos);
 
-		if (bulletPos.y > 1200 | bulletPos.y < 0)
+		if (bulletPos.y > 1000 | bulletPos.y < 0)
 		{
 			it = bullet_list.erase(it);
 		}

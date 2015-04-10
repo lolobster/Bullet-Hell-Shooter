@@ -1,4 +1,5 @@
 #include "GameObject.h"
+#include "Player.h"
 #include <string>
 #include <iostream>
 
@@ -9,11 +10,6 @@ GameObject::GameObject(int h)
 	health = h;
 	//textureManager(0);
 }
-
-//void GameObject::update(sf::RenderWindow &window, float elapsedTime)
-//{
-//	// käytä time::elapsed
-//}
 
 Vector2f GameObject::position() const
 {
@@ -38,23 +34,20 @@ void GameObject::textureManager(float deltaTime)
 	pl_text.loadFromFile("Player.png");
 	pl_text.setSmooth(true);// tasoittaa reunat
 	pl_sprite.setTexture(pl_text);
-	pl_sprite.setPosition(950, 900);
+	pl_sprite.setPosition(950, 800);
 
 	bg_text.loadFromFile("bg.png");
 	bg_text.setSmooth(false);
 	bg_text.setRepeated(true);
 	bg_sprite.setTexture(bg_text);
-	////// liikkuva tausta
-	//bg_sprite.setPosition(0, 0);
+
 	bgY = 0;
-	bg_sprite.setTextureRect(IntRect(0, bgY, 1920, 1200));
+	bg_sprite.setTextureRect(IntRect(0, bgY, 1020, 1000));
 
 	bullet_text.loadFromFile("bullet.png");
 	bullet_text.setSmooth(true);// tasoittaa reunat
 	bullet_sprite.setTexture(bullet_text);
 
-
-	// BULLETILLE TEXTUUUUUUUUUURITTTTT
 	ene_text.loadFromFile("base_enemy.png");
 	ene_text.setSmooth(true);
 	ene_sprite.setTexture(ene_text);
@@ -62,29 +55,23 @@ void GameObject::textureManager(float deltaTime)
 void GameObject::updateBackGround(float deltaTime)
 {
 
-	if (bgY < 1200)
+	if (bgY < 1000)
 	{
-		bgY -= 0.05 * deltaTime;
+		bgY -= 0.04 * deltaTime;
 	}
 	else
 	{
 		bgY = 0;
 	}
 
-	bg_sprite.setTextureRect(IntRect(0, bgY, 1920, 1200));
+	bg_sprite.setTextureRect(IntRect(0, bgY, 1900, 1000));
 }
 
-void GameObject::render(sf::RenderWindow* window)  // renderöinti sprölölö
-{
-
-	window->clear(sf::Color::Black); // täyttää koko ikkunan mustalla värillä
-
-
-	window->draw(bg_sprite);
-	window->draw(pl_sprite);
-	window->draw(ene_sprite);
-	window->draw(bullet_sprite); // ei varmaan toimi
-}
+//void GameObject::render(RenderWindow* window)  // renderöinti sprölölö
+//{
+//
+//	
+//}
 
 GameObject::~GameObject()
 {
