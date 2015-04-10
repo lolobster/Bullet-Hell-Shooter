@@ -30,7 +30,10 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 	float elapsed = elapsedTime.asMicroseconds();
 
 	GameObject game;
-	Player play; // pointteri pleijerille EIKÄ OLE POINTTERI
+	Vector2f posP;
+	posP.x = 950;
+	posP.y = 800;
+	Player play(posP); // pointteri pleijerille EIKÄ OLE POINTTERI
 				 //ei nii :DDDDD
 				 // kekekekekekek
 

@@ -4,11 +4,15 @@
 
 using namespace sf;
 
-Player::Player()
+Player::Player(Vector2f pos)
 	: GameObject(health)
 {
-	posX = pl_sprite.getPosition().x;
-	posY = pl_sprite.getPosition().y;
+	/*positionPlayer.x = pos.x;
+	positionPlayer.y = pos.y;*/
+	positionPlayer = pos;
+
+	//positionPlayer.x = pl_sprite.getPosition().x;
+	//positionPlayer.y = pl_sprite.getPosition().y;
 }
 
 
@@ -37,13 +41,13 @@ void Player::onHit()
 void Player::playerController(const float deltaTime)
 {
 			Mouse mouse;
-			Vector2f playerPos(posX, posY);
-			playerPos = _player.position();
+			Vector2f playerPos(positionPlayer.x, positionPlayer.y);
+			//playerPos = _player.position();
 
 			if (Mouse::isButtonPressed(btn_shoot))
 			{
-				//posX = mouse.getPosition().x; // mouse position on X axis is aquired
-				//posY = mouse.getPosition().y; // mouse position on Y axis is aquired
+				//positionPlayer.x = mouse.getPosition().x; // mouse position on X axis is aquired
+				//positionPlayer.y = mouse.getPosition().y; // mouse position on Y axis is aquired
 
 				shoot(deltaTime); //begin shoot action
 			}
@@ -57,25 +61,25 @@ void Player::playerController(const float deltaTime)
 			if (Keyboard::isKeyPressed(kb_left))
 			{
 				// liikettä vasempaan
-				posX -= 0.24 * deltaTime;
+				positionPlayer.x -= 0.24 * deltaTime;
 			}
 			if (Keyboard::isKeyPressed(kb_right))
 			{
 				// liikettä oikeaan
-				posX += 0.24 * deltaTime;
+				positionPlayer.x += 0.24 * deltaTime;
 			}
 			if (Keyboard::isKeyPressed(kb_forward))
 			{
 				// liikettä ylöspäin
-				posY -= 0.15 * deltaTime;
+				positionPlayer.y -= 0.15 * deltaTime;
 			}
 			if (Keyboard::isKeyPressed(kb_reverse))
 			{
 				// liikettä alaspäin
-				posY += 0.15 * deltaTime;
+				positionPlayer.y += 0.15 * deltaTime;
 			}
 	
-			pl_sprite.setPosition(posX, posY);
+			pl_sprite.setPosition(positionPlayer.x, positionPlayer.y);
 }
 
 void Player::shoot(const float deltaTime)
@@ -83,7 +87,7 @@ void Player::shoot(const float deltaTime)
 	static const float FIRE_INTERVAL = 0.1f;
 
 	fireTimer -= deltaTime;
-	Vector2f sijainti;
+	Vector2f sijainti = positionPlayer;
 
 	if (fireTimer <= 0.0f)
 	{
@@ -100,7 +104,7 @@ void Player::spawnBullet(const Vector2f& sijainti) // ei toimi vielä asjgaga
 	GameObject bullet(bullet_text);
 	/*const IntRect textureRectangle(0, 119, 50, 10);
 	bullet.setTextureRectangle(textureRectangle);*/
-	bullet.setPosition(_player.position() + sijainti);
+	/*bullet.setPosition(positionPlayer);*/
 	bullet_list.push_back(bullet);
 	/*drawBullet(bullet_list);*/
 }
@@ -121,19 +125,17 @@ void Player::updateBullet(const float deltaTime)
 	static const float BULLET_SPEED = 1.0f;
 
 
-	for (it = bullet_list.begin(); it != bullet_list.end();)
+	for (it = bullet_list.begin(); it != bullet_list.end(); it++)
 	{
-		bulletPos = it->position();
-		bulletPos.y += BULLET_SPEED * deltaTime;
-		it->setPosition(bulletPos);
+		do
+		{
+			bulletPos = positionPlayer;
+			bulletPos.y += BULLET_SPEED * deltaTime;
+			it->setPosition(bulletPos);
 
-		if (bulletPos.y > 1000 | bulletPos.y < 0)
-		{
-			it = bullet_list.erase(it);
-		}
-		else
-		{
-			it++;
-		}
+		} while (bulletPos.y > 1000 | bulletPos.y < 0);
+		
+		it = bullet_list.erase(it);
+		
 	}
 }

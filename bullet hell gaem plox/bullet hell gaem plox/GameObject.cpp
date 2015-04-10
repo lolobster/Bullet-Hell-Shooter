@@ -48,6 +48,8 @@ void GameObject::textureManager(float deltaTime)
 	bullet_text.setSmooth(true);// tasoittaa reunat
 	bullet_sprite.setTexture(bullet_text);
 	bullet_sprite.setScale(Vector2f(0.15f, 0.15f));
+	bullet_sprite.setRotation(270);
+	//bullet_sprite.setPosition(900, 800);
 
 	ene_text.loadFromFile("base_enemy.png");
 	ene_text.setSmooth(true);

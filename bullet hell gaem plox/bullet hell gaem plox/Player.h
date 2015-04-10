@@ -14,7 +14,7 @@ using namespace sf;
 class Player: public GameObject
 {
 public:
-	Player();
+	Player(Vector2f);
 	~Player();
 
 	GameObject(bullet_text); // ei ehkä toimi
@@ -53,6 +53,6 @@ private:
 	float posY;
 	float fireTimer;
 
-	Vector2f playerPos;
+	Vector2f positionPlayer;
 };
 
