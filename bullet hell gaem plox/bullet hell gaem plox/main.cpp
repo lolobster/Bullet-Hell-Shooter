@@ -26,10 +26,14 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 	Event event;
 	Texture texture;
 	Clock clock;
-	Time updateGame = clock.getElapsedTime();
-	float elapsed = updateGame.asMicroseconds();
+	Time elapsedTime = clock.getElapsedTime();
+	float elapsed = elapsedTime.asMicroseconds();
 
-	Player play; // pointteri pleijerille EIKÄ OLE POINTTERI
+	GameObject game;
+	Vector2f posP;
+	posP.x = 950;
+	posP.y = 800;
+	Player play(posP); // pointteri pleijerille EIKÄ OLE POINTTERI
 				 //ei nii :DDDDD
 				 // kekekekekekek
 
@@ -52,29 +56,34 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 
 				switch (event.type)
 				{
-				case Event::Closed:
-				{
+					case Event::Closed:	
+					{
+						window.close();
+						break;
+					}
+					case Event::LostFocus:
+					{
+						paused = true;
+					}
+					case Event::GainedFocus:
+					{
+						paused = false;
+					}
+					default: // määrittämätöntä eventtiä ei prosessoida
+					{
+						break;
+					}
+				}
 
-					window.close();
-					break;
-				}
-				case Event::LostFocus:
-				{
-					paused = true;
-				}
-				case Event::GainedFocus:
-				{
-					paused = false;
-				}
-				default: // määrittämätöntä eventtiä ei prosessoida
-				{
-					break;
-				}
-				}
+				window.clear(Color::Black); // täyttää koko ikkunan mustalla värillä
 
+				// ei varmaan toimi
 
+				//window->draw(ene_sprite);
+
+				play.updatePlayer(elapsedTime);
 				play.render(&window);
-
+				
 				window.display();
 			}
 		}

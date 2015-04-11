@@ -13,9 +13,8 @@ class GameObject
 public:
 	GameObject::GameObject() { }
 	GameObject(int health);
-	//explicit GameObject(const Texture& bullet_text);
 	float speed;
-	sf::Vector2f position() const;
+	Vector2f position() const;
 
 	void setPosition(const Vector2f& value);
 	void updateBackGround(float deltaTime);

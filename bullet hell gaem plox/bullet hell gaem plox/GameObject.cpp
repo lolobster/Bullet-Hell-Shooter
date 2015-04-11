@@ -11,11 +11,6 @@ GameObject::GameObject(int h)
 	//textureManager(0);
 }
 
-//void GameObject::update(sf::RenderWindow &window, float elapsedTime)
-//{
-//	// käytä time::elapsed
-//}
-
 Vector2f GameObject::position() const
 {
 	return pl_sprite.getPosition() + _origin;
@@ -52,6 +47,9 @@ void GameObject::textureManager(float deltaTime)
 	bullet_text.loadFromFile("bullet.png");
 	bullet_text.setSmooth(true);// tasoittaa reunat
 	bullet_sprite.setTexture(bullet_text);
+	bullet_sprite.setScale(Vector2f(0.15f, 0.15f));
+	bullet_sprite.setRotation(270);
+	//bullet_sprite.setPosition(900, 800);
 
 	ene_text.loadFromFile("base_enemy.png");
 	ene_text.setSmooth(true);
@@ -72,15 +70,9 @@ void GameObject::updateBackGround(float deltaTime)
 	bg_sprite.setTextureRect(IntRect(0, bgY, 1900, 1000));
 }
 
-void GameObject::render(sf::RenderWindow* window)  // renderöinti sprölölö
+void GameObject::render(RenderWindow* window)  // renderöinti sprölölö
 {
-
-	window->clear(sf::Color::Black); // täyttää koko ikkunan mustalla värillä
-
-	window->draw(bullet_sprite); // ei varmaan toimi
-	window->draw(bg_sprite);
-	window->draw(pl_sprite);
-	window->draw(ene_sprite);
+	
 }
 
 GameObject::~GameObject()

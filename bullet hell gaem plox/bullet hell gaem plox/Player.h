@@ -14,17 +14,18 @@ using namespace sf;
 class Player: public GameObject
 {
 public:
-	Player();
+	Player(Vector2f);
 	~Player();
 
 	GameObject(bullet_text); // ei ehkä toimi
 
 	void onHit();
+	void updatePlayer(const Time& elapsedTime);
+	void render(RenderWindow* window);
 	void playerController(const float deltaTime);
 	void shoot(const float deltaTime);
 	void spawnBullet(const Vector2f& sijainti);
 	void updateBullet(const float deltaTime);
-	void drawBullet(RenderWindow* window);
 
 	std::list<GameObject> bullet_list;		// list johon laitetaan bulletteja
 	std::list<GameObject>::iterator it;		// piirtoa varten
@@ -51,5 +52,7 @@ private:
 	float posX;
 	float posY;
 	float fireTimer;
+
+	Vector2f positionPlayer;
 };
 
