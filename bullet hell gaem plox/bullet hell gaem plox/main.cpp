@@ -46,7 +46,8 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 		//updateGame += elapsed;
 
 		play.updateBackGround(elapsed);
-		play.playerController(elapsed);
+		play.updatePlayer(elapsedTime);
+		/*play.playerController(elapsed);*/
 		
 		(window.pollEvent(event));  // TÄMÄ PERKELE TÄSSÄ PISTI LIIKKUMAAAAANANANANANANA BÄTMÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄN
 		{							// eli siis poistin while loopin
@@ -77,11 +78,10 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 
 				window.clear(Color::Black); // täyttää koko ikkunan mustalla värillä
 
-				// ei varmaan toimi
 
 				//window->draw(ene_sprite);
 
-				play.updatePlayer(elapsedTime);
+				
 				play.render(&window);
 				
 				window.display();
