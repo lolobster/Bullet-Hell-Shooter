@@ -1,4 +1,4 @@
-#include "GameObject.h"
+// SFML
 //#include "SFML/Window/Event.hpp"
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/Window/Keyboard.hpp>
@@ -6,8 +6,14 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
+
+// C++
 #include <iostream>
 #include <list>
+
+// Custom
+#include "GameObject.h"
+#include "Bullet.h"
 
 using namespace sf;
 
@@ -17,14 +23,20 @@ public:
 	Player(Vector2f);
 	~Player();
 
+	GameObject(bullet_text); // ei ehkä toimi
 
 	void onHit();
 	void updatePlayer(const Time& elapsedTime);
-	//void render(RenderWindow* window);
+	void render(RenderWindow* window);
 	void playerController(const float deltaTime);
-	
+	void shoot(const float deltaTime);
+	void spawnBullet(const Vector2f& sijainti);
+	void updateBullet(const float deltaTime);
 
-
+	std::list<GameObject> bullet_list;		// list johon laitetaan bulletteja
+	std::list<GameObject>::iterator it;		// piirtoa varten
+	std::vector<Bullet> vec_bullets;
+	std::vector<Bullet>::iterator bullets_it;
 
 private:
 	int health;
@@ -47,6 +59,8 @@ private:
 
 	float posX;
 	float posY;
+	float fireTimer;
 
+	Vector2f pos_player;
 };
 

@@ -2,10 +2,9 @@
 
 Menu::Menu(float width, float height)
 {
-	if (!font.loadFromFile("arial.ttf"))
+	if (!font.loadFromFile("fonts/arial.ttf"))
 	{
 		//Handle error
-		/*debug.printMessage("arial.ttf was not found");*/
 	}
 
 	setupMenu(width, height, 0, "Play");
@@ -61,7 +60,7 @@ void Menu::setupMenu(float width, float height, int spot, std::string label)
 	// items to right side -> (width / 1.3) 
 	// items to left side -> (width / 13) 
 
-	bg_text.loadFromFile("menu_bg.png");
+	bg_text.loadFromFile("textures/background_menu.png");
 	bg_text.setSmooth(false);
 	bg_sprite.setTexture(bg_text);
 }

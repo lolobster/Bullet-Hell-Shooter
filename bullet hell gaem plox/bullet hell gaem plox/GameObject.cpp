@@ -2,7 +2,6 @@
 #include "Player.h"
 #include <string>
 #include <iostream>
-#include <list>
 
 using namespace sf;
 
@@ -14,48 +13,48 @@ GameObject::GameObject(int h)
 
 Vector2f GameObject::position() const
 {
-	return pl_sprite.getPosition() + _origin;
+	return spr_player.getPosition() + _origin;
 }
 
 void GameObject::setPosition(const Vector2f& value)  // asettaa uuden positionin
 {
-	pl_sprite.setPosition(value - _origin);
+	spr_player.setPosition(value - _origin);
 }
 
 void GameObject::setTextureRectangle(const IntRect& value)  // jotain bullettien spawnaamiselle
 {
-	bullet_sprite.setTextureRect(value);
+	spr_bullet.setTextureRect(value);
 	_origin.x = 0.5f*value.width;
 	_origin.y = 0.5f*value.height;
 }
 
 void GameObject::textureManager(float deltaTime)
 {
+	tex_player.loadFromFile("textures/player.png");
+	tex_player.setSmooth(true);// tasoittaa reunat
+	spr_player.setTexture(tex_player);
+	spr_player.setPosition(950, 800);
 
-	pl_text.loadFromFile("Player.png");
-	pl_text.setSmooth(true);// tasoittaa reunat
-	pl_sprite.setTexture(pl_text);
-	pl_sprite.setPosition(950, 800);
-
-	bg_text.loadFromFile("starfield.png");
-	bg_text.setSmooth(false);
-	bg_text.setRepeated(true);
-	bg_sprite.setTexture(bg_text);
+	tex_background.loadFromFile("textures/background_game.png");
+	tex_background.setSmooth(false);
+	tex_background.setRepeated(true);
+	spr_background.setTexture(tex_background);
 
 	bgY = 0;
-	bg_sprite.setTextureRect(IntRect(0, bgY, 1020, 1000));
+	spr_background.setTextureRect(IntRect(0, bgY, 1020, 1000));
 
-	bullet_text.loadFromFile("bullet.png");
-	bullet_text.setSmooth(true);// tasoittaa reunat
-	bullet_sprite.setTexture(bullet_text);
-	bullet_sprite.setScale(Vector2f(0.15f, 0.15f));
-	bullet_sprite.setRotation(270);
-	bullet_sprite.setPosition(900, 800);
+	tex_bullet.loadFromFile("textures/bullet.png");
+	tex_bullet.setSmooth(true);// tasoittaa reunat
+	spr_bullet.setTexture(tex_bullet);
+	spr_bullet.setScale(Vector2f(0.15f, 0.15f));
+	spr_bullet.setRotation(270);
+	//spr_bullet.setPosition(900, 800);
 
-	ene_text.loadFromFile("base_enemy.png");
-	ene_text.setSmooth(true);
-	ene_sprite.setTexture(ene_text);
+	tex_enemy.loadFromFile("textures/enemy.png");
+	tex_enemy.setSmooth(true);
+	spr_enemy.setTexture(tex_enemy);
 }
+
 void GameObject::updateBackGround(float deltaTime)
 {
 
@@ -68,68 +67,12 @@ void GameObject::updateBackGround(float deltaTime)
 		bgY = 0;
 	}
 
-	bg_sprite.setTextureRect(IntRect(0, bgY, 1900, 1000));
+	spr_background.setTextureRect(IntRect(0, bgY, 1900, 1000));
 }
 
-void GameObject::shoot(const float elapsedTime)
+void GameObject::render(RenderWindow* window)  // renderöinti sprölölö
 {
-	static const float FIRE_INTERVAL = 0.1f;
-
-	fireTimer -= elapsedTime;
-	Vector2f sijainti = positionPlayer;
-
-	if (fireTimer <= 0.0f)
-	{
-		sijainti.y = -40.0f;
-		spawnBullet(sijainti);
-		sijainti.y = 40.0f;
-		spawnBullet(sijainti);
-		fireTimer = FIRE_INTERVAL;
-	}
-}
-
-void GameObject::spawnBullet(const Vector2f& sijainti) // ei toimi vielä asjgaga
-{
-	GameObject bullet(bullet_text);
-	const IntRect textureRectangle(0, 119, 50, 10);
-	bullet.setTextureRectangle(textureRectangle);// tämä pitää muuttaa Playeriksi
-	bullet.setPosition(sijainti);
-	bullet_list.push_back(bullet);
-}
-
-void GameObject::render(RenderWindow* window)
-{
-	window->draw(bg_sprite);
-
-	window->draw(pl_sprite);
-
-	for (it = bullet_list.begin(); it != bullet_list.end(); it++)
-		window->draw(bullet_sprite);
-}
-
-void GameObject::updateBullet(const float elapsedTime)
-{
-	Vector2f bulletPos;
-	static const float BULLET_SPEED = 1.0f;
-
-
-	for (it = bullet_list.begin(); it != bullet_list.end();)
-	{
-
-
-		bulletPos = positionPlayer;
-		bulletPos.y += BULLET_SPEED * elapsedTime;
-		it->setPosition(bulletPos);
-
-		if (bulletPos.y > 1000 | bulletPos.y < 0)
-		{
-			it = bullet_list.erase(it);
-		}
-		else
-		{
-			++it;
-		}
-	}
+	
 }
 
 GameObject::~GameObject()
