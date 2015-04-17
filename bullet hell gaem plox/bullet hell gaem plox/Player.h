@@ -1,4 +1,5 @@
 #include "GameObject.h"
+#include "Bullet.h"
 //#include "SFML/Window/Event.hpp"
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/Window/Keyboard.hpp>
@@ -11,7 +12,7 @@
 
 using namespace sf;
 
-class Player: public GameObject
+class Player : public GameObject
 {
 public:
 	Player(Vector2f);
@@ -20,20 +21,15 @@ public:
 
 	void onHit();
 	void updatePlayer(const Time& elapsedTime);
-	//void render(RenderWindow* window);
 	void playerController(const float deltaTime);
-	
-
+	void shoot(const float elapsedTime);
 
 
 private:
 	int health;
 	int deaths;
-	float speed;
 
-	//Texture bullet_text;
-	GameObject _player;
-
+	Bullet bullet;
 
 	//Buttons
 	Mouse::Button btn_shoot = Mouse::Left;
@@ -45,8 +41,4 @@ private:
 	Keyboard::Key kb_left = Keyboard::A;
 	Keyboard::Key kb_right = Keyboard::D;
 
-	float posX;
-	float posY;
-
 };
-
