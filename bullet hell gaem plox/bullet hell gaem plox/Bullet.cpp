@@ -27,6 +27,11 @@ void Bullet::update()
 {
 	pos_bullet += velocity;
 	spr_bullet.setPosition(pos_bullet);
+
+	bottom = collisionBox.getPosition().y + collisionBox.getSize().y;
+	left = collisionBox.getPosition().x;
+	right = collisionBox.getPosition().x + collisionBox.getSize().x;
+	top = collisionBox.getPosition().y;
 }
 
 void Bullet::onCollision()

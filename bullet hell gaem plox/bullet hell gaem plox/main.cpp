@@ -3,6 +3,10 @@
 #include "GameObject.h"
 #include "Player.h"
 #include "Menu.h"
+#include "Enemy.h"
+#include "TextureManager.h"
+
+TextureManager texMan;
 
 using namespace sf;
 
@@ -36,6 +40,10 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 	Player play(posP); // pointteri pleijerille EIKÄ OLE POINTTERI
 				 //ei nii :DDDDD
 				 // kekekekekekek
+	Vector2f posE;
+	posE.x = 700;
+	posE.y = 600;
+	Enemy enemy(posE, posP, 45, texMan);
 
 	play.textureManager(elapsed); // lataa tekstuurit
 	window.setVerticalSyncEnabled(false);
@@ -80,10 +88,18 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 				// ei varmaan toimi
 
 				//window->draw(ene_sprite);
-
+				
 				play.updatePlayer(elapsedTime);
 				play.render(&window);
-				
+				enemy.draw(&window);
+
+				enemy.update();
+
+				if (play.collision(enemy.getPos()))
+				{
+					std::cout << "Collision!" << std::endl;
+				}
+
 				window.display();
 			}
 		}
@@ -129,6 +145,8 @@ void menu(RenderWindow& window)
 					{
 					case 0:	//Menu item 0 (Play) gets pressed
 					{
+						texMan.loadTexture("enemy", "textures/enemy.png");
+
 						loop(window);
 						break;
 					}

@@ -6,6 +6,7 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
 // C++
 #include <iostream>
@@ -14,6 +15,7 @@
 // Custom
 #include "GameObject.h"
 #include "Bullet.h"
+
 
 using namespace sf;
 
@@ -30,14 +32,15 @@ public:
 	void render(RenderWindow* window);
 	void playerController(const float deltaTime);
 	void shoot(const float deltaTime);
-	void spawnBullet(const Vector2f& sijainti);
-	void updateBullet(const float deltaTime);
 
 	std::list<GameObject> bullet_list;		// list johon laitetaan bulletteja
 	std::list<GameObject>::iterator it;		// piirtoa varten
 	std::vector<Bullet> vec_bullets;
 	std::vector<Bullet>::iterator bullets_it;
 
+	bool collision(Vector2f);
+
+	void update();
 private:
 	int health;
 	int deaths;
@@ -61,6 +64,9 @@ private:
 	float posY;
 	float fireTimer;
 
+	float bottom, left, right, top;
 	Vector2f pos_player;
+	RectangleShape collisionBox;
+
 };
 

@@ -2,6 +2,9 @@
 #define BULLET_H
 
 // SFML inclusions
+#include <SFML/Graphics/RectangleShape.hpp>
+
+// C++
 #include <string>
 
 // Custom inclusions
@@ -20,12 +23,15 @@ public:
 	void update();
 	void onCollision();
 
+	float bottom, left, right, top;
 
 private:
 	sf::Vector2f pos_bullet;
 	sf::Vector2f velocity;
 	
 	float speed = 100;
+
+	sf::RectangleShape collisionBox;
 };
 #endif
 

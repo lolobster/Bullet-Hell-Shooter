@@ -40,8 +40,8 @@ protected:
 	Texture tex_bullet;
 	Sprite spr_bullet;
 
-	Sprite spr_enemy;
-	Texture tex_enemy;
+	//Sprite spr_enemy;
+	//Texture tex_enemy;
 };
 
 #endif

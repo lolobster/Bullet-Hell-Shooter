@@ -12,6 +12,10 @@ Player::Player(Vector2f pos)
 
 	//pos_player.x = spr_player.getPosition().x;
 	//pos_player.y = spr_player.getPosition().y;
+
+	collisionBox.setPosition(pos);
+	//collisionBox.setSize();
+	collisionBox.setFillColor(Color::Black);
 }
 
 
@@ -22,8 +26,29 @@ Player::~Player()
 void Player::updatePlayer(const Time& elapsedTime)
 {
 	const float elapsed = elapsedTime.asMicroseconds();
-	//playerController(elapsed);
+	playerController(elapsed);
 	//updateBullet(elapsed);
+	
+	update();
+
+}
+
+void Player::update()
+{
+	bottom = collisionBox.getPosition().y + collisionBox.getSize().y;
+	left = collisionBox.getPosition().x;
+	right = collisionBox.getPosition().x + collisionBox.getSize().x;
+	top = collisionBox.getPosition().y;
+}
+
+bool Player::collision(Vector2f pos)
+{
+	//if (right < objectLeft || left > objectRight ||
+	//	top > objectBottom || bottom < objectTop)
+	{
+		return false;
+	}
+	return true;
 }
 
 void Player::onHit()
@@ -35,7 +60,6 @@ void Player::onHit()
 		deaths=+1;
 	}
 }
-
 
 void Player::playerController(const float deltaTime)
 {
@@ -116,76 +140,4 @@ void Player::shoot(const float deltaTime)
 		}
 
 	} while (!vec_bullets.empty());
-
-	//Vector2f bulletPos;
-
-	//for (it = bullet_list.begin(); it != bullet_list.end(); it++)
-	//{
-	//	do
-	//	{
-	//		//bullet_list.
-	//		//bulletPos = pos_player;
-	//		//bulletPos.y += BULLET_SPEED * deltaTime;
-	//		//it->setPosition(bulletPos);
-
-	//	} while (bulletPos.y > 1000 | bulletPos.y < 0);
-	//	
-	//	it = bullet_list.erase(it);	
-	//}
-
-
-
-
-
-	//Vector2f sijainti = pos_player;
-
-	//if (fireTimer <= 0.0f)
-	//{
-	//	sijainti.y = -40.0f;
-	//	spawnBullet(sijainti);
-	//	sijainti.y = 40.0f;
-	//	spawnBullet(sijainti);
-	//	fireTimer = FIRE_INTERVAL;
-	//}
 }
-
-//void Player::spawnBullet(const Vector2f& sijainti) // ei toimi vielä asjgaga
-//{
-//	GameObject bullet(bullet_text);
-//	/*const IntRect textureRectangle(0, 119, 50, 10);
-//	bullet.setTextureRectangle(textureRectangle);*/
-//	/*bullet.setPosition(pos_player);*/
-//	bullet_list.push_back(bullet);
-//	/*drawBullet(bullet_list);*/
-//}
-
-void Player::render(RenderWindow* window) // i have no idea what i'm doing D:
-{
-	window->draw(spr_background);
-
-	window->draw(spr_player);
-
-	for (it = bullet_list.begin(); it != bullet_list.end(); it++)
-		window->draw(spr_bullet);
-}
-
-//void Player::updateBullet(const float deltaTime)
-//{
-//	//Vector2f bulletPos;
-//	//static const float BULLET_SPEED = 1.0f;
-//
-//
-//	//for (it = bullet_list.begin(); it != bullet_list.end(); it++)
-//	//{
-//	//	do
-//	//	{
-//	//		bulletPos = pos_player;
-//	//		bulletPos.y += BULLET_SPEED * deltaTime;
-//	//		it->setPosition(bulletPos);
-//
-//	//	} while (bulletPos.y > 1000 | bulletPos.y < 0);
-//	//	
-//	//	it = bullet_list.erase(it);
-//	//	
-//	//}
-//}

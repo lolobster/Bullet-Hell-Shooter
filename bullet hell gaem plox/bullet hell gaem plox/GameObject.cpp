@@ -33,7 +33,7 @@ void GameObject::textureManager(float deltaTime)
 	tex_player.loadFromFile("textures/player.png");
 	tex_player.setSmooth(true);// tasoittaa reunat
 	spr_player.setTexture(tex_player);
-	spr_player.setPosition(950, 800);
+	//spr_player.setPosition(950, 800);
 
 	tex_background.loadFromFile("textures/background_game.png");
 	tex_background.setSmooth(false);
@@ -50,9 +50,10 @@ void GameObject::textureManager(float deltaTime)
 	spr_bullet.setRotation(270);
 	//spr_bullet.setPosition(900, 800);
 
-	tex_enemy.loadFromFile("textures/enemy.png");
-	tex_enemy.setSmooth(true);
-	spr_enemy.setTexture(tex_enemy);
+	//tex_enemy.loadFromFile("textures/enemy.png");
+	//tex_enemy.setSmooth(true);
+	//spr_enemy.setTexture(tex_enemy);
+	////spr_enemy.setPosition(950, 800);
 }
 
 void GameObject::updateBackGround(float deltaTime)
