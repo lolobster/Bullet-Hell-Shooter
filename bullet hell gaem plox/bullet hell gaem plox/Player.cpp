@@ -41,10 +41,10 @@ void Player::update()
 	top = collisionBox.getPosition().y;
 }
 
-bool Player::collision(Vector2f pos)
+bool Player::collision(float objectBottom, float objectLeft, float objectRight, float objectTop)
 {
-	//if (right < objectLeft || left > objectRight ||
-	//	top > objectBottom || bottom < objectTop)
+	if (right < objectLeft || left > objectRight ||
+		top > objectBottom || bottom < objectTop)
 	{
 		return false;
 	}
@@ -64,14 +64,9 @@ void Player::onHit()
 void Player::playerController(const float deltaTime)
 {
 			Mouse mouse;
-			Vector2f playerPos(pos_player.x, pos_player.y);
-			//playerPos = _player.position();
 
 			if (Mouse::isButtonPressed(btn_shoot))
 			{
-				//pos_player.x = mouse.getPosition().x; // mouse position on X axis is aquired
-				//pos_player.y = mouse.getPosition().y; // mouse position on Y axis is aquired
-
 				shoot(deltaTime); //begin shoot action
 			}
 			if (Mouse::isButtonPressed(btn_use))
@@ -102,7 +97,8 @@ void Player::playerController(const float deltaTime)
 				pos_player.y += 0.15 * deltaTime;
 			}
 	
-			spr_player.setPosition(pos_player.x, pos_player.y);
+			//spr_player.setPosition(pos_player.x, pos_player.y);
+			spr_player.setPosition(pos_player);
 }
 
 void Player::shoot(const float deltaTime)

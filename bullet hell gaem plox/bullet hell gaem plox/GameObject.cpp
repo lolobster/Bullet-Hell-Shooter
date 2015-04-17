@@ -48,12 +48,12 @@ void GameObject::textureManager(float deltaTime)
 	spr_bullet.setTexture(tex_bullet);
 	spr_bullet.setScale(Vector2f(0.15f, 0.15f));
 	spr_bullet.setRotation(270);
-	//spr_bullet.setPosition(900, 800);
+	spr_bullet.setPosition(900, 800);
 
 	//tex_enemy.loadFromFile("textures/enemy.png");
 	//tex_enemy.setSmooth(true);
 	//spr_enemy.setTexture(tex_enemy);
-	////spr_enemy.setPosition(950, 800);
+	//spr_enemy.setPosition(950, 800);
 }
 
 void GameObject::updateBackGround(float deltaTime)
@@ -73,7 +73,8 @@ void GameObject::updateBackGround(float deltaTime)
 
 void GameObject::render(RenderWindow* window)  // renderöinti sprölölö
 {
-	
+	window->draw(spr_background);
+	window->draw(spr_player);
 }
 
 GameObject::~GameObject()

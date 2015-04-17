@@ -7,12 +7,15 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
-#include "TextureManager.h"
+//#include "TextureManager.h"
+#include "GameObject.h"
 
-class Enemy
+class Enemy : public GameObject
 {
 public:
+	//Enemy(sf::Vector2f& pos_start, const sf::Vector2f& pos_waypoint, float angle);
 	Enemy(const sf::Vector2f& pos_start, const sf::Vector2f& pos_waypoint, float angle, TextureManager& texMan);
+
 	~Enemy();
 
 	void onHit();
@@ -22,10 +25,10 @@ public:
 
 	bool collision();
 
-	//float bottom, top, left, right;
+	float bottom, top, left, right;
 	void update();
 
-	sf::Vector2f getPos();
+	//sf::Vector2f getPos() { return pos_enemy; }
 
 	void draw(sf::RenderWindow* window);
 	sf::Sprite getSprite() { return spr_enemy; }
@@ -39,7 +42,7 @@ private:
 	sf::Vector2f velocity;
 
 	sf::Sprite spr_enemy;
-	//sf::Texture tex_enemy;
+	sf::Texture tex_enemy;
 	
 };
 

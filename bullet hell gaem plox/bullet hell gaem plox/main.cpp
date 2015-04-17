@@ -26,6 +26,9 @@ int main()
 
 static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 {
+	texMan.loadTexture("enemy", "textures/enemy.png");
+	texMan.loadTexture("bullet", "textures/bullet.png");
+
 	bool paused = 0;
 	Event event;
 	Texture texture;
@@ -37,13 +40,13 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 	Vector2f posP;
 	posP.x = 950;
 	posP.y = 800;
-	Player play(posP); // pointteri pleijerille EIKÄ OLE POINTTERI
-				 //ei nii :DDDDD
-				 // kekekekekekek
+	Player play(posP); 
+
 	Vector2f posE;
 	posE.x = 700;
 	posE.y = 600;
 	Enemy enemy(posE, posP, 45, texMan);
+	//Enemy enemy(posE, posP, 45);
 
 	play.textureManager(elapsed); // lataa tekstuurit
 	window.setVerticalSyncEnabled(false);
@@ -56,8 +59,8 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 		play.updateBackGround(elapsed);
 		play.playerController(elapsed);
 		
-		(window.pollEvent(event));  // TÄMÄ PERKELE TÄSSÄ PISTI LIIKKUMAAAAANANANANANANA BÄTMÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄN
-		{							// eli siis poistin while loopin
+		(window.pollEvent(event));  
+		{							
 			if (paused)
 				continue;
 			{
@@ -84,18 +87,13 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 				}
 
 				window.clear(Color::Black); // täyttää koko ikkunan mustalla värillä
-
-				// ei varmaan toimi
-
-				//window->draw(ene_sprite);
 				
 				play.updatePlayer(elapsedTime);
 				play.render(&window);
 				enemy.draw(&window);
-
 				enemy.update();
 
-				if (play.collision(enemy.getPos()))
+				if (play.collision(enemy.bottom, enemy.left, enemy.right, enemy.top))
 				{
 					std::cout << "Collision!" << std::endl;
 				}
@@ -106,6 +104,7 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 
 	}
 }
+
 void menu(RenderWindow& window)
 {
 	Event event;
@@ -145,8 +144,6 @@ void menu(RenderWindow& window)
 					{
 					case 0:	//Menu item 0 (Play) gets pressed
 					{
-						texMan.loadTexture("enemy", "textures/enemy.png");
-
 						loop(window);
 						break;
 					}

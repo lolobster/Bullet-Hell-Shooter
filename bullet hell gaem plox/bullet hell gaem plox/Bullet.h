@@ -24,7 +24,7 @@ public:
 	void onCollision();
 
 	float bottom, left, right, top;
-
+	void draw(sf::RenderWindow* window);
 private:
 	sf::Vector2f pos_bullet;
 	sf::Vector2f velocity;

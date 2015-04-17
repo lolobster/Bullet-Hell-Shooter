@@ -5,13 +5,15 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
+#include "TextureManager.h"
 
 using namespace sf;
 
 class GameObject
 {
 public:
-	GameObject::GameObject() { }
+	GameObject::GameObject() {}
+	//GameObject::GameObject(TextureManager& texMan) { texMgr = texMan; }
 	GameObject(int health);
 	float speed;
 	Vector2f position() const;
@@ -40,8 +42,8 @@ protected:
 	Texture tex_bullet;
 	Sprite spr_bullet;
 
-	//Sprite spr_enemy;
-	//Texture tex_enemy;
+	Sprite spr_enemy;
+	Texture tex_enemy;
 };
 
 #endif

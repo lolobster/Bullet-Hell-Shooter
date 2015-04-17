@@ -3,6 +3,7 @@
 Bullet::Bullet(const sf::Vector2f& pos_start, const sf::Vector2f& pos_target, float angle)
 	: GameObject(health)
 {
+	//spr_bullet.setTexture(texMgr.getRef("bullet"));
 	pos_bullet = pos_start;
 	spr_bullet.setPosition(pos_bullet);
 	spr_bullet.setRotation(angle);
@@ -36,4 +37,9 @@ void Bullet::update()
 
 void Bullet::onCollision()
 {
+}
+
+void Bullet::draw(sf::RenderWindow* window) // i have no idea what i'm doing D:
+{
+	window->draw(spr_bullet);
 }

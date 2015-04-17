@@ -29,7 +29,6 @@ public:
 
 	void onHit();
 	void updatePlayer(const Time& elapsedTime);
-	void render(RenderWindow* window);
 	void playerController(const float deltaTime);
 	void shoot(const float deltaTime);
 
@@ -38,7 +37,7 @@ public:
 	std::vector<Bullet> vec_bullets;
 	std::vector<Bullet>::iterator bullets_it;
 
-	bool collision(Vector2f);
+	bool collision(float, float, float, float);
 
 	void update();
 private:

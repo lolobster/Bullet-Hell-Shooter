@@ -1,9 +1,9 @@
 #include "Enemy.h"
 
 Enemy::Enemy(const sf::Vector2f& pos_start, const sf::Vector2f& pos_waypoint, float angle, TextureManager& texMan)
+//Enemy::Enemy(sf::Vector2f& pos_start, const sf::Vector2f& pos_waypoint, float angle)
+	: GameObject(health)
 {
-	//tex_enemy.loadFromFile("textures/enemy.png");
-	//tex_enemy.setSmooth(true);
 	spr_enemy.setTexture(texMan.getRef("enemy"));
 
 	pos_enemy = pos_start;
@@ -23,8 +23,8 @@ Enemy::~Enemy()
 
 void Enemy::update()
 {
-	pos_enemy += velocity;
-	spr_enemy.setPosition(pos_enemy);
+	//pos_enemy += velocity;
+	//spr_enemy.setPosition(pos_enemy);
 
 	bottom = collisionBox.getPosition().y + collisionBox.getSize().y;
 	left = collisionBox.getPosition().x;
