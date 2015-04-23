@@ -49,9 +49,6 @@ void Player::playerController(const float elapsedTime)
 
 	if (Mouse::isButtonPressed(btn_shoot))
 	{
-		//positionPlayer.x = mouse.getPosition().x; // mouse position on X axis is aquired
-		//positionPlayer.y = mouse.getPosition().y; // mouse position on Y axis is aquired
-
 		shoot(elapsedTime); //begin shoot action
 	}
 	if (Mouse::isButtonPressed(btn_use))

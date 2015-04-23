@@ -61,7 +61,7 @@ void Menu::setupMenu(float width, float height, int spot, std::string label)
 	// items to right side -> (width / 1.3) 
 	// items to left side -> (width / 13) 
 
-	bg_text.loadFromFile("menu_bg.png");
+	bg_text.loadFromFile("textures/menu_bg.png");
 	bg_text.setSmooth(false);
 	bg_sprite.setTexture(bg_text);
 }
