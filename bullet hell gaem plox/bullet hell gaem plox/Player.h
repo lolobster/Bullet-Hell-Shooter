@@ -31,6 +31,8 @@ private:
 
 	Bullet bullet;
 
+	Sprite* pl_sprite;
+
 	//Buttons
 	Mouse::Button btn_shoot = Mouse::Left;
 	Mouse::Button btn_use = Mouse::Right;

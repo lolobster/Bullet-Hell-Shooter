@@ -14,17 +14,12 @@ public:
 	Bullet(Sprite bullet_sprite);
 	~Bullet();
 
-	// methods
-	void draw(sf::RenderWindow &w);
-	void update();
-	//void onHit(Bullet*);
-	void loadTextures();
-	void spawnBullet(const Vector2f& sijainti);
-	void updateBullet(const Time& elapsedTime);
+	//void loadTextures();
+	//void spawnBullet(const Vector2f& sijainti);
+	//void updateBullet(const Time& elapsedTime);
+
 
 private:
 
-	Texture bullet_text;
-	Sprite bullet_sprite;
 };
 #endif

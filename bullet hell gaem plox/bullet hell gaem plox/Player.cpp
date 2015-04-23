@@ -2,6 +2,7 @@
 #include "Bullet.h"
 #include "Menu.h"
 #include "GameObject.h"
+#include "TextureManager.h"
 
 using namespace sf;
 
@@ -79,11 +80,12 @@ void Player::playerController(const float elapsedTime)
 		positionPlayer.y += 0.15 * elapsedTime;
 	}
 
-	pl_sprite.setPosition(positionPlayer);
+	pl_sprite->setPosition(positionPlayer);
 }
 
 void Player::shoot(const float elapsedTime)
 {
+	Game game;
 	static const float FIRE_INTERVAL = 0.1f;
 
 	fireTimer -= elapsedTime;
@@ -92,7 +94,7 @@ void Player::shoot(const float elapsedTime)
 	if (fireTimer <= 0.0f)
 	{
 		sijainti.y = -20.0f;
-		bullet.spawnBullet(sijainti);
+		game.spawnBullet(sijainti);
 		fireTimer = FIRE_INTERVAL;
 	}
 }
