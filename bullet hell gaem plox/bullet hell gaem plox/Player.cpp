@@ -28,9 +28,6 @@ void Player::updatePlayer(const Time& elapsedTime)
 	const float elapsed = elapsedTime.asMicroseconds();
 	playerController(elapsed);
 	//updateBullet(elapsed);
-	
-	update();
-
 }
 
 void Player::update()
@@ -39,26 +36,6 @@ void Player::update()
 	left = collisionBox.getPosition().x;
 	right = collisionBox.getPosition().x + collisionBox.getSize().x;
 	top = collisionBox.getPosition().y;
-}
-
-bool Player::collision(float objectBottom, float objectLeft, float objectRight, float objectTop)
-{
-	if (right < objectLeft || left > objectRight ||
-		top > objectBottom || bottom < objectTop)
-	{
-		return false;
-	}
-	return true;
-}
-
-void Player::onHit()
-{
-	health -= 1;
-
-	if (health == 0)
-	{
-		deaths=+1;
-	}
 }
 
 void Player::playerController(const float deltaTime)
@@ -99,41 +76,52 @@ void Player::playerController(const float deltaTime)
 	
 			//spr_player.setPosition(pos_player.x, pos_player.y);
 			spr_player.setPosition(pos_player);
+			update();
 }
 
 void Player::shoot(const float deltaTime)
 {
-	static const float FIRE_INTERVAL = 0.1f;
+//	static const float FIRE_INTERVAL = 0.1f;
+//
+//	fireTimer -= deltaTime;
+//
+//	Vector2f pos_target;
+//	pos_target.x = 500;
+//	pos_target.y = 1000;
+//
+//	if (fireTimer <= 0.0f)
+//	{
+//		Bullet bullet(pos_player, pos_target, 45);
+//		bullet_list.push_back(bullet);
+//		fireTimer = FIRE_INTERVAL;
+//	}
+//
+//
+//	static const float BULLET_SPEED = 1.0f;
+//
+//	
+//	do
+//	{
+//		for (int i = 0; i < vec_bullets.size(); i++)
+//		{
+//			
+//			vec_bullets.at(i).update();
+//
+//			if (vec_bullets.at(i).getPos().x < 0 || vec_bullets.at(i).getPos().y > 1000)
+//			{
+//				vec_bullets.erase(vec_bullets.begin()+i);
+//			}
+//		}
+//
+//	} while (!vec_bullets.empty());
+}
 
-	fireTimer -= deltaTime;
+void Player::onHit()
+{
+	health -= 1;
 
-	Vector2f pos_target;
-	pos_target.x = 500;
-	pos_target.y = 1000;
-
-	if (fireTimer <= 0.0f)
+	if (health == 0)
 	{
-		Bullet bullet(pos_player, pos_target, 45);
-		bullet_list.push_back(bullet);
-		fireTimer = FIRE_INTERVAL;
+		deaths = +1;
 	}
-
-
-	static const float BULLET_SPEED = 1.0f;
-
-	
-	do
-	{
-		for (int i = 0; i < vec_bullets.size(); i++)
-		{
-			
-			vec_bullets.at(i).update();
-
-			if (vec_bullets.at(i).getPos().x < 0 || vec_bullets.at(i).getPos().y > 1000)
-			{
-				vec_bullets.erase(vec_bullets.begin()+i);
-			}
-		}
-
-	} while (!vec_bullets.empty());
 }

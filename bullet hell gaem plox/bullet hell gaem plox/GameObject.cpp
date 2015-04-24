@@ -8,7 +8,6 @@ using namespace sf;
 GameObject::GameObject(int h)
 {
 	health = h;
-	//textureManager(0);
 }
 
 Vector2f GameObject::position() const
@@ -23,7 +22,7 @@ void GameObject::setPosition(const Vector2f& value)  // asettaa uuden positionin
 
 void GameObject::setTextureRectangle(const IntRect& value)  // jotain bullettien spawnaamiselle
 {
-	spr_bullet.setTextureRect(value);
+	//spr_bullet.setTextureRect(value);
 	_origin.x = 0.5f*value.width;
 	_origin.y = 0.5f*value.height;
 }
@@ -43,12 +42,12 @@ void GameObject::textureManager(float deltaTime)
 	bgY = 0;
 	spr_background.setTextureRect(IntRect(0, bgY, 1020, 1000));
 
-	tex_bullet.loadFromFile("textures/bullet.png");
-	tex_bullet.setSmooth(true);// tasoittaa reunat
-	spr_bullet.setTexture(tex_bullet);
-	spr_bullet.setScale(Vector2f(0.15f, 0.15f));
-	spr_bullet.setRotation(270);
-	spr_bullet.setPosition(900, 800);
+	//tex_bullet.loadFromFile("textures/bullet.png");
+	//tex_bullet.setSmooth(true);// tasoittaa reunat
+	//spr_bullet.setTexture(tex_bullet);
+	//spr_bullet.setScale(Vector2f(0.15f, 0.15f));
+	//spr_bullet.setRotation(270);
+	//spr_bullet.setPosition(900, 800);
 
 	//tex_enemy.loadFromFile("textures/enemy.png");
 	//tex_enemy.setSmooth(true);

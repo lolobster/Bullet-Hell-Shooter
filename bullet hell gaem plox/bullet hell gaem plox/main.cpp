@@ -6,13 +6,15 @@
 #include "Enemy.h"
 #include "TextureManager.h"
 
-TextureManager texMan;
+TextureManager texMgr;
 
 using namespace sf;
 
 static void loop(RenderWindow& window);
 void menu(RenderWindow& window);
+void loadTextures();
 
+//std::vector<Enemy> hostiles;
 
 int main()
 {
@@ -26,8 +28,7 @@ int main()
 
 static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 {
-	texMan.loadTexture("enemy", "textures/enemy.png");
-	texMan.loadTexture("bullet", "textures/bullet.png");
+	loadTextures();
 
 	bool paused = 0;
 	Event event;
@@ -36,19 +37,19 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 	Time elapsedTime = clock.getElapsedTime();
 	float elapsed = elapsedTime.asMicroseconds();
 
+	/*GameObject game(texMan);*/
 	GameObject game;
-	Vector2f posP;
-	posP.x = 950;
-	posP.y = 800;
-	Player play(posP); 
+	Vector2f posP(950, 800);
+	Player player(posP); 
 
-	Vector2f posE;
-	posE.x = 700;
-	posE.y = 600;
-	Enemy enemy(posE, posP, 45, texMan);
-	//Enemy enemy(posE, posP, 45);
+	Vector2f pos_start(800, 0);
+	Vector2f pos_waypoint(800, 800);
+	float angle = 90;
 
-	play.textureManager(elapsed); // lataa tekstuurit
+	Enemy enemy(pos_start, pos_waypoint, angle, texMgr);
+	//hostiles.push_back(enemy);
+
+	player.textureManager(elapsed); // lataa tekstuurit
 	window.setVerticalSyncEnabled(false);
 
 	while (window.isOpen()) // ajaa ohjelmaa niin kauan kuin ikkuna on auki
@@ -56,8 +57,8 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 		clock.restart();
 		//updateGame += elapsed;
 
-		play.updateBackGround(elapsed);
-		play.playerController(elapsed);
+		player.updateBackGround(elapsed);
+		player.playerController(elapsed);
 		
 		(window.pollEvent(event));  
 		{							
@@ -88,20 +89,33 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 
 				window.clear(Color::Black); // täyttää koko ikkunan mustalla värillä
 				
-				play.updatePlayer(elapsedTime);
-				play.render(&window);
+				player.updatePlayer(elapsedTime);
+				player.render(&window);
+
 				enemy.draw(&window);
 				enemy.update();
 
-				if (play.collision(enemy.bottom, enemy.left, enemy.right, enemy.top))
+				if (player.getSprite().getGlobalBounds().
+					intersects(enemy.getSprite().getGlobalBounds()))
 				{
 					std::cout << "Collision!" << std::endl;
 				}
+				
+				//for (int i = 0; i < hostiles.size(); i++)
+				//{
+					//hostiles.at(i).draw(&window);
+					//hostiles.at(i).update();
+
+					//if (player.getSprite().getGlobalBounds().
+					//	intersects(hostiles[i].getSprite().getGlobalBounds()))
+					//{
+					//	std::cout << "Collision!" << std::endl;
+					//}
+				//}
 
 				window.display();
 			}
 		}
-
 	}
 }
 
@@ -173,4 +187,10 @@ void menu(RenderWindow& window)
 			window.display();
 		}
 	}
+}
+
+void loadTextures()
+{
+	texMgr.loadTexture("enemy", "textures/enemy.png");
+	//texMgr.loadTexture("bullet", "textures/bullet.png");
 }

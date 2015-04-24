@@ -15,10 +15,10 @@ void TextureManager::loadTexture(const std::string& name, const std::string &fil
 		tex.setSmooth(false);
 	}
 
-	this->textures[name] = tex;
+	textures[name] = tex;
 }
 
 sf::Texture& TextureManager::getRef(const std::string& texture)
 {
-	return this->textures.at(texture);
+	return textures.at(texture);
 }

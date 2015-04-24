@@ -1,45 +1,47 @@
 //#include "GameObject.h"
 
+// SFML
 #include <SFML/Graphics/RectangleShape.hpp>
-
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
-//#include "TextureManager.h"
+
+// C++
+#include <vector>
+
+// Custom
 #include "GameObject.h"
+#include "Bullet.h"
 
 class Enemy : public GameObject
 {
 public:
-	//Enemy(sf::Vector2f& pos_start, const sf::Vector2f& pos_waypoint, float angle);
-	Enemy(const sf::Vector2f& pos_start, const sf::Vector2f& pos_waypoint, float angle, TextureManager& texMan);
+	// Constructor
+	Enemy(const sf::Vector2f& pos_start, const sf::Vector2f pos_waypoint,
+		float angle, TextureManager& texMgr);
 
-	~Enemy();
+	// Deconstructor
+	~Enemy() { }
 
-	void onHit();
-	void movement(float, float);
-	void onDeath();
+	// Methods
+	sf::Sprite getSprite() { return spr_enemy; }
+	void draw(sf::RenderWindow* window) { window->draw(spr_enemy); }
+	void update();
 	void shoot();
 
-	bool collision();
-
+	// public variables
 	float bottom, top, left, right;
-	void update();
 
-	//sf::Vector2f getPos() { return pos_enemy; }
-
-	void draw(sf::RenderWindow* window);
-	sf::Sprite getSprite() { return spr_enemy; }
 private:
 	int health;
-	float speed;
+	float speed = 9001;
 
-	sf::RectangleShape collisionBox;
+	std::vector<Bullet> bullets;
 
-	sf::Vector2f pos_enemy;
-	sf::Vector2f velocity;
+	sf::Vector2f position;
+	sf::Vector2f movement;
 
 	sf::Sprite spr_enemy;
 	sf::Texture tex_enemy;

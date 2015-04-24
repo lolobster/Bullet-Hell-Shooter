@@ -15,6 +15,7 @@
 // Custom
 #include "GameObject.h"
 #include "Bullet.h"
+//#include "Enemy.h"
 
 
 using namespace sf;
@@ -40,6 +41,10 @@ public:
 	bool collision(float, float, float, float);
 
 	void update();
+
+	sf::Sprite getSprite() { return spr_player; }
+
+	float bottom, left, right, top;
 private:
 	int health;
 	int deaths;
@@ -63,7 +68,6 @@ private:
 	float posY;
 	float fireTimer;
 
-	float bottom, left, right, top;
 	Vector2f pos_player;
 	RectangleShape collisionBox;
 

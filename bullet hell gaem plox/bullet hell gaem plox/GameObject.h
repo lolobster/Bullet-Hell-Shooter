@@ -12,8 +12,7 @@ using namespace sf;
 class GameObject
 {
 public:
-	GameObject::GameObject() {}
-	//GameObject::GameObject(TextureManager& texMan) { texMgr = texMan; }
+	GameObject(){ }
 	GameObject(int health);
 	float speed;
 	Vector2f position() const;
@@ -39,11 +38,13 @@ protected:
 	Sprite spr_background;
 	Texture tex_background;
 
-	Texture tex_bullet;
-	Sprite spr_bullet;
+	//Texture tex_bullet;
+	//Sprite spr_bullet;
 
-	Sprite spr_enemy;
-	Texture tex_enemy;
+	//Sprite spr_enemy;
+	//Texture tex_enemy;
+
+	//TextureManager texMgr;
 };
 
 #endif

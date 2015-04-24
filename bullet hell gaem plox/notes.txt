@@ -1,0 +1,3 @@
+http://stackoverflow.com/questions/25234111/sfml-move-object-towards-coord
+http://www.cplusplus.com/forum/beginner/97303/
+http://alexanderx.net/how-apply-collision/
