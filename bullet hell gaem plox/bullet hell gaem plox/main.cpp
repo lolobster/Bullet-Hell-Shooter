@@ -4,8 +4,6 @@
 #include "Player.h"
 #include "Menu.h"
 #include "Bullet.h"
-#include "Game.h"
-#include "TextureManager.h"
 
 using namespace sf;
 
@@ -32,9 +30,7 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 	Time elapsedTime = clock.getElapsedTime();
 	float elapsed = elapsedTime.asMicroseconds();
 
-	Game game;
-	TextureManager textM;
-	Bullet bullet;
+	GameObject game;
 	Vector2f posP;
 	posP.x = 950;
 	posP.y = 800;
@@ -42,16 +38,15 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 	//ei nii :DDDDD
 	// kekekekekekek
 
-	textM.loadTextures(); // lataa tekstuurit
-	//bullet.loadTextures();
+	play.textureManager(); // lataa tekstuurit
 	window.setVerticalSyncEnabled(false);
 
 	while (window.isOpen()) // ajaa ohjelmaa niin kauan kuin ikkuna on auki
 	{
 		clock.restart();
 
-		//play.updateBackGround(elapsed);
-		game.updateBullet(elapsedTime);
+		play.updateBackGround(elapsed);
+		//play.updateBullet(elapsedTime);
 		play.updatePlayer(elapsedTime);
 
 		(window.pollEvent(event));  // TÄMÄ PERKELE TÄSSÄ PISTI LIIKKUMAAAAANANANANANANA BÄTMÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄN
@@ -86,8 +81,9 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 
 				
 
-
-				game.render(&window);
+			
+				play.render(&window);
+				play.draw(window);
 
 				window.display();
 			}

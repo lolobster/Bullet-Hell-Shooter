@@ -1,7 +1,7 @@
 #include "Bullet.h"
 #include <iostream>
 
-Bullet::Bullet(Sprite bullet_sprite)
+Bullet::Bullet()
 	: GameObject(health)
 {
 	//spr_bullet = objMan.getObject("bullet");
@@ -20,28 +20,48 @@ Bullet::~Bullet()
 {
 }
 
-//void Bullet::loadTextures()
+void Bullet::loadTextures()
+{
+	bullet_text.loadFromFile("bullet.png");
+	bullet_text.setSmooth(true);// tasoittaa reunat
+	bullet_sprite.setTexture(bullet_text);
+	bullet_sprite.setScale(Vector2f(0.1f, 0.23f));
+	bullet_sprite.setRotation(45);
+	//bullet_sprite.setPosition(positionPlayer);
+	if (!bullet_text.loadFromFile("bullet.png"))
+		std::cout << "noooooooooooooo";
+}
+
+void Bullet::draw(RenderWindow& window)
+{
+	window.draw(bullet_sprite); // ei saa oikeeta sijaintai eikä päivitä :((((( niin paljon leukoja
+}
+
+//void Bullet::updateBullet(Time elapsedTime)
 //{
-//	bullet_text.loadFromFile("textures/bullet.png");
-//	bullet_text.setSmooth(true);// tasoittaa reunat
-//	bullet_sprite.setTexture(bullet_text);
-//	bullet_sprite.setScale(Vector2f(0.15f, 0.2f));
-//	bullet_sprite.setRotation(270);
-//	//bullet_sprite.setPosition(900, 800);
-//	if (!bullet_text.loadFromFile("textures/bullet.png"))
-//		std::cout << "noooooooooooooo";
+//
+//	const float elapsed = elapsedTime.asMicroseconds();
+//	Vector2f bulletPos;
+//	Vector2f velocity;
+//	static const float BULLET_SPEED = 1.0f;
+//
+//	velocity.y += BULLET_SPEED * elapsed;
+//
+//	bulletPos.y += velocity.y;
+//	bullet_sprite.move(bulletPos*elapsed);
+//
+//	//if (bulletPos.y > 1000 | bulletPos.y < 0)
+//	//{
+//	//	it = bullet_vec.erase(it);
+//	//}
+//	//else
+//	//{
+//	//	++it;
+//	//}
+//
 //}
 
 
-
-//void Bullet::spawnBullet(const Vector2f& sijainti) // ei toimi vielä asjgaga
-//{
-//	//Bullet bullet(bullet_sprite);
-//	//const IntRect textureRectangle(0, 119, 50, 10);
-//	//bullet.setTextureRectangle(textureRectangle);// tämä pitää muuttaa Playeriksi
-//	bullet_sprite.setPosition(sijainti);
-//	bullet_vec.push_back(bullet_sprite);
-//}
 //
 //void Bullet::updateBullet(const Time& elapsedTime)
 //{

@@ -23,15 +23,18 @@ public:
 	void updatePlayer(const Time& elapsedTime);
 	void playerController(const float deltaTime);
 	void shoot(const float elapsedTime);
+	void draw(RenderWindow& window);
+	void updateBullet(const Time& elapsedTime);
+	//void spawnBullet(const Vector2f& sijainti);
 
+	std::vector<Bullet*> bullet_vec;
+	std::vector<Bullet*>::iterator it;
 
 private:
 	int health;
 	int deaths;
 
 	Bullet bullet;
-
-	Sprite* pl_sprite;
 
 	//Buttons
 	Mouse::Button btn_shoot = Mouse::Left;

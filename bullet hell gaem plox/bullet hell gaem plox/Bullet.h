@@ -10,16 +10,19 @@
 class Bullet : public GameObject
 {
 public:
-	Bullet::Bullet() { }
-	Bullet(Sprite bullet_sprite);
+	Bullet::Bullet(Vector2f) { }
+	Bullet();
 	~Bullet();
 
-	//void loadTextures();
-	//void spawnBullet(const Vector2f& sijainti);
-	//void updateBullet(const Time& elapsedTime);
 
+	void loadTextures();
+	void draw(RenderWindow& window);
+	Sprite getSprite() { return bullet_sprite; }
+	//void updateBullet(Time elapsedTime);
 
 private:
 
+	Texture bullet_text;
+	Sprite bullet_sprite;
 };
 #endif

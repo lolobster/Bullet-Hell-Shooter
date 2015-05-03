@@ -6,7 +6,6 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <vector>
-#include "Game.h"
 
 using namespace sf;
 
@@ -23,10 +22,12 @@ public:
 	void updateBackGround(float deltaTime);
 	void setTextureRectangle(const IntRect& value);
 	
-	//virtual void textureManager();
+	virtual void textureManager();
+	virtual void render(RenderWindow* window);
 	virtual~GameObject();
 
-
+	std::vector<Sprite> bullet_vec;		// list johon laitetaan bulletteja
+	std::vector<Sprite>::iterator it;		// piirtoa varten
 
 protected:
 
@@ -35,13 +36,15 @@ protected:
 	float bgX;
 	float fireTimer;
 
-	Sprite* bg_sprite;
 
 	Vector2f _origin;
+	Sprite pl_sprite;
+	Texture pl_text;
+	Sprite bg_sprite;
+	Texture bg_text;
+	Sprite ene_sprite;
+	Texture ene_text;
 	Vector2f positionPlayer;
-
-private:
-	Game* game;
 
 };
 
