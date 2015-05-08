@@ -14,7 +14,7 @@ static void loop(RenderWindow& window);
 void menu(RenderWindow& window);
 void loadTextures();
 
-//std::vector<Enemy> hostiles;
+std::vector<Enemy> hostiles;
 
 int main()
 {
@@ -28,6 +28,9 @@ int main()
 
 static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 {
+	srand(time(NULL));
+
+
 	loadTextures();
 
 	bool paused = 0;
@@ -41,13 +44,17 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 	GameObject game;
 	Vector2f posP(950, 800);
 	Player player(posP); 
+	//Vector2f pos_start(800, 0);
+	//Vector2f pos_waypoint(1700, 800);
 
-	Vector2f pos_start(800, 0);
-	Vector2f pos_waypoint(800, 800);
-	float angle = 90;
+	for (int i = 0; i < 10; i++)
+	{
+		Vector2f pos_start(rand()%1700, 0);
+		Vector2f pos_waypoint(rand()%1700, 800);
 
-	Enemy enemy(pos_start, pos_waypoint, angle, texMgr);
-	//hostiles.push_back(enemy);
+		Enemy enemy(pos_start, pos_waypoint, texMgr);
+		hostiles.push_back(enemy);
+	}
 
 	player.textureManager(elapsed); // lataa tekstuurit
 	window.setVerticalSyncEnabled(false);
@@ -92,25 +99,26 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 				player.updatePlayer(elapsedTime);
 				player.render(&window);
 
-				enemy.draw(&window);
-				enemy.update();
-
-				if (player.getSprite().getGlobalBounds().
-					intersects(enemy.getSprite().getGlobalBounds()))
+				for (int i = 0; i < hostiles.size(); i++)
 				{
-					std::cout << "Collision!" << std::endl;
-				}
-				
-				//for (int i = 0; i < hostiles.size(); i++)
-				//{
-					//hostiles.at(i).draw(&window);
-					//hostiles.at(i).update();
+					hostiles.at(i).draw(&window);
+					hostiles.at(i).update();
 
-					//if (player.getSprite().getGlobalBounds().
-					//	intersects(hostiles[i].getSprite().getGlobalBounds()))
-					//{
-					//	std::cout << "Collision!" << std::endl;
-					//}
+					if (player.getSprite().getGlobalBounds().
+						intersects(hostiles.at(i).getSprite().getGlobalBounds()))
+					{
+						std::cout << "Collision!" << std::endl;
+						hostiles.at(i).onHit();
+					}
+				}
+				//enemy.draw(&window);
+				//enemy.update();
+
+				//if (player.getSprite().getGlobalBounds().
+				//	intersects(enemy.getSprite().getGlobalBounds()))
+				//{
+				//	std::cout << "Collision!" << std::endl;
+
 				//}
 
 				window.display();

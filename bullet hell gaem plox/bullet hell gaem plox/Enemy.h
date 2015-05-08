@@ -10,7 +10,6 @@
 
 // C++
 #include <vector>
-
 // Custom
 #include "GameObject.h"
 #include "Bullet.h"
@@ -20,7 +19,7 @@ class Enemy : public GameObject
 public:
 	// Constructor
 	Enemy(const sf::Vector2f& pos_start, const sf::Vector2f pos_waypoint,
-		float angle, TextureManager& texMgr);
+		TextureManager& texMgr);
 
 	// Deconstructor
 	~Enemy() { }
@@ -30,18 +29,20 @@ public:
 	void draw(sf::RenderWindow* window) { window->draw(spr_enemy); }
 	void update();
 	void shoot();
-
-	// public variables
-	float bottom, top, left, right;
-
+	void onHit();
 private:
+	const double PI = 3.141592653589793238463;
 	int health;
-	float speed = 9001;
+	
+	float speed = 5;
+	float distance;
+	float angle;
+	float rotation;
 
 	std::vector<Bullet> bullets;
 
 	sf::Vector2f position;
-	sf::Vector2f movement;
+	sf::Vector2f velocity;
 
 	sf::Sprite spr_enemy;
 	sf::Texture tex_enemy;

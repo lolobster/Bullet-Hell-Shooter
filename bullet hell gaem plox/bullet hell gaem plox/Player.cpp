@@ -32,10 +32,7 @@ void Player::updatePlayer(const Time& elapsedTime)
 
 void Player::update()
 {
-	bottom = collisionBox.getPosition().y + collisionBox.getSize().y;
-	left = collisionBox.getPosition().x;
-	right = collisionBox.getPosition().x + collisionBox.getSize().x;
-	top = collisionBox.getPosition().y;
+
 }
 
 void Player::playerController(const float deltaTime)

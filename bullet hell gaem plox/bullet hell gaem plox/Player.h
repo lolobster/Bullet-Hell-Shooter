@@ -44,7 +44,7 @@ public:
 
 	sf::Sprite getSprite() { return spr_player; }
 
-	float bottom, left, right, top;
+
 private:
 	int health;
 	int deaths;
