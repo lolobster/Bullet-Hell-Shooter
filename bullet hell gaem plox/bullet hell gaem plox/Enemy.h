@@ -30,6 +30,9 @@ public:
 	void update();
 	void shoot();
 	void onHit();
+
+	sf::Vector2f getPos() { return position; }
+
 private:
 	const double PI = 3.141592653589793238463;
 	int health;

@@ -6,6 +6,8 @@
 #include "Enemy.h"
 #include "TextureManager.h"
 
+#include <algorithm>
+
 TextureManager texMgr;
 
 using namespace sf;
@@ -15,6 +17,7 @@ void menu(RenderWindow& window);
 void loadTextures();
 
 std::vector<Enemy> hostiles;
+std::vector<Enemy>::iterator it_h;
 
 int main()
 {
@@ -99,18 +102,30 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 				player.updatePlayer(elapsedTime);
 				player.render(&window);
 
+				it_h = std::remove_if(hostiles.begin(), hostiles.end(), [](){});
+
 				for (int i = 0; i < hostiles.size(); i++)
 				{
 					hostiles.at(i).draw(&window);
 					hostiles.at(i).update();
-
+					
 					if (player.getSprite().getGlobalBounds().
-						intersects(hostiles.at(i).getSprite().getGlobalBounds()))
+						intersects(hostiles[i].getSprite().getGlobalBounds()))
 					{
 						std::cout << "Collision!" << std::endl;
-						hostiles.at(i).onHit();
+						hostiles.erase(hostiles.begin() + i);
 					}
+					
 				}
+				
+				//for (it_h = hostiles.begin(); it_h != hostiles.end();)
+				//{
+				//	if (hostiles[i].getPos().y > 1000 | hostiles[i].getPos().y < 0)
+				//	{
+				//		hostiles.erase(it_h);
+				//	}
+				//}
+
 				//enemy.draw(&window);
 				//enemy.update();
 

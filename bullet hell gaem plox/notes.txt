@@ -1,3 +1,6 @@
 http://stackoverflow.com/questions/25234111/sfml-move-object-towards-coord
 http://www.cplusplus.com/forum/beginner/97303/
 http://alexanderx.net/how-apply-collision/
+http://stackoverflow.com/questions/3645058/how-to-erase-entries-from-vector-in-c?answertab=oldest#tab-top
+
+8.5. 14:20
