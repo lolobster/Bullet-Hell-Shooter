@@ -32,12 +32,12 @@ void GameObject::setTextureRectangle(const IntRect& value)  // jotain bullettien
 void GameObject::textureManager()
 {
 
-	pl_text.loadFromFile("Player.png");
+	pl_text.loadFromFile("textures/Player.png");
 	pl_text.setSmooth(true);// tasoittaa reunat
 	pl_sprite.setTexture(pl_text);
 	//pl_sprite.setPosition(950, 800);
 
-	bg_text.loadFromFile("starfield.png");
+	bg_text.loadFromFile("textures/starfield.png");
 	bg_text.setSmooth(false);
 	bg_text.setRepeated(true);
 	bg_sprite.setTexture(bg_text);
@@ -45,10 +45,10 @@ void GameObject::textureManager()
 	bgY = 0;
 	bg_sprite.setTextureRect(IntRect(0, bgY, 1020, 1000));
 
-	ene_text.loadFromFile("base_enemy.png");
-	ene_text.setSmooth(true);
-	ene_sprite.setTexture(ene_text);
-	ene_sprite.setPosition(600, 500);
+	//ene_text.loadFromFile("base_enemy.png");
+	//ene_text.setSmooth(true);
+	//ene_sprite.setTexture(ene_text);
+	//ene_sprite.setPosition(600, 500);
 }
 
 void GameObject::updateBackGround(float deltaTime)
@@ -69,9 +69,8 @@ void GameObject::updateBackGround(float deltaTime)
 void GameObject::render(RenderWindow* window)
 {
 	window->draw(bg_sprite);
-
 	window->draw(pl_sprite);
-	window->draw(ene_sprite);
+	//window->draw(spr_enemy);
 
 	/*for (int i = 0; i < bullet_vec.size(); i++)
 	{

@@ -4,12 +4,17 @@
 #include "Player.h"
 #include "Menu.h"
 #include "Bullet.h"
+#include "Enemy.h"
+#include "TextureManager.h"
 
 using namespace sf;
-
+TextureManager texMgr;
 static void loop(RenderWindow& window);
 void menu(RenderWindow& window);
+void loadTextures();
 
+std::vector<Enemy> hostiles;
+std::vector<Enemy>::iterator ene_it;
 
 int main()
 {
@@ -21,9 +26,68 @@ int main()
 	return 0;
 }
 
+//enum class GameState
+//{
+//	Game,
+//	Menu
+//};
+//
+//static void loop(RenderWindow& window)
+//{
+//	Menu menu;
+//	Game game;
+//	GameState gameState;
+//	Event event;
+//	Clock clock;
+//	Time deltaTime;
+//
+//	while (window.isOpen())
+//	{
+//		clock.restart();
+//
+//		while (window.pollEvent(event))
+//		{
+//			switch (event.type)
+//			{
+//				case Event::Closed:
+//					window.close();
+//					break;
+//
+//				case Event::KeyPressed:
+//					switch (gameState)
+//					{
+//					case Game:
+//						game.handleInput(event.key.code);
+//						break;
+//
+//					case Menu:
+//						menu.handleInput(event.key.code);
+//						break;
+//					}
+//
+//					break;
+//			}
+//		}
+//
+//		deltaTime = clock.getElapsedTime();
+//
+//		switch (gameState)
+//		{
+//			case Game:
+//				game.update(deltaTime, window);
+//				break;
+//
+//			case Menu:
+//				menu.update(deltaTime, window);
+//				break;
+//		}
+//	}
+//}
+
 static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 {
 	bool paused = 0;
+	loadTextures();
 	Event event;
 	Texture texture;
 	Clock clock;
@@ -38,6 +102,15 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 	//ei nii :DDDDD
 	// kekekekekekek
 
+	for (int i = 0; i < 10; i++)
+	{
+		Vector2f pos_start(rand() % 1700, 0);
+		Vector2f pos_waypoint(rand() % 1700, 800);
+
+		Enemy enemy(pos_start, pos_waypoint, texMgr);
+		hostiles.push_back(enemy);
+	}
+
 	play.textureManager(); // lataa tekstuurit
 	window.setVerticalSyncEnabled(false);
 
@@ -49,7 +122,7 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 		//play.updateBullet(elapsedTime);
 		play.updatePlayer(elapsedTime);
 
-		(window.pollEvent(event));  // TÄMÄ PERKELE TÄSSÄ PISTI LIIKKUMAAAAANANANANANANA BÄTMÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄN
+		while (window.pollEvent(event))  // TÄMÄ PERKELE TÄSSÄ PISTI LIIKKUMAAAAANANANANANANA BÄTMÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄN
 		{							// eli siis poistin while loopin
 			if (paused)
 				continue;
@@ -76,18 +149,30 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 				}
 				}
 
-				window.clear(Color::Black); // täyttää koko ikkunan mustalla värillä
-
-
 				
-
-			
-				play.render(&window);
-				play.draw(window);
-
-				window.display();
 			}
 		}
+
+		window.clear(Color::Black); // täyttää koko ikkunan mustalla värillä
+
+		play.render(&window);
+		
+		play.draw(&window);
+
+		for (int i = 0; i < hostiles.size(); i++)
+		{
+			hostiles.at(i).draw(&window);
+			hostiles.at(i).update();
+
+			if (play.getSprite().getGlobalBounds().
+				intersects(hostiles.at(i).getSprite().getGlobalBounds()))
+			{
+				std::cout << "Collision!" << std::endl;
+				hostiles.at(i).onHit();
+			}
+		}
+
+		window.display();
 
 	}
 }
@@ -159,4 +244,9 @@ void menu(RenderWindow& window)
 			window.display();
 		}
 	}
+}
+void loadTextures()
+{
+	texMgr.loadTexture("enemy", "textures/base_enemy.png");
+	//texMgr.loadTexture("bullet", "textures/bullet.png");
 }

@@ -84,42 +84,33 @@ void Player::playerController(const float elapsedTime)
 
 void Player::shoot(const float elapsedTime)
 {
-	static const float FIRE_INTERVAL = 0.1f;
+	static const float FIRE_INTERVAL = 200.0f;
 
 	fireTimer -= elapsedTime;
-	Vector2f sijainti = positionPlayer;
-
+	Vector2f sijainti = position();
+	sijainti.x = position().x + 30.0f;
+	//sijainti.y = -20.0f;
 	if (fireTimer <= 0.0f)
 	{
-		sijainti.y = -20.0f;
 		Bullet *shot=new Bullet(sijainti);
-		shot->loadTextures();
+		
+		
+		//shot->loadTextures();
 		bullet_vec.push_back(shot);
 		fireTimer = FIRE_INTERVAL;
 	}
 }
 
-void Player::draw(RenderWindow& window)
+void Player::draw(RenderWindow* window)
 {
 	for (it = bullet_vec.begin(); it != bullet_vec.end(); it++)
 	{
-		(*it)->getSprite();
-		(*it)->draw(window);
+		window->draw( (*it)->getSprite() );
 	}
-	//window.draw(bullet_sprite);
 }
 
 void Player::updateBullet(const Time& elapsedTime)
 {
-//const float elapsed = elapsedTime.asMicroseconds();
-//Vector2f bulletPos;
-//Vector2f velocity;
-//static const float BULLET_SPEED = 1.0f;
-//
-//velocity.y += BULLET_SPEED * elapsed;
-//
-//bulletPos.y += velocity.y;
-//bullet_sprite.move(bulletPos*elapsed);
 
 	const float elapsed = elapsedTime.asMicroseconds();
 
@@ -131,18 +122,16 @@ void Player::updateBullet(const Time& elapsedTime)
 	for (it = bullet_vec.begin(); it != bullet_vec.end();)
 	{
 
+		bulletPos = (*it)->getSprite().getPosition();
 
-		bulletPos = positionPlayer;
-		velocity.y += BULLET_SPEED * elapsed;
-		/*it = bulletPos;*/
-
-		velocity.y += BULLET_SPEED * elapsed;
+		velocity.y = BULLET_SPEED * elapsed;
 		
-		bulletPos.y += velocity.y;
-		/*bulletPos += velocity;
-		(*it)->bulletPos;*/
+		bulletPos.y -= velocity.y;
 
-		if (bulletPos.y > 1000 | bulletPos.y < 0)
+
+		(*it)->getSprite().setPosition( bulletPos );
+
+		if (bulletPos.y > 1000 || bulletPos.y < 0)
 		{
 			it = bullet_vec.erase(it);
 		}
