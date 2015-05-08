@@ -15,7 +15,7 @@ public:
 	GameObject(int health);
 	float speed;
 	Vector2f position() const;
-
+	
 	void setPosition(const Vector2f& value);
 	void updateBackGround(float deltaTime);
 	void setTextureRectangle(const IntRect& value);

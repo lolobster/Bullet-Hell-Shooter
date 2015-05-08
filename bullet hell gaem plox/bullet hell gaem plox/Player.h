@@ -29,7 +29,7 @@ public:
 
 	std::list<GameObject> bullet_list;		// list johon laitetaan bulletteja
 	std::list<GameObject>::iterator it;		// piirtoa varten
-
+	
 private:
 	int health;
 	int deaths;
