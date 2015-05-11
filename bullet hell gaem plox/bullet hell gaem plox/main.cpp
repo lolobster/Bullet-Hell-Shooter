@@ -93,6 +93,7 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 	Time elapsedTime = clock.getElapsedTime();
 	float elapsed = elapsedTime.asMicroseconds();
 	GameObject game;
+	Bullet bul;
 	Enemy *enemy= new Enemy();
 	Vector2f posP;
 	posP.x = 950;
@@ -154,6 +155,14 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 
 		while (ene_it != hostiles.end())
 		{   // poistaa enemyn jos siihen osuu tai se on liikkunut ulos ruudusta
+			
+			//////////////////////////////////////////////////////
+			// oma while looppi käymään bullet vekkiä läpi tekemään
+			bul.getSprite().getGlobalBounds().
+				intersects(ene_it->getSprite().getGlobalBounds())
+				/////////////////////////////////////////////////
+
+
 			if (play.getSprite().getGlobalBounds().
 				intersects(ene_it->getSprite().getGlobalBounds()) || enemy->getPosition().y > 1000 ||
 				enemy->getPosition().y < 0)
@@ -161,6 +170,7 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 				std::cout << "Collision!" << std::endl;
 				ene_it = hostiles.erase(ene_it);
 			}
+
 
 			else
 			{
