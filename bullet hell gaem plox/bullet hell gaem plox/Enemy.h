@@ -14,20 +14,25 @@
 #include "GameObject.h"
 #include "Bullet.h"
 
+using namespace sf;
+
 class Enemy : public GameObject
 {
 public:
 	// Constructor
-	Enemy(const sf::Vector2f& pos_start, const sf::Vector2f pos_waypoint,
+	Enemy(Vector2f& pos_start, Vector2f pos_waypoint,
 		TextureManager& texMgr);
 
-	// Deconstructor
+	//Enemy(const Enemy&);
+	//Enemy& operator=(const Enemy&);
+
+	// Destructor
 	~Enemy() { }
 
 	// Methods
-	sf::Sprite getSprite() { return spr_enemy; }
-	void draw(sf::RenderWindow* window) { window->draw(spr_enemy); }
-	void update();
+	Sprite getSprite() { return spr_enemy; }
+	void draw(RenderWindow* window) { window->draw(spr_enemy); }
+	void update(Time& elapsed);
 	void shoot();
 	void onHit();
 private:
@@ -42,12 +47,12 @@ private:
 	std::vector<Enemy> hostiles;
 	std::vector<Enemy>::iterator ene_it;
 
-	std::vector<Bullet> bullets;
+	std::vector<Bullet> enemy_bullets;
 
-	sf::Vector2f position;
-	sf::Vector2f velocity;
+	Vector2f position;
+	Vector2f velocity;
 
-	sf::Sprite spr_enemy;
-	sf::Texture tex_enemy;
+	Sprite spr_enemy;
+	Texture tex_enemy;
 
 };

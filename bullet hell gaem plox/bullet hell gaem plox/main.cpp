@@ -93,7 +93,6 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 	Clock clock;
 	Time elapsedTime = clock.getElapsedTime();
 	float elapsed = elapsedTime.asMicroseconds();
-
 	GameObject game;
 	Vector2f posP;
 	posP.x = 950;
@@ -119,7 +118,6 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 		clock.restart();
 
 		play.updateBackGround(elapsed);
-		//play.updateBullet(elapsedTime);
 		play.updatePlayer(elapsedTime);
 
 		while (window.pollEvent(event))  // TÄMÄ PERKELE TÄSSÄ PISTI LIIKKUMAAAAANANANANANANA BÄTMÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄN
@@ -127,7 +125,6 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 			if (paused)
 				continue;
 			{
-
 				switch (event.type)
 				{
 				case Event::Closed:
@@ -148,8 +145,6 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 					break;
 				}
 				}
-
-				
 			}
 		}
 
@@ -159,16 +154,16 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 		
 		play.draw(&window);
 
-		for (int i = 0; i < hostiles.size(); i++)
+		for (ene_it = hostiles.begin(); ene_it != hostiles.end(); ene_it++)
 		{
-			hostiles.at(i).draw(&window);
-			hostiles.at(i).update();
+			ene_it->draw(&window);
+			ene_it->update(elapsedTime);
 
 			if (play.getSprite().getGlobalBounds().
-				intersects(hostiles.at(i).getSprite().getGlobalBounds()))
+				intersects(ene_it->getSprite().getGlobalBounds()))
 			{
 				std::cout << "Collision!" << std::endl;
-				hostiles.at(i).onHit();
+				ene_it->onHit();
 			}
 		}
 
