@@ -31,6 +31,7 @@ public:
 
 	// Methods
 	Sprite getSprite() { return spr_enemy; }
+	Vector2f getPosition(){ return position; }
 	void draw(RenderWindow* window) { window->draw(spr_enemy); }
 	void update(Time& elapsed);
 	void shoot();
@@ -44,8 +45,8 @@ private:
 	float angle;
 	float rotation;
 
-	std::vector<Enemy> hostiles;
-	std::vector<Enemy>::iterator ene_it;
+	//std::vector<Enemy> hostiles;
+	//std::vector<Enemy>::iterator ene_it;
 
 	std::vector<Bullet> enemy_bullets;
 

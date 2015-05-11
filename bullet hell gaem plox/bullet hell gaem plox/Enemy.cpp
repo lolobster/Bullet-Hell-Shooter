@@ -29,20 +29,10 @@ void Enemy::update(Time& elapsed)
 {
 	position += velocity;
 	spr_enemy.setPosition(position);
-
-	for (ene_it = hostiles.begin(); ene_it != hostiles.end(); ene_it++)
-	{
-		if (position.y > 1000 || position.y < 0)
-		{
-			hostiles.erase(ene_it);
-			/*hostiles.erase(hostiles.begin() + i);*/
-		}
-	}
 }
 
 void Enemy::onHit()
 {
-	ene_it = hostiles.erase(ene_it);
 }
 
 void Enemy::shoot()

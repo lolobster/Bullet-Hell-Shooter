@@ -23,7 +23,7 @@ public:
 	void updateBackGround(float deltaTime);
 	void setTextureRectangle(const IntRect& value);
 	
-	virtual void textureManager();
+	//virtual void textureManager();
 	virtual void render(RenderWindow* window);
 	virtual~GameObject();
 

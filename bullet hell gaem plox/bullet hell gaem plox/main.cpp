@@ -94,12 +94,17 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 	Time elapsedTime = clock.getElapsedTime();
 	float elapsed = elapsedTime.asMicroseconds();
 	GameObject game;
+	Enemy enemy();
 	Vector2f posP;
 	posP.x = 950;
 	posP.y = 800;
 	Player play(posP); // pointteri pleijerille EIKÄ OLE POINTTERI
 	//ei nii :DDDDD
 	// kekekekekekek
+
+	texMgr.loadTexture("enemy", "textures/base_enemy.png");
+	texMgr.loadTexture("player", "textures/Player.png");
+	texMgr.loadTexture("background", "textures/starfield.png");
 
 	for (int i = 0; i < 10; i++)
 	{
@@ -110,7 +115,7 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 		hostiles.push_back(enemy);
 	}
 
-	play.textureManager(); // lataa tekstuurit
+	//play.textureManager(); // lataa tekstuurit
 	window.setVerticalSyncEnabled(false);
 
 	while (window.isOpen()) // ajaa ohjelmaa niin kauan kuin ikkuna on auki
@@ -119,6 +124,7 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 
 		play.updateBackGround(elapsed);
 		play.updatePlayer(elapsedTime);
+		enemy().update(elapsedTime);
 
 		while (window.pollEvent(event))  // TÄMÄ PERKELE TÄSSÄ PISTI LIIKKUMAAAAANANANANANANA BÄTMÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄN
 		{							// eli siis poistin while loopin
@@ -148,6 +154,22 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 			}
 		}
 
+		for (ene_it = hostiles.begin(); ene_it != hostiles.end(); ene_it++)
+		{
+			if (play.getSprite().getGlobalBounds().
+				intersects(ene_it->getSprite().getGlobalBounds()))
+			{
+				std::cout << "Collision!" << std::endl;
+				hostiles.erase(ene_it);
+			}
+
+			if (enemy().getPosition().y > 1000 || enemy().getPosition().y < 0)
+			{
+				hostiles.erase(ene_it);
+				/*hostiles.erase(hostiles.begin() + i);*/
+			}
+		}
+
 		window.clear(Color::Black); // täyttää koko ikkunan mustalla värillä
 
 		play.render(&window);
@@ -157,15 +179,8 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 		for (ene_it = hostiles.begin(); ene_it != hostiles.end(); ene_it++)
 		{
 			ene_it->draw(&window);
-			ene_it->update(elapsedTime);
-
-			if (play.getSprite().getGlobalBounds().
-				intersects(ene_it->getSprite().getGlobalBounds()))
-			{
-				std::cout << "Collision!" << std::endl;
-				ene_it->onHit();
-			}
 		}
+
 
 		window.display();
 
@@ -242,6 +257,5 @@ void menu(RenderWindow& window)
 }
 void loadTextures()
 {
-	texMgr.loadTexture("enemy", "textures/base_enemy.png");
 	//texMgr.loadTexture("bullet", "textures/bullet.png");
 }
