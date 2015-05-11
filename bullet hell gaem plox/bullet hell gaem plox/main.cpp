@@ -150,20 +150,24 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 			}
 		}
 
-		for (ene_it = hostiles.begin(); ene_it != hostiles.end(); ene_it++)
-		{
+		ene_it = hostiles.begin();
+
+		while (ene_it != hostiles.end())
+		{   // poistaa enemyn jos siihen osuu tai se on liikkunut ulos ruudusta
 			if (play.getSprite().getGlobalBounds().
-				intersects(ene_it->getSprite().getGlobalBounds()))
+				intersects(ene_it->getSprite().getGlobalBounds()) || enemy->getPosition().y > 1000 ||
+				enemy->getPosition().y < 0)
 			{
 				std::cout << "Collision!" << std::endl;
 				ene_it = hostiles.erase(ene_it);
 			}
 
-			if (enemy->getPosition().y > 1000 || enemy->getPosition().y < 0)
+			else
 			{
-				hostiles.erase(ene_it);
+				ene_it->update(elapsedTime);
+
+				++ene_it;
 			}
-			ene_it->update(elapsedTime);
 		}
 
 
