@@ -87,14 +87,13 @@ int main()
 static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 {
 	bool paused = 0;
-	loadTextures();
 	Event event;
 	Texture texture;
 	Clock clock;
 	Time elapsedTime = clock.getElapsedTime();
 	float elapsed = elapsedTime.asMicroseconds();
 	GameObject game;
-	Enemy enemy();
+	Enemy *enemy= new Enemy();
 	Vector2f posP;
 	posP.x = 950;
 	posP.y = 800;
@@ -103,8 +102,8 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 	// kekekekekekek
 
 	texMgr.loadTexture("enemy", "textures/base_enemy.png");
-	texMgr.loadTexture("player", "textures/Player.png");
-	texMgr.loadTexture("background", "textures/starfield.png");
+	//texMgr.loadTexture("player", "textures/Player.png");
+	//texMgr.loadTexture("background", "textures/starfield.png");
 
 	for (int i = 0; i < 10; i++)
 	{
@@ -118,16 +117,16 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 	//play.textureManager(); // lataa tekstuurit
 	window.setVerticalSyncEnabled(false);
 
-	while (window.isOpen()) // ajaa ohjelmaa niin kauan kuin ikkuna on auki
+	while (window.isOpen())
 	{
 		clock.restart();
 
 		play.updateBackGround(elapsed);
 		play.updatePlayer(elapsedTime);
-		enemy().update(elapsedTime);
+		(enemy)->update(elapsedTime);
 
-		while (window.pollEvent(event))  // TÄMÄ PERKELE TÄSSÄ PISTI LIIKKUMAAAAANANANANANANA BÄTMÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄN
-		{							// eli siis poistin while loopin
+		while (window.pollEvent(event))
+		{							
 			if (paused)
 				continue;
 			{
@@ -163,7 +162,7 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 				hostiles.erase(ene_it);
 			}
 
-			if (enemy().getPosition().y > 1000 || enemy().getPosition().y < 0)
+			if (enemy->getPosition().y > 1000 || enemy->getPosition().y < 0)
 			{
 				hostiles.erase(ene_it);
 				/*hostiles.erase(hostiles.begin() + i);*/
@@ -254,8 +253,4 @@ void menu(RenderWindow& window)
 			window.display();
 		}
 	}
-}
-void loadTextures()
-{
-	//texMgr.loadTexture("bullet", "textures/bullet.png");
 }

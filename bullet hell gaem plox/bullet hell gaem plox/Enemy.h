@@ -22,7 +22,7 @@ public:
 	// Constructor
 	Enemy(Vector2f& pos_start, Vector2f pos_waypoint,
 		TextureManager& texMgr);
-
+	Enemy(){};
 	//Enemy(const Enemy&);
 	//Enemy& operator=(const Enemy&);
 
@@ -35,9 +35,9 @@ public:
 	void draw(RenderWindow* window) { window->draw(spr_enemy); }
 	void update(Time& elapsed);
 	void shoot();
-	void onHit();
+
 private:
-	const double PI = 3.141592653589793238463;
+	double PI = 3.141592653589793238463;
 	int health;
 
 	float speed = 5;

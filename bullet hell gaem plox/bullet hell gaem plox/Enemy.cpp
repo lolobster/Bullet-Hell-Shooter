@@ -31,10 +31,6 @@ void Enemy::update(Time& elapsed)
 	spr_enemy.setPosition(position);
 }
 
-void Enemy::onHit()
-{
-}
-
 void Enemy::shoot()
 {
 }
