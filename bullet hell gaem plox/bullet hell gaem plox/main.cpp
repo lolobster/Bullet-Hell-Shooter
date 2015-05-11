@@ -18,8 +18,8 @@ std::vector<Enemy>::iterator ene_it;
 
 int main()
 {
-	float x = 1900; // original 600u / best 1920
-	float y = 1000; // original 600u / best 1200
+	int x = 1900; // original 600u / best 1920
+	int y = 1000; // original 600u / best 1200
 	RenderWindow window(VideoMode(x, y), "BULLET HELL SHOOTER 9000", sf::Style::Resize | sf::Style::Close/* | sf::Style::Titlebar*/); // asettaa ikkunan koon, muokattavissa
 	menu(window);
 
@@ -97,13 +97,10 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 	Vector2f posP;
 	posP.x = 950;
 	posP.y = 800;
-	Player play(posP); // pointteri pleijerille EIKÄ OLE POINTTERI
-	//ei nii :DDDDD
-	// kekekekekekek
+	Player play(posP);
 
 	texMgr.loadTexture("enemy", "textures/base_enemy.png");
-	//texMgr.loadTexture("player", "textures/Player.png");
-	//texMgr.loadTexture("background", "textures/starfield.png");
+
 
 	for (int i = 0; i < 10; i++)
 	{
@@ -114,7 +111,7 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 		hostiles.push_back(enemy);
 	}
 
-	//play.textureManager(); // lataa tekstuurit
+	play.textureManager(); // lataa tekstuurit
 	window.setVerticalSyncEnabled(false);
 
 	while (window.isOpen())
@@ -123,7 +120,7 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 
 		play.updateBackGround(elapsed);
 		play.updatePlayer(elapsedTime);
-		(enemy)->update(elapsedTime);
+
 
 		while (window.pollEvent(event))
 		{							
@@ -159,17 +156,19 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 				intersects(ene_it->getSprite().getGlobalBounds()))
 			{
 				std::cout << "Collision!" << std::endl;
-				hostiles.erase(ene_it);
+				ene_it = hostiles.erase(ene_it);
 			}
 
 			if (enemy->getPosition().y > 1000 || enemy->getPosition().y < 0)
 			{
 				hostiles.erase(ene_it);
-				/*hostiles.erase(hostiles.begin() + i);*/
 			}
+			ene_it->update(elapsedTime);
 		}
 
-		window.clear(Color::Black); // täyttää koko ikkunan mustalla värillä
+
+		
+		window.clear(Color::Black);
 
 		play.render(&window);
 		
@@ -179,7 +178,6 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 		{
 			ene_it->draw(&window);
 		}
-
 
 		window.display();
 

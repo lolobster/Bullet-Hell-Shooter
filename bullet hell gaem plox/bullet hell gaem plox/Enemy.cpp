@@ -25,6 +25,11 @@ Enemy::Enemy(sf::Vector2f& pos_start, sf::Vector2f pos_waypoint,
 	velocity = (pos_waypoint - position) / (distance * speed);
 }
 
+void Enemy::draw(RenderWindow* window)
+{
+	window->draw(spr_enemy);
+}
+
 void Enemy::update(Time& elapsed)
 {
 	position += velocity;

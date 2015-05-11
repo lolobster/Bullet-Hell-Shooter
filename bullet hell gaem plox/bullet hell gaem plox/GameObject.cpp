@@ -71,12 +71,7 @@ void GameObject::render(RenderWindow* window)
 {
 	window->draw(bg_sprite);
 	window->draw(pl_sprite);
-	//window->draw(spr_enemy);
 
-	/*for (int i = 0; i < bullet_vec.size(); i++)
-	{
-		window->draw(bullet_vec[i]);
-	}*/
 }
 
 GameObject::~GameObject()

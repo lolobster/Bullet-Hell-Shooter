@@ -19,20 +19,16 @@ using namespace sf;
 class Enemy : public GameObject
 {
 public:
-	// Constructor
 	Enemy(Vector2f& pos_start, Vector2f pos_waypoint,
 		TextureManager& texMgr);
 	Enemy(){};
-	//Enemy(const Enemy&);
-	//Enemy& operator=(const Enemy&);
 
-	// Destructor
 	~Enemy() { }
 
 	// Methods
 	Sprite getSprite() { return spr_enemy; }
 	Vector2f getPosition(){ return position; }
-	void draw(RenderWindow* window) { window->draw(spr_enemy); }
+	void draw(RenderWindow* window);
 	void update(Time& elapsed);
 	void shoot();
 
