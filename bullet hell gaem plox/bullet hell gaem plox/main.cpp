@@ -42,8 +42,6 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 	float elapsed = elapsedTime.asMicroseconds();
 
 	Clock enemyTimer;
-	Time enemytime = enemyTimer.getElapsedTime();
-	float timer = enemytime.asMicroseconds();
 
 	//Time current = clock.getElapsedTime();
 	//Time last_time = current;
@@ -98,11 +96,11 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 		}
 
 
-		//for (int i = 0; i < 20; i++)
-		//{
+		Time enemytime = enemyTimer.getElapsedTime();
+		float timer = enemytime.asMicroseconds();
 
 
-			if (timer > 0 && size < 20)
+			if (timer > 200000 && hostiles.size() < 25)
 			{
 				Vector2f pos_start(rand() % 1700, 0);
 				Vector2f pos_waypoint(rand() % 1700, 800);

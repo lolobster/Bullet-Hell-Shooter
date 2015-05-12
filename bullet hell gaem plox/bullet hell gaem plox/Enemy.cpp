@@ -12,7 +12,7 @@ Enemy::Enemy(sf::Vector2f& pos_start, sf::Vector2f pos_waypoint,
 	{
 		angle = 360 - (-angle);
 	}
-	angle += 90;
+	angle -= 90;
 
 	spr_enemy.setTexture(texMgr.getRef("enemy"));
 	spr_enemy.setPosition(position);

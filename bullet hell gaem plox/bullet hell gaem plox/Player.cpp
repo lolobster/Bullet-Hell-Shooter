@@ -131,7 +131,7 @@ void Player::draw(RenderWindow* window)
 	atext.setCharacterSize(20);
 	atext.setStyle(sf::Text::Bold);
 	atext.setColor(sf::Color::Green);
-	atext.setPosition(1800, 0);
+	atext.setPosition(1780, 0);
 	atext.setString(ss.str());
 
 	window->draw(atext);
