@@ -9,6 +9,12 @@ Player::Player(Vector2f pos)
 	: GameObject(health)
 {
 	positionPlayer = pos;
+
+	if (!buffer.loadFromFile("sfx/laser1.wav"))
+	{
+		std::cout << "FILE NOT FOUND: sfx_shoot" << std::endl;
+	}
+	sfx_shoot.setBuffer(buffer);
 }
 
 
@@ -81,6 +87,7 @@ void Player::playerController(const float elapsedTime)
 
 void Player::shoot(const float elapsedTime)
 {
+
 	direction.x = sf::Mouse::getPosition().x;
 	direction.y = sf::Mouse::getPosition().y;
 
@@ -93,8 +100,10 @@ void Player::shoot(const float elapsedTime)
 	if (fireTimer <= 0.0f)
 	{
 		Bullet *shot = new Bullet(sijainti, direction);
-		
-		//shot->loadTextures();
+
+		sfx_shoot.play();
+		//std::cout << "laukaus" << std::endl; // Testi
+
 		bullet_vec.push_back(shot);
 		fireTimer = FIRE_INTERVAL;
 	}
