@@ -7,6 +7,7 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/Font.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Audio/Sound.hpp>
 #include <SFML/Audio/SoundBuffer.hpp>
@@ -29,6 +30,9 @@ public:
 	void draw(RenderWindow* window);
 	void updateBullet(const Time& elapsedTime);
 
+	int getHealth(){ return health; }
+	int getDeaths(){ return deaths; }
+
 	Vector2f getPlayerPos(){ return positionPlayer; }
 	Vector2f getBulletPos(){ return bulletPos; }
 
@@ -40,11 +44,13 @@ public:
 	std::vector<Bullet*>::iterator getIter(){return it ; }
 
 private:
-	int health;
+	int health = 3;
 	int deaths;
 
 	SoundBuffer buffer;
 	Sound sfx_shoot;
+
+	Font font;
 
 	Vector2f bulletPos;
 	Vector2f direction;

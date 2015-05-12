@@ -51,6 +51,7 @@ protected:
 	Texture ene_text;
 	Vector2f positionPlayer;
 	Vector2f pos_target;
+
 };
 
 #endif
