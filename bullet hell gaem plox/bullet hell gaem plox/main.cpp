@@ -1,5 +1,6 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
+#include <time.h>
 #include "GameObject.h"
 #include "Player.h"
 #include "Menu.h"
@@ -15,6 +16,7 @@ void loadTextures();
 
 std::vector<Enemy> hostiles;
 std::vector<Enemy>::iterator ene_it;
+int size = hostiles.size();
 
 int main()
 {
@@ -38,6 +40,13 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 	Clock clock;
 	Time elapsedTime = clock.getElapsedTime();
 	float elapsed = elapsedTime.asMicroseconds();
+
+	Clock enemyTimer;
+	Time enemytime = enemyTimer.getElapsedTime();
+	float timer = enemytime.asMicroseconds();
+
+	//Time current = clock.getElapsedTime();
+	//Time last_time = current;
 	GameObject game;
 	Bullet bul;
 	Enemy *enemy= new Enemy();
@@ -48,14 +57,7 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 	play.loadBackground();
 
 
-	for (int i = 0; i < 10; i++)
-	{
-		Vector2f pos_start(rand() % 1700, 0);
-		Vector2f pos_waypoint(rand() % 1700, 800);
 
-		Enemy enemy(pos_start, pos_waypoint, texMgr);
-		hostiles.push_back(enemy);
-	}
 
 	window.setVerticalSyncEnabled(false);
 
@@ -94,6 +96,22 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 				}
 			}
 		}
+
+
+		//for (int i = 0; i < 20; i++)
+		//{
+
+
+			if (timer > 0 && size < 20)
+			{
+				Vector2f pos_start(rand() % 1700, 0);
+				Vector2f pos_waypoint(rand() % 1700, 800);
+				Enemy enemy(pos_start, pos_waypoint, texMgr);
+
+				hostiles.push_back(enemy);
+				enemyTimer.restart();
+			}
+	/*	}*/
 
 		ene_it = hostiles.begin();
 
@@ -146,13 +164,15 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 		}
 
 
-		
+		ene_it = hostiles.begin();
+
 		window.clear(Color::Black);
 
 		play.render(&window);
 		
 		play.draw(&window);
 
+		
 		for (ene_it = hostiles.begin(); ene_it != hostiles.end(); ene_it++)
 		{
 			ene_it->draw(&window);
