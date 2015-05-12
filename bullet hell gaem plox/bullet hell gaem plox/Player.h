@@ -27,15 +27,19 @@ public:
 	void updateBullet(const Time& elapsedTime);
 	//void spawnBullet(const Vector2f& sijainti);
 	Vector2f getPlayerPos(){ return positionPlayer; }
+	Vector2f getBulletPos(){ return bulletPos; }
 
 	std::vector<Bullet*> bullet_vec;
 	std::vector<Bullet*>::iterator it;
-	Sprite getSprite() { return pl_sprite; }
+	Sprite& getSprite() { return pl_sprite; }
+	std::vector<Bullet*> &getVector(){ return bullet_vec; }
+	std::vector<Bullet*>::iterator getIter(){return it ; }
 
 private:
 	int health;
 	int deaths;
 
+	Vector2f bulletPos;
 
 	//Buttons
 	Mouse::Button btn_shoot = Mouse::Left;

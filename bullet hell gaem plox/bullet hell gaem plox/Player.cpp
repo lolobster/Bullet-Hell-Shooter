@@ -114,7 +114,6 @@ void Player::updateBullet(const Time& elapsedTime)
 
 	const float elapsed = elapsedTime.asMicroseconds();
 
-	Vector2f bulletPos;
 	Vector2f velocity;
 	static const float BULLET_SPEED = 1.0f;
 
@@ -131,13 +130,6 @@ void Player::updateBullet(const Time& elapsedTime)
 
 		(*it)->getSprite().setPosition( bulletPos );
 
-		if (bulletPos.y > 1000 || bulletPos.y < 0)
-		{
-			it = bullet_vec.erase(it);
-		}
-		else
-		{
-			++it;
-		}
+		++it;
 	}
 }

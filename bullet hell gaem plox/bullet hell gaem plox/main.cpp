@@ -161,17 +161,21 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 		/*	bul.getSprite().getGlobalBounds().
 				intersects(ene_it->getSprite().getGlobalBounds())*/
 				/////////////////////////////////////////////////
-
-			//while (ene_it != hostiles.end())
-			//{
-			//	if (bul.getSprite().getGlobalBounds().
-			//		intersects(ene_it->getSprite().getGlobalBounds()))
-			//	{
-			//		ene_it = hostiles.erase(ene_it);
-			//	}
-			//}
-
-
+			std::vector<Bullet*>::iterator it = play.getVector().begin();
+			while (it != play.getVector().end())
+			{
+				if ((*it)->getSprite().getGlobalBounds().
+					intersects(ene_it->getSprite().getGlobalBounds()) || play.getBulletPos().y > 1000 || play.getBulletPos().y < 0)
+				{
+					it = play.getVector().erase(it);
+					ene_it = hostiles.erase(ene_it);
+					std::cout << "Collision!" << std::endl;
+				}
+				else
+				{
+					++it;
+				}
+			}
 			if (play.getSprite().getGlobalBounds().
 				intersects(ene_it->getSprite().getGlobalBounds()) || enemy->getPosition().y > 1000 ||
 				enemy->getPosition().y < 0)
@@ -180,7 +184,7 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 				ene_it = hostiles.erase(ene_it);
 			}
 
-
+			
 			else
 			{
 				ene_it->update(elapsedTime);

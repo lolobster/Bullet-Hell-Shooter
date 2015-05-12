@@ -19,8 +19,6 @@ void Bullet::loadTextures()
 	bullet_sprite.setTexture(bullet_text);
 	bullet_sprite.setScale(Vector2f(0.15f, 0.1f));
 	bullet_sprite.setRotation(270);
-	if (!bullet_text.loadFromFile("bullet.png"))
-		std::cout << "noooooooooooooo";
 }
 
 void Bullet::draw(RenderWindow& window)
