@@ -11,23 +11,25 @@
 class Bullet : public GameObject
 {
 public:
-	Bullet::Bullet(Vector2f pos)
-	{
-		loadTextures();
-		bullet_sprite.setPosition(pos);
+	Bullet::Bullet(Vector2f pos, Vector2f pos_t);
 
-	}
 	Bullet();
 	~Bullet();
 
 
-	void loadTextures();
 	void draw(RenderWindow& window);
 	Sprite& getSprite() { return bullet_sprite; }
-
+	void updateBullet();
 private:
+
+	float speed = 0.8f;
+	float angle;
 
 	Texture bullet_text;
 	Sprite bullet_sprite;
+
+	Vector2f velocity;
+	Vector2f position;
+
 };
 #endif

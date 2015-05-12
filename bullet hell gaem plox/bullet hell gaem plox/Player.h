@@ -47,4 +47,7 @@ private:
 	Keyboard::Key kb_left = Keyboard::A;
 	Keyboard::Key kb_right = Keyboard::D;
 
+	//Vector2f velocity;
+	Vector2f direction;
+	//const float BULLET_SPEED = 1.0f;
 };

@@ -7,6 +7,8 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <vector>
 #include "TextureManager.h"
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 using namespace sf;
 
@@ -36,7 +38,7 @@ protected:
 	float bgY;
 	float bgX;
 	float fireTimer;
-
+	float distance;
 
 	Vector2f _origin;
 	Sprite pl_sprite;
@@ -46,6 +48,7 @@ protected:
 	Sprite ene_sprite;
 	Texture ene_text;
 	Vector2f positionPlayer;
+	Vector2f pos_target;
 
 };
 
