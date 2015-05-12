@@ -10,6 +10,10 @@
 #include <iostream>
 #include <list>
 
+#include <SFML/Audio.hpp>
+//#include <SFML/Audio/Sound.hpp>
+//#include <SFML/Audio/SoundBuffer.hpp>
+
 using namespace sf;
 
 class Player : public GameObject
@@ -50,4 +54,7 @@ private:
 	//Vector2f velocity;
 	Vector2f direction;
 	//const float BULLET_SPEED = 1.0f;
+
+	sf::SoundBuffer buffer;
+	sf::Sound sfx_shoot;
 };
