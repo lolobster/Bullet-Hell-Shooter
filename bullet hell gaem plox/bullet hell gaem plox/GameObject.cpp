@@ -38,7 +38,7 @@ void GameObject::textureManager()
 	pl_sprite.setTexture(pl_text);
 	//pl_sprite.setPosition(950, 800);
 
-	bg_text.loadFromFile("textures/bg.png");
+	bg_text.loadFromFile("textures/starfield.png");
 	bg_text.setSmooth(false);
 	bg_text.setRepeated(true);
 	bg_sprite.setTexture(bg_text);

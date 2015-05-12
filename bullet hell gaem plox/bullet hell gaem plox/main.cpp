@@ -158,9 +158,18 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 			
 			//////////////////////////////////////////////////////
 			// oma while looppi käymään bullet vekkiä läpi tekemään
-			bul.getSprite().getGlobalBounds().
-				intersects(ene_it->getSprite().getGlobalBounds())
+		/*	bul.getSprite().getGlobalBounds().
+				intersects(ene_it->getSprite().getGlobalBounds())*/
 				/////////////////////////////////////////////////
+
+			//while (ene_it != hostiles.end())
+			//{
+			//	if (bul.getSprite().getGlobalBounds().
+			//		intersects(ene_it->getSprite().getGlobalBounds()))
+			//	{
+			//		ene_it = hostiles.erase(ene_it);
+			//	}
+			//}
 
 
 			if (play.getSprite().getGlobalBounds().
