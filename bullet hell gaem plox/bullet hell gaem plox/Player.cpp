@@ -116,6 +116,11 @@ void Player::onHit()
 	}
 }
 
+void Player::scoreCounter()
+{
+	score += 150;
+}
+
 void Player::draw(RenderWindow* window)
 {
 	for (it = bullet_vec.begin(); it != bullet_vec.end(); it++)
@@ -124,14 +129,14 @@ void Player::draw(RenderWindow* window)
 	}
 
 	std::ostringstream ss;
-	ss << "Health: " << getHealth() << std::endl << "Deaths: " << getDeaths();
+	ss << "Score: " << score << std::endl << "Health: " << getHealth() << std::endl << "Deaths: " << getDeaths();
 
 	Text atext;
 	atext.setFont(font);
 	atext.setCharacterSize(20);
 	atext.setStyle(sf::Text::Bold);
 	atext.setColor(sf::Color::Green);
-	atext.setPosition(1780, 0);
+	atext.setPosition(1770, 0);
 	atext.setString(ss.str());
 
 	window->draw(atext);

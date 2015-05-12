@@ -24,6 +24,7 @@ public:
 
 
 	void onHit();
+	void scoreCounter();
 	void updatePlayer(const Time& elapsedTime);
 	void playerController(const float deltaTime);
 	void shoot(const float elapsedTime);
@@ -46,6 +47,7 @@ public:
 private:
 	int health = 3;
 	int deaths;
+	long score;
 
 	SoundBuffer buffer;
 	Sound sfx_shoot;

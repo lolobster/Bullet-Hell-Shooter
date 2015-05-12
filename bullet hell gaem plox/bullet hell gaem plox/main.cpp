@@ -131,6 +131,7 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 					std::cout << "Collision!" << std::endl;
 					it = play.getVector().erase(it);
 					hitEnemy = true;
+					play.scoreCounter();
 				}
 				else
 				{
