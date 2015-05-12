@@ -113,7 +113,6 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 		hostiles.push_back(enemy);
 	}
 
-	//play.textureManager(); // lataa tekstuurit
 	window.setVerticalSyncEnabled(false);
 
 	while (window.isOpen())
