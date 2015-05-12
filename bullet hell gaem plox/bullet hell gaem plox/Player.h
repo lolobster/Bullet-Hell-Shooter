@@ -15,7 +15,7 @@ using namespace sf;
 class Player : public GameObject
 {
 public:
-	Player(Vector2f);
+	Player(Vector2f, TextureManager& texMgr);
 	~Player();
 
 

@@ -2,17 +2,20 @@
 #include "Bullet.h"
 #include "Menu.h"
 #include "GameObject.h"
+#include "TextureManager.h"
 
 using namespace sf;
 
-Player::Player(Vector2f pos)
+Player::Player(Vector2f pos, TextureManager& texMgr)
 	: GameObject(health)
 {
 
 	positionPlayer = pos;
 
+	pl_sprite.setTexture(texMgr.getRef("player"));
 
 }
+
 
 
 Player::~Player()

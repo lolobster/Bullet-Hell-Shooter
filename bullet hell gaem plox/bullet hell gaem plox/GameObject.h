@@ -18,12 +18,12 @@ public:
 	float speed;
 	Vector2f position() const;
 
-
+	void loadBackground();
 	void setPosition(const Vector2f& value);
 	void updateBackGround(float deltaTime);
 	void setTextureRectangle(const IntRect& value);
 	
-	virtual void textureManager();
+	//virtual void textureManager();
 	virtual void render(RenderWindow* window);
 	virtual~GameObject();
 
@@ -34,7 +34,6 @@ protected:
 
 	int health;
 	float bgY;
-	float bgX;
 	float fireTimer;
 
 

@@ -86,6 +86,9 @@ int main()
 
 static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 {
+	texMgr.loadTexture("enemy", "textures/base_enemy.png");
+	texMgr.loadTexture("player", "textures/player.png");
+
 	bool paused = 0;
 	Event event;
 	Texture texture;
@@ -93,15 +96,13 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 	Time elapsedTime = clock.getElapsedTime();
 	float elapsed = elapsedTime.asMicroseconds();
 	GameObject game;
+	game.loadBackground();
 	Bullet bul;
 	Enemy *enemy= new Enemy();
 	Vector2f posP;
 	posP.x = 950;
 	posP.y = 800;
-	Player play(posP);
-
-	texMgr.loadTexture("enemy", "textures/base_enemy.png");
-
+	Player play(posP, texMgr);
 
 	for (int i = 0; i < 10; i++)
 	{
@@ -112,7 +113,7 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 		hostiles.push_back(enemy);
 	}
 
-	play.textureManager(); // lataa tekstuurit
+	//play.textureManager(); // lataa tekstuurit
 	window.setVerticalSyncEnabled(false);
 
 	while (window.isOpen())

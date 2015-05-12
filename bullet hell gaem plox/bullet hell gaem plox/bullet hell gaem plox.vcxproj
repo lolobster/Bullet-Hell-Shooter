@@ -55,7 +55,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glew.lib;freetype.lib;jpeg.lib;opengl32.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;winmm.lib;sfml-graphics-s-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew.lib;freetype.lib;jpeg.lib;opengl32.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;winmm.lib;sfml-graphics-s-d.lib;sndfile.lib;openal32.lib;sfml-audio-s-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>$(SolutionDir)..\SFML-2.2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
@@ -75,7 +75,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>glew.lib;freetype.lib;jpeg.lib;opengl32.lib;winmm.lib;sfml-system-s.lib;sfml-window-s.lib;sfml-graphics-s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew.lib;freetype.lib;jpeg.lib;opengl32.lib;winmm.lib;sfml-system-s.lib;sfml-window-s.lib;sfml-graphics-s.lib;sndfile.lib;openal32.lib;sfml-audio-s-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)...\SFML-2.2\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
