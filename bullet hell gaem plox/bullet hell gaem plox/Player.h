@@ -25,12 +25,13 @@ public:
 	void shoot(const float elapsedTime);
 	void draw(RenderWindow* window);
 	void updateBullet(const Time& elapsedTime);
-	//void spawnBullet(const Vector2f& sijainti);
+
 	Vector2f getPlayerPos(){ return positionPlayer; }
 	Vector2f getBulletPos(){ return bulletPos; }
 
 	std::vector<Bullet*> bullet_vec;
 	std::vector<Bullet*>::iterator it;
+
 	Sprite& getSprite() { return pl_sprite; }
 	std::vector<Bullet*> &getVector(){ return bullet_vec; }
 	std::vector<Bullet*>::iterator getIter(){return it ; }
@@ -40,6 +41,7 @@ private:
 	int deaths;
 
 	Vector2f bulletPos;
+	Vector2f direction;
 
 	//Buttons
 	Mouse::Button btn_shoot = Mouse::Left;

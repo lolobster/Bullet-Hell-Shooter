@@ -87,6 +87,9 @@ void Player::playerController(const float elapsedTime)
 
 void Player::shoot(const float elapsedTime)
 {
+	direction.x = sf::Mouse::getPosition().x;
+	direction.y = sf::Mouse::getPosition().y;
+
 	static const float FIRE_INTERVAL = 200.0f;
 
 	fireTimer -= elapsedTime;
@@ -95,9 +98,8 @@ void Player::shoot(const float elapsedTime)
 	//sijainti.y = -20.0f;
 	if (fireTimer <= 0.0f)
 	{
-		Bullet *shot=new Bullet(sijainti);
-		
-		
+		Bullet *shot = new Bullet(sijainti, direction);
+
 		//shot->loadTextures();
 		bullet_vec.push_back(shot);
 		fireTimer = FIRE_INTERVAL;
@@ -117,22 +119,21 @@ void Player::updateBullet(const Time& elapsedTime)
 
 	const float elapsed = elapsedTime.asMicroseconds();
 
-	Vector2f velocity;
-	static const float BULLET_SPEED = 1.0f;
-
+	Vector2f bulletPos;
 
 	for (it = bullet_vec.begin(); it != bullet_vec.end();)
 	{
+		(*it)->updateBullet();
 
 		bulletPos = (*it)->getSprite().getPosition();
 
-		velocity.y = BULLET_SPEED * elapsed;
-		
-		bulletPos.y -= velocity.y;
-
-
-		(*it)->getSprite().setPosition( bulletPos );
-
-		++it;
+		if (bulletPos.y > 1000 || bulletPos.y < 0)
+		{
+			it = bullet_vec.erase(it);
+		}
+		else
+		{
+			++it;
+		}
 	}
 }

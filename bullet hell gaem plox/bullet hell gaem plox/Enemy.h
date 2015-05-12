@@ -33,13 +33,11 @@ public:
 	void shoot();
 
 private:
-	double PI = 3.141592653589793238463;
 	int health;
 
 	float speed = 5;
 	float distance;
 	float angle;
-	float rotation;
 
 	//std::vector<Enemy> hostiles;
 	//std::vector<Enemy>::iterator ene_it;
