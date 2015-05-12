@@ -6,6 +6,9 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <vector>
+#include <SFML/Audio.hpp>
+#include <SFML/Audio/Sound.hpp>
+#include <SFML/Audio/SoundBuffer.hpp>
 #define _USE_MATH_DEFINES
 #include "math.h"
 #include "TextureManager.h"

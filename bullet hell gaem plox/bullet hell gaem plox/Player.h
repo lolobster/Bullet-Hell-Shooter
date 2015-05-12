@@ -7,6 +7,9 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
+#include <SFML/Audio.hpp>
+#include <SFML/Audio/Sound.hpp>
+#include <SFML/Audio/SoundBuffer.hpp>
 #include <iostream>
 #include <list>
 
@@ -39,6 +42,9 @@ public:
 private:
 	int health;
 	int deaths;
+
+	SoundBuffer buffer;
+	Sound sfx_shoot;
 
 	Vector2f bulletPos;
 	Vector2f direction;

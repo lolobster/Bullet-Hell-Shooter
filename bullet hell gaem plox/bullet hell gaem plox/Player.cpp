@@ -14,6 +14,11 @@ Player::Player(Vector2f pos, TextureManager& texMgr)
 
 	pl_sprite.setTexture(texMgr.getRef("player"));
 
+	if (!buffer.loadFromFile("sfx/laser1.wav"))
+	{
+		std::cout << "FILE NOT FOUND: sfx_shoot" << std::endl;
+	}
+	sfx_shoot.setBuffer(buffer);
 }
 
 
@@ -100,7 +105,8 @@ void Player::shoot(const float elapsedTime)
 	{
 		Bullet *shot = new Bullet(sijainti, direction);
 
-		//shot->loadTextures();
+		sfx_shoot.play();
+
 		bullet_vec.push_back(shot);
 		fireTimer = FIRE_INTERVAL;
 	}
