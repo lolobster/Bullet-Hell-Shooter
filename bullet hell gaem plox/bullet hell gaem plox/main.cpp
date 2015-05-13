@@ -16,6 +16,8 @@ void loadTextures();
 std::vector<Enemy> hostiles;
 std::vector<Enemy>::iterator ene_it;
 
+
+
 int main()
 {
 	int x = 1900; // original 600u / best 1920
@@ -25,64 +27,6 @@ int main()
 
 	return 0;
 }
-
-//enum class GameState
-//{
-//	Game,
-//	Menu
-//};
-//
-//static void loop(RenderWindow& window)
-//{
-//	Menu menu;
-//	Game game;
-//	GameState gameState;
-//	Event event;
-//	Clock clock;
-//	Time deltaTime;
-//
-//	while (window.isOpen())
-//	{
-//		clock.restart();
-//
-//		while (window.pollEvent(event))
-//		{
-//			switch (event.type)
-//			{
-//				case Event::Closed:
-//					window.close();
-//					break;
-//
-//				case Event::KeyPressed:
-//					switch (gameState)
-//					{
-//					case Game:
-//						game.handleInput(event.key.code);
-//						break;
-//
-//					case Menu:
-//						menu.handleInput(event.key.code);
-//						break;
-//					}
-//
-//					break;
-//			}
-//		}
-//
-//		deltaTime = clock.getElapsedTime();
-//
-//		switch (gameState)
-//		{
-//			case Game:
-//				game.update(deltaTime, window);
-//				break;
-//
-//			case Menu:
-//				menu.update(deltaTime, window);
-//				break;
-//		}
-//	}
-//}
 
 static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 {
@@ -167,7 +111,6 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 					intersects(ene_it->getSprite().getGlobalBounds()) || bul.getSprite().getPosition().y > 1000 ||
 					bul.getSprite().getPosition().y < 0)
 				{
-					std::cout << "Collision!" << std::endl;
 					it = play.getVector().erase(it);
 					hitEnemy = true;
 					//ene_it = hostiles.erase(ene_it);
@@ -181,7 +124,6 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 				intersects(ene_it->getSprite().getGlobalBounds()) || enemy->getPosition().y > 1000 ||
 				enemy->getPosition().y < 0)
 			{
-				std::cout << "Collision!" << std::endl;
 				ene_it = hostiles.erase(ene_it);
 			}
 
@@ -281,15 +223,19 @@ void menu(RenderWindow& window)
 	}
 }
 
-void explosions()
+void explosions(const Vector2u& renderDimensions)
 {
-	sf::Texture tex_explo;
+	const sf::Vector2i _frameSize(130, 150);
+	const sf::Vector2i _frameCount(2, 4);
+	sf::Vector2i _currentFrame(0, 0);
+	float _animationTime(0.0f);
+	float _frameDuration(1.0f / 15.0f);
+
 	sf::Sprite spr_explo;
-
-	spr_explo.setTexture(texMgr.getRef("explosion"));
-	enum Explosion {};
-
-	sf::Vector2i sheet(32, 32);
+	//const bool result = tex_explo.loadFromFile("textures/sheet_explosion");
 	
-	//explosion.setTextureRect(sf::IntRect(sheet.x * 32, sheet.y * 32, 32, 32));
+	spr_explo.setOrigin(0.5f * _frameSize.x, 0.5f * _frameSize.y);
+	spr_explo.setPosition(0.5f*renderDimensions.x, 0.5f*renderDimensions.y);
+	spr_explo.setTexture(texMgr.getRef("explosion"));
+	spr_explo.setTextureRect(IntRect(_currentFrame.x * _frameSize.x, _currentFrame.y*_frameSize.y, _frameSize.x, _frameSize.y));
 }
