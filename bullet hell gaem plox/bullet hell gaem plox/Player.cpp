@@ -1,8 +1,10 @@
+#include <SFML/Graphics.hpp>
 #include "Player.h"
 #include "Bullet.h"
 #include "Menu.h"
 #include "GameObject.h"
 #include "TextureManager.h"
+#include <sstream>
 
 using namespace sf;
 
@@ -19,6 +21,8 @@ Player::Player(Vector2f pos, TextureManager& texMgr)
 		std::cout << "FILE NOT FOUND: sfx_shoot" << std::endl;
 	}
 	sfx_shoot.setBuffer(buffer);
+	font.loadFromFile("arial.ttf");
+
 }
 
 
@@ -30,20 +34,9 @@ Player::~Player()
 void Player::updatePlayer(const Time& elapsedTime)
 {
 	const float elapsed = elapsedTime.asMicroseconds();
-	//playerController(elapsed);
-	//if (Mouse::isButtonPressed())
+
 	updateBullet(elapsedTime);
 	playerController(elapsed);
-}
-
-void Player::onHit()
-{
-	health -= 1;
-
-	if (health == 0)
-	{
-		deaths = +1;
-	}
 }
 
 
@@ -92,10 +85,10 @@ void Player::playerController(const float elapsedTime)
 
 void Player::shoot(const float elapsedTime)
 {
-	direction.x = sf::Mouse::getPosition().x;
-	direction.y = sf::Mouse::getPosition().y;
+	direction.x = Mouse::getPosition().x;
+	direction.y = Mouse::getPosition().y;
 
-	static const float FIRE_INTERVAL = 200.0f;
+	static const float FIRE_INTERVAL = 250.0f;
 
 	fireTimer -= elapsedTime;
 	Vector2f sijainti = position();
@@ -112,12 +105,42 @@ void Player::shoot(const float elapsedTime)
 	}
 }
 
+void Player::onHit()
+{
+	health -= 1;
+
+	if (health == 0)
+	{
+		deaths += 1;
+		health = 3;
+	}
+}
+
+void Player::scoreCounter()
+{
+	score += 150;
+}
+
 void Player::draw(RenderWindow* window)
 {
 	for (it = bullet_vec.begin(); it != bullet_vec.end(); it++)
 	{
 		window->draw( (*it)->getSprite() );
 	}
+
+	std::ostringstream ss;
+	ss << "Score: " << score << std::endl << "Health: " << getHealth() << std::endl << "Deaths: " << getDeaths();
+
+	Text atext;
+	atext.setFont(font);
+	atext.setCharacterSize(20);
+	atext.setStyle(sf::Text::Bold);
+	atext.setColor(sf::Color::Green);
+	atext.setPosition(1770, 0);
+	atext.setString(ss.str());
+
+	window->draw(atext);
+
 }
 
 void Player::updateBullet(const Time& elapsedTime)

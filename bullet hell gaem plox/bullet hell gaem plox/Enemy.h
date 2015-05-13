@@ -30,8 +30,9 @@ public:
 	Vector2f getPosition(){ return position; }
 	void draw(RenderWindow* window);
 	void update(Time& elapsed);
-	void shoot();
+	void shoot(const float elapsedTime);
 
+	void updateBullet(const Time& elapsedTime);
 private:
 	int health;
 
@@ -42,9 +43,11 @@ private:
 	//std::vector<Enemy> hostiles;
 	//std::vector<Enemy>::iterator ene_it;
 
-	std::vector<Bullet> enemy_bullets;
+	std::vector<Bullet*> bullet_vec;
+	std::vector<Bullet*>::iterator it;
 
 	Vector2f position;
+	Vector2f pos_direction;
 	Vector2f velocity;
 
 	Sprite spr_enemy;
