@@ -6,15 +6,6 @@ void TextureManager::loadTexture(const std::string& name, const std::string &fil
 	sf::Texture tex;
 	tex.loadFromFile(filename);
 
-	if (name != "background_game" && name != "background_menu")
-	{
-		tex.setSmooth(true);
-	}
-	else
-	{
-		tex.setSmooth(false);
-	}
-
 	textures[name] = tex;
 }
 

@@ -88,6 +88,7 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 {
 	texMgr.loadTexture("enemy", "textures/base_enemy.png");
 	texMgr.loadTexture("player", "textures/player.png");
+	texMgr.loadTexture("explosion", "textures/sheet_explosion.png");
 
 	bool paused = 0;
 	Event event;
@@ -225,7 +226,7 @@ void menu(RenderWindow& window)
 			{
 			case Event::Closed: // ikkuna suljetaan
 			{
-
+				texMgr.~TextureManager();
 				window.close();
 				break;
 			}
@@ -278,4 +279,17 @@ void menu(RenderWindow& window)
 			window.display();
 		}
 	}
+}
+
+void explosions()
+{
+	sf::Texture tex_explo;
+	sf::Sprite spr_explo;
+
+	spr_explo.setTexture(texMgr.getRef("explosion"));
+	enum Explosion {};
+
+	sf::Vector2i sheet(32, 32);
+	
+	//explosion.setTextureRect(sf::IntRect(sheet.x * 32, sheet.y * 32, 32, 32));
 }
