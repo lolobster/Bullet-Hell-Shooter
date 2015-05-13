@@ -1,6 +1,9 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 #include <time.h>
+#include <SFML/Audio.hpp>
+#include <SFML/Audio/Sound.hpp>
+#include <SFML/Audio/SoundBuffer.hpp>
 #include "GameObject.h"
 #include "Player.h"
 #include "Menu.h"
@@ -12,7 +15,8 @@ using namespace sf;
 TextureManager texMgr;
 static void loop(RenderWindow& window);
 void menu(RenderWindow& window);
-void loadTextures();
+void explosions(const Vector2f& renderDimensions);
+
 
 std::vector<Enemy> hostiles;
 std::vector<Enemy>::iterator ene_it;
@@ -33,6 +37,8 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 	texMgr.loadTexture("enemy", "textures/base_enemy.png");
 	texMgr.loadTexture("player", "textures/player.png");
 	texMgr.loadTexture("bullet", "textures/bullet.png");
+	texMgr.loadTexture("explosion", "textures/sheet_explosion.png");
+
 
 	bool paused = 0;
 	Event event;
@@ -43,8 +49,26 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 
 	Clock enemyTimer;
 
+	/*SoundBuffer bg_buffer;*/
+	Music sfx_bg;
+	/*sfx_bg.setBuffer(bg_buffer);*/
+	if (!sfx_bg.openFromFile("sfx/bg_music.flac"))
+	{
+		std::cout << "FILE NOT FOUND: background_music" << std::endl;
+	}
+	sfx_bg.setVolume(80);
+	sfx_bg.setLoop(true);
+	sfx_bg.play();
+	SoundBuffer exp_buffer;
+	Sound sfx_exp;
+	sfx_exp.setBuffer(exp_buffer);
+	if (!exp_buffer.loadFromFile("sfx/explosion4.wav"))
+	{
+		std::cout << "FILE NOT FOUND: sfx_shoot" << std::endl;
+	}
 	//Time current = clock.getElapsedTime();
 	//Time last_time = current;
+	
 	GameObject game;
 	Bullet bul;
 	Enemy *enemy= new Enemy();
@@ -97,10 +121,10 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 
 
 		Time enemytime = enemyTimer.getElapsedTime();
-		float timer = enemytime.asMicroseconds();
+		float timer = enemytime.asMilliseconds();
 
 
-			if (timer > 200000 && hostiles.size() < 25)
+		if (timer > 200 && hostiles.size() < 25)
 			{
 				Vector2f pos_start(rand() % 1700, 0);
 				Vector2f pos_waypoint(rand() % 1700, 800);
@@ -138,6 +162,12 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 					++it;
 				}
 			}
+			if (hitEnemy)
+			{
+				sfx_exp.play();
+
+			}
+
 			if (play.getSprite().getGlobalBounds().
 				intersects(ene_it->getSprite().getGlobalBounds()))
 			{
@@ -149,7 +179,8 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 				ene_it->getSprite().getPosition().y < 0 || ene_it->getSprite().getPosition().x > 1900 || 
 				ene_it->getSprite().getPosition().x < 0)
 			{
-				std::cout << "Collision!" << std::endl;
+				explosions(ene_it->getSprite().getPosition());
+
 				ene_it = hostiles.erase(ene_it);
 			}
 
@@ -249,4 +280,22 @@ void menu(RenderWindow& window)
 			window.display();
 		}
 	}
+}
+void explosions(const Vector2f& renderDimensions)
+{
+	const sf::Vector2i _frameSize(130, 150);
+	const sf::Vector2i _frameCount(2, 4);
+	sf::Vector2i _currentFrame(0, 0);
+	float _animationTime(0.0f);
+	float _frameDuration(1.0f / 15.0f);
+
+	sf::Sprite spr_explo;
+	//const bool result = tex_explo.loadFromFile("textures/sheet_explosion");
+
+	spr_explo.setOrigin(0.5f * _frameSize.x, 0.5f * _frameSize.y);
+	spr_explo.setPosition(renderDimensions.x, renderDimensions.y);
+	spr_explo.setTexture(texMgr.getRef("explosion"));
+	spr_explo.setTextureRect(IntRect(_currentFrame.x * _frameSize.x, _currentFrame.y*_frameSize.y, _frameSize.x, _frameSize.y));
+
+	////  exploveke deedeedee
 }
