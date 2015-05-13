@@ -24,7 +24,7 @@ int main()
 	int y = 1000; // original 600u / best 1200
 	RenderWindow window(VideoMode(x, y), "BULLET HELL SHOOTER 9000", Style::Resize | Style::Close); // asettaa ikkunan koon, muokattavissa
 	menu(window);
-
+	
 	return 0;
 }
 
