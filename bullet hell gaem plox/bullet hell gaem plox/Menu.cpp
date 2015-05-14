@@ -16,6 +16,10 @@ Menu::Menu(float width, float height)
 	setupMenu(width, height, 1, "Options");
 	setupMenu(width, height, 2, "Exit");
 
+	bg_text.loadFromFile("textures/menu_bg.png");
+	bg_text.setSmooth(false);
+	bg_sprite.setTexture(bg_text);
+
 	selectedItem = 0;
 }
 
@@ -63,8 +67,4 @@ void Menu::setupMenu(float width, float height, int spot, std::string label)
 	menu[spot].setPosition(sf::Vector2f(width / 3, height / (ITEMS_MAX + 1) * heightMp));
 	// items to right side -> (width / 1.3) 
 	// items to left side -> (width / 13) 
-
-	bg_text.loadFromFile("textures/menu_bg.png");
-	bg_text.setSmooth(false);
-	bg_sprite.setTexture(bg_text);
 }
