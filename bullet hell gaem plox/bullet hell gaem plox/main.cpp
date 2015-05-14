@@ -18,9 +18,7 @@ static void loop(RenderWindow& window);
 void menu(RenderWindow& window);
 std::vector<Enemy> hostiles;
 std::vector<Enemy>::iterator ene_it;
-int size = hostiles.size();
 std::vector<Explosion> explosions;
-std::vector<Explosion>::iterator explo_it;
 
 int main()
 {
@@ -48,7 +46,6 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 	float elapsed = elapsedTime.asMicroseconds();
 
 	Clock enemyTimer;
-
 	/*SoundBuffer bg_buffer;*/
 	Music sfx_bg;
 	/*sfx_bg.setBuffer(bg_buffer);*/
@@ -178,8 +175,8 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 				ene_it->getSprite().getPosition().y < 0 || ene_it->getSprite().getPosition().x > 1900 || 
 				ene_it->getSprite().getPosition().x < 0)
 			{
-				Explosion *explo = new Explosion(texMgr, ene_it->getSprite().getPosition());
-				explosions.push_back(*explo);
+				Explosion explo(texMgr, ene_it->getSprite().getPosition());
+				explosions.push_back(explo);
 				ene_it = hostiles.erase(ene_it);
 			}
 
@@ -190,7 +187,7 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 				++ene_it;
 			}
 		}
-		
+
 		ene_it = hostiles.begin();
 
 		window.clear(Color::Black);
@@ -204,15 +201,14 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 			ene_it->draw(&window);
 		}
 
-		for (explo_it = explosions.begin(); explo_it != explosions.end(); explo_it++)
+		for (int i = 0; i < explosions.size(); i++)
 		{
-			explo_it->draw(&window);
-			explo_it->update(elapsedTime);
+			explosions.at(i).draw(&window);
+			explosions.at(i).update(elapsedTime);
 
-			if (explo_it->getFrame() == Vector2i(8, 6))
+			if (explosions.at(i).getTimer() > 0.5)
 			{
-
-				std::cout << "Räjähti!" << std::endl;
+				explosions.pop_back();
 			}
 		}
 

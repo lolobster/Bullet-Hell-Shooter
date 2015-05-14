@@ -16,7 +16,7 @@ Player::Player(Vector2f pos, TextureManager& tM)
 
 	pl_sprite.setTexture(texMgr.getRef("player"));
 
-	if (!buffer.loadFromFile("sfx/laser1.wav"))
+	if (!buffer.loadFromFile("sfx/weaponfire.wav"))
 	{
 		std::cout << "FILE NOT FOUND: sfx_shoot" << std::endl;
 	}
