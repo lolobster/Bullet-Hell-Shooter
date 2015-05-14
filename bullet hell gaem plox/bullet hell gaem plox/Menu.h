@@ -1,6 +1,8 @@
 //SFML
 //#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio/Sound.hpp>
+#include <SFML/Audio/SoundBuffer.hpp>
 
 //Definitions
 #define ITEMS_MAX 3
