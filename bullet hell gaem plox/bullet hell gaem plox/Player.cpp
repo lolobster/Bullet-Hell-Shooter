@@ -62,22 +62,22 @@ void Player::playerController(const float elapsedTime)
 	if (Keyboard::isKeyPressed(kb_left))
 	{
 		// liikettä vasempaan
-		positionPlayer.x -= 0.24 * elapsedTime;
+		positionPlayer.x -= 0.15 * elapsedTime;
 	}
 	if (Keyboard::isKeyPressed(kb_right))
 	{
 		// liikettä oikeaan
-		positionPlayer.x += 0.24 * elapsedTime;
+		positionPlayer.x += 0.15 * elapsedTime;
 	}
 	if (Keyboard::isKeyPressed(kb_forward))
 	{
 		// liikettä ylöspäin
-		positionPlayer.y -= 0.15 * elapsedTime;
+		positionPlayer.y -= 0.1 * elapsedTime;
 	}
 	if (Keyboard::isKeyPressed(kb_reverse))
 	{
 		// liikettä alaspäin
-		positionPlayer.y += 0.15 * elapsedTime;
+		positionPlayer.y += 0.1 * elapsedTime;
 	}
 
 	pl_sprite.setPosition(positionPlayer);
@@ -93,7 +93,7 @@ void Player::shoot(const float elapsedTime)
 	fireTimer -= elapsedTime;
 	Vector2f sijainti = position();
 	sijainti.x = position().x + 30.0f;
-	//sijainti.y = -20.0f;
+	sijainti.y = position().y -10.0f;
 	if (fireTimer <= 0.0f)
 	{
 		Bullet *shot = new Bullet(sijainti, direction, texMgr);

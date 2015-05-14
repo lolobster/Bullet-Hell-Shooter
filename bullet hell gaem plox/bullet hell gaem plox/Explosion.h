@@ -1,3 +1,4 @@
+
 #include <SFML/System/Vector2.hpp>
 #include <SFML/System/Time.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -11,11 +12,10 @@ public:
 	~Explosion();
 	void update(const sf::Time& elapsedTime);
 	void draw(sf::RenderWindow* w);
-
-	sf::Vector2i getFrame(){ return _currentFrame; }
+	float getTimer() { return timer; }
 private:
-	const sf::Vector2i _frameCount;
-	const sf::Vector2i _frameSize;
+	sf::Vector2i _frameCount;
+	sf::Vector2i _frameSize;
 
 	sf::Vector2i _currentFrame;
 	float _animationTime;
@@ -23,4 +23,7 @@ private:
 
 	sf::Sprite spr_explo;
 
+	sf::Clock clock_explo;
+	sf::Time duration;
+	float timer;
 };

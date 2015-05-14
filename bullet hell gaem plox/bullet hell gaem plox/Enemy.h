@@ -30,10 +30,11 @@ public:
 	Vector2f getPosition(){ return position; }
 	void draw(RenderWindow* window);
 	void update(Time& elapsed);
+	int onHit();
 	void shoot();
 
 private:
-	int health;
+	int health = 3;
 
 	float speed = 5;
 	float distance;

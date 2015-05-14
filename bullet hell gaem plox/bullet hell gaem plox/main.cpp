@@ -51,9 +51,7 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 
 	Clock enemyTimer;
 
-	/*SoundBuffer bg_buffer;*/
 	Music sfx_bg;
-	/*sfx_bg.setBuffer(bg_buffer);*/
 	if (!sfx_bg.openFromFile("sfx/bg_music.wav"))
 	{
 		std::cout << "FILE NOT FOUND: background_music" << std::endl;
@@ -72,7 +70,7 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 	//Time last_time = current;
 	
 	GameObject game;
-	Bullet bul;
+	//Bullet bul;
 	Enemy *enemy= new Enemy();
 	Vector2f posP;
 	posP.x = 950;
@@ -150,25 +148,20 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 			while (it != play.getVector().end())
 			{
 				if ((*it)->getSprite().getGlobalBounds().
-					intersects(ene_it->getSprite().getGlobalBounds()) || bul.getSprite().getPosition().y > 1000 ||
-					bul.getSprite().getPosition().y < 0 || bul.getSprite().getPosition().x > 1900 || 
-					bul.getSprite().getPosition().x < 0)
+					intersects(ene_it->getSprite().getGlobalBounds()) || (*it)->getSprite().getPosition().y > 1000 ||
+					(*it)->getSprite().getPosition().y < 0 || (*it)->getSprite().getPosition().x > 1900 || 
+					(*it)->getSprite().getPosition().x < 0)
 				{
 					std::cout << "Collision!" << std::endl;
 					it = play.getVector().erase(it);
 					hitEnemy = true;
-					play.scoreCounter();
 				}
 				else
 				{
 					++it;
 				}
 			}
-			if (hitEnemy)
-			{
-				sfx_exp.play();
 
-			}
 
 			if (play.getSprite().getGlobalBounds().
 				intersects(ene_it->getSprite().getGlobalBounds()))
@@ -177,14 +170,27 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 				hitPlayer = true;
 			}
 
-			if (hitEnemy || hitPlayer || ene_it->getSprite().getPosition().y > 1000 ||
+			if (/*hitEnemy || */hitPlayer || ene_it->getSprite().getPosition().y > 1000 ||
 				ene_it->getSprite().getPosition().y < 0 || ene_it->getSprite().getPosition().x > 1900 || 
 				ene_it->getSprite().getPosition().x < 0)
 			{
-				Explosion *explo = new Explosion(texMgr, ene_it->getSprite().getPosition());
-				explosions.push_back(*explo);
+				Explosion explo(texMgr, ene_it->getSprite().getPosition());
+				explosions.push_back(explo);
 
 				ene_it = hostiles.erase(ene_it);
+			}
+			if (hitEnemy)
+			{
+
+				if (ene_it->onHit() < 1)
+				{
+					sfx_exp.play();
+					Explosion explo(texMgr, ene_it->getSprite().getPosition());
+					explosions.push_back(explo);
+					ene_it = hostiles.erase(ene_it);
+					play.scoreCounter();
+				}
+
 			}
 
 			
@@ -211,15 +217,14 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 			ene_it->draw(&window);
 		}
 
-		for (explo_it = explosions.begin(); explo_it != explosions.end(); explo_it++)
+		for (int i = 0; i < explosions.size(); i++)
 		{
-			explo_it->draw(&window);
-			explo_it->update(elapsedTime);
+			explosions.at(i).draw(&window);
+			explosions.at(i).update(elapsedTime);
 
-			if (explo_it->getFrame() == Vector2i(8, 6))
+			if (explosions.at(i).getTimer() > 0.5)
 			{
-
-				std::cout << "Räjähti!" << std::endl;
+				explosions.pop_back();
 			}
 		}
 
@@ -230,6 +235,15 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 void menu(RenderWindow& window)
 {
 	Event event;
+
+	Music sfx_menu;
+	if (!sfx_menu.openFromFile("sfx/menu_music.flac"))
+	{
+		std::cout << "FILE NOT FOUND: background_music" << std::endl;
+	}
+	sfx_menu.setVolume(70);
+	sfx_menu.setLoop(true);
+	sfx_menu.play();
 
 	Menu menu(window.getSize().x, window.getSize().y);
 	menu.draw(window);
@@ -266,6 +280,7 @@ void menu(RenderWindow& window)
 					{
 					case 0:	//Menu item 0 (Play) gets pressed
 					{	
+						sfx_menu.stop();
 						loop(window);
 						break;
 					}

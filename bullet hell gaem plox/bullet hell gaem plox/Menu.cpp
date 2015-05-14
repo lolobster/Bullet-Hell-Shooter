@@ -1,4 +1,6 @@
 #include "Menu.h"
+#include <iostream>
+
 
 Menu::Menu(float width, float height)
 {
@@ -7,6 +9,7 @@ Menu::Menu(float width, float height)
 		//Handle error
 		/*debug.printMessage("arial.ttf was not found");*/
 	}
+
 
 	setupMenu(width, height, 0, "Play");
 	menu[0].setColor(sf::Color::Red);

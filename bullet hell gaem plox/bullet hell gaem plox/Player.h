@@ -45,7 +45,7 @@ public:
 	std::vector<Bullet*>::iterator getIter(){return it ; }
 
 private:
-	int health = 3;
+	int health = 5;
 	int deaths;
 	long score;
 
