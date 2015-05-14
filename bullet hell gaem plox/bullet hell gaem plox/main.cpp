@@ -10,17 +10,19 @@
 #include "Bullet.h"
 #include "Enemy.h"
 #include "TextureManager.h"
+#include "Explosion.h"
 
 using namespace sf;
 TextureManager texMgr;
 static void loop(RenderWindow& window);
 void menu(RenderWindow& window);
-void explosions(const Vector2f& renderDimensions);
 
 
 std::vector<Enemy> hostiles;
 std::vector<Enemy>::iterator ene_it;
-int size = hostiles.size();
+
+std::vector<Explosion> explosions;
+std::vector<Explosion>::iterator explo_it;
 
 int main()
 {
@@ -124,7 +126,7 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 		float timer = enemytime.asMilliseconds();
 
 
-		if (timer > 200 && hostiles.size() < 25)
+		if (timer > 150 && hostiles.size() < 250)  // spawnaa vihollisia 0,15 sekunnin välein
 			{
 				Vector2f pos_start(rand() % 1700, 0);
 				Vector2f pos_waypoint(rand() % 1700, 800);
@@ -179,7 +181,8 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 				ene_it->getSprite().getPosition().y < 0 || ene_it->getSprite().getPosition().x > 1900 || 
 				ene_it->getSprite().getPosition().x < 0)
 			{
-				explosions(ene_it->getSprite().getPosition());
+				Explosion *explo = new Explosion(texMgr, ene_it->getSprite().getPosition());
+				explosions.push_back(*explo);
 
 				ene_it = hostiles.erase(ene_it);
 			}
@@ -206,6 +209,18 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 		for (ene_it = hostiles.begin(); ene_it != hostiles.end(); ene_it++)
 		{
 			ene_it->draw(&window);
+		}
+
+		for (explo_it = explosions.begin(); explo_it != explosions.end(); explo_it++)
+		{
+			explo_it->draw(&window);
+			explo_it->update(elapsedTime);
+
+			if (explo_it->getFrame() == Vector2i(8, 6))
+			{
+
+				std::cout << "Räjähti!" << std::endl;
+			}
 		}
 
 		window.display();
@@ -280,22 +295,4 @@ void menu(RenderWindow& window)
 			window.display();
 		}
 	}
-}
-void explosions(const Vector2f& renderDimensions)
-{
-	const sf::Vector2i _frameSize(130, 150);
-	const sf::Vector2i _frameCount(2, 4);
-	sf::Vector2i _currentFrame(0, 0);
-	float _animationTime(0.0f);
-	float _frameDuration(1.0f / 15.0f);
-
-	sf::Sprite spr_explo;
-	//const bool result = tex_explo.loadFromFile("textures/sheet_explosion");
-
-	spr_explo.setOrigin(0.5f * _frameSize.x, 0.5f * _frameSize.y);
-	spr_explo.setPosition(renderDimensions.x, renderDimensions.y);
-	spr_explo.setTexture(texMgr.getRef("explosion"));
-	spr_explo.setTextureRect(IntRect(_currentFrame.x * _frameSize.x, _currentFrame.y*_frameSize.y, _frameSize.x, _frameSize.y));
-
-	////  exploveke deedeedee
 }

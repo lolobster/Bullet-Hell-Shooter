@@ -11,7 +11,7 @@
 class Bullet : public GameObject
 {
 public:
-	Bullet::Bullet(Vector2f pos, Vector2f pos_t);
+	Bullet::Bullet(Vector2f pos, Vector2f pos_t, TextureManager& texMgr);
 
 	Bullet();
 	~Bullet();

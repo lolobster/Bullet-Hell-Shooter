@@ -1,6 +1,5 @@
 #include "Bullet.h"
 #include "Player.h"
-#include "TextureManager.h"
 #include <iostream>
 
 Bullet::Bullet()
@@ -13,10 +12,10 @@ Bullet::~Bullet()
 {
 }
 
-Bullet::Bullet(Vector2f pos_origin, Vector2f pos_target)
+Bullet::Bullet(Vector2f pos_origin, Vector2f pos_target, TextureManager& texMgr)
 {
-	bullet_text.loadFromFile("bullet.png");
-	bullet_sprite.setTexture(bullet_text);
+	bullet_text.setSmooth(true);// tasoittaa reunat
+	bullet_sprite.setTexture(texMgr.getRef("bullet"));
 	bullet_sprite.setScale(Vector2f(0.15f, 0.1f));
 	bullet_sprite.setRotation(270);
 

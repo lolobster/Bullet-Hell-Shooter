@@ -45,6 +45,7 @@ private:
 	std::vector<Bullet> enemy_bullets;
 
 	Vector2f position;
+	Vector2f pos_direction;
 	Vector2f velocity;
 
 	Sprite spr_enemy;

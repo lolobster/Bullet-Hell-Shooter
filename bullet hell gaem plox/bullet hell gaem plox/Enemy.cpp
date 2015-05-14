@@ -5,6 +5,7 @@ Enemy::Enemy(sf::Vector2f& pos_start, sf::Vector2f pos_waypoint,
 	: GameObject(health)
 {
 	position = pos_start;
+	pos_direction = pos_waypoint;
 
 	angle = atan2(pos_waypoint.y - position.y, pos_waypoint.x - position.x);
 	angle = angle * (180 / M_PI);
