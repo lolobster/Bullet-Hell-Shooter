@@ -235,6 +235,12 @@ void menu(RenderWindow& window)
 	Event event;
 
 	Music sfx_menu;
+
+	SoundBuffer buff_select;
+	Sound sfx_select;
+	SoundBuffer buff_move;
+	Sound sfx_move;
+
 	if (!sfx_menu.openFromFile("sfx/menu_music.flac"))
 	{
 		std::cout << "FILE NOT FOUND: background_music" << std::endl;
@@ -242,6 +248,18 @@ void menu(RenderWindow& window)
 	sfx_menu.setVolume(70);
 	sfx_menu.setLoop(true);
 	sfx_menu.play();
+
+	if (!buff_select.loadFromFile("sfx/menu_select.wav"))
+	{
+		std::cout << "FILE NOT FOUND: sfx_shoot" << std::endl;
+	}
+	sfx_select.setBuffer(buff_select);
+
+	if (!buff_move.loadFromFile("sfx/menu_move.wav"))
+	{
+		std::cout << "FILE NOT FOUND: sfx_shoot" << std::endl;
+	}
+	sfx_move.setBuffer(buff_move);
 
 	Menu menu(window.getSize().x, window.getSize().y);
 	menu.draw(window);
@@ -265,11 +283,13 @@ void menu(RenderWindow& window)
 				case Keyboard::Up:
 				{
 					menu.moveUp();
+					sfx_move.play();
 					break;
 				}
 				case Keyboard::Down:
 				{
 					menu.moveDown();
+					sfx_move.play();
 					break;
 				}
 				case Keyboard::Return:
@@ -278,6 +298,7 @@ void menu(RenderWindow& window)
 					{
 					case 0:	//Menu item 0 (Play) gets pressed
 					{	
+						sfx_select.play();
 						sfx_menu.stop();
 						loop(window);
 						break;
