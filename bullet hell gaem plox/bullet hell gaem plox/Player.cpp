@@ -5,6 +5,7 @@
 #include "GameObject.h"
 #include "TextureManager.h"
 #include <sstream>
+#include "Explosion.h"
 
 using namespace sf;
 
@@ -37,6 +38,18 @@ void Player::updatePlayer(const Time& elapsedTime)
 
 	updateBullet(elapsedTime);
 	playerController(elapsed);
+
+	if (dead == true)
+	{
+		delay = deathclock.getElapsedTime();
+		respawn_timer = delay.asSeconds();
+
+		if (respawn_timer > 3)
+		{
+			dead = false;
+			positionPlayer = Vector2f(950, 800);
+		}
+	}
 }
 
 
@@ -113,11 +126,12 @@ void Player::onHit()
 	{
 		deaths += 1;
 		health = 3;
-
-		// räjähdys
-
-		positionPlayer.x = 950;
-		positionPlayer.y = 800;
+		
+		deathclock.restart();
+		dead = true;
+		Explosion *explo = new Explosion(texMgr, positionPlayer);
+		positionPlayer = Vector2f(3000, 3000);
+		//positionPlayer = Vector2f(950, 800);
 	}
 }
 

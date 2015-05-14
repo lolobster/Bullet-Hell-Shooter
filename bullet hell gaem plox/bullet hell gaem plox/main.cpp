@@ -18,11 +18,12 @@ static void loop(RenderWindow& window);
 void menu(RenderWindow& window);
 
 
-std::vector<Enemy> hostiles;
-std::vector<Enemy>::iterator ene_it;
+std::list<Enemy> hostiles;
+std::list<Enemy>::iterator ene_it;
 
 std::vector<Explosion> explosions;
 std::vector<Explosion>::iterator explo_it;
+
 
 int main()
 {
@@ -141,7 +142,7 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 		{   // poistaa enemyn jos siihen osuu tai se on liikkunut ulos ruudusta
 			
 
-			std::vector<Bullet*>::iterator it = play.getVector().begin();
+			std::list<Bullet*>::iterator it = play.getVector().begin();
 			bool hitEnemy = false;
 			bool hitPlayer = false;
 
@@ -152,7 +153,6 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 					(*it)->getSprite().getPosition().y < 0 || (*it)->getSprite().getPosition().x > 1900 || 
 					(*it)->getSprite().getPosition().x < 0)
 				{
-					std::cout << "Collision!" << std::endl;
 					it = play.getVector().erase(it);
 					hitEnemy = true;
 				}
