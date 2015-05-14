@@ -37,12 +37,17 @@ public:
 	Vector2f getPlayerPos(){ return positionPlayer; }
 	Vector2f getBulletPos(){ return bulletPos; }
 
-	std::vector<Bullet*> bullet_vec;
-	std::vector<Bullet*>::iterator it;
+	std::list<Bullet*> bullet_vec;
+	std::list<Bullet*>::iterator it;
+
+	//void resizeVec()
+	//{
+	//	bullet_vec.resize(40, new Bullet());
+	//}
 
 	Sprite& getSprite() { return pl_sprite; }
-	std::vector<Bullet*> &getVector(){ return bullet_vec; }
-	std::vector<Bullet*>::iterator getIter(){return it ; }
+	std::list<Bullet*> &getVector(){ return bullet_vec; }
+	std::list<Bullet*>::iterator getIter(){ return it; }
 
 private:
 	int health = 5;
@@ -69,5 +74,8 @@ private:
 
 	TextureManager texMgr;
 
-
+	bool dead = false;
+	sf::Clock deathclock;
+	sf::Time delay;
+	float respawn_timer;
 };

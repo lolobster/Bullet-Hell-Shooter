@@ -18,8 +18,8 @@ static void loop(RenderWindow& window);
 void menu(RenderWindow& window);
 
 
-std::vector<Enemy> hostiles;
-std::vector<Enemy>::iterator ene_it;
+std::list<Enemy> hostiles;
+std::list<Enemy>::iterator ene_it;
 
 std::vector<Explosion> explosions;
 std::vector<Explosion>::iterator explo_it;
@@ -77,7 +77,7 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 	posP.y = 800;
 	Player play(posP, texMgr);
 	play.loadBackground();
-
+	//play.resizeVec();
 
 
 
@@ -85,6 +85,12 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 
 	while (window.isOpen())
 	{
+		window.clear(Color::Black);
+
+		play.render(&window);
+
+		play.draw(&window);
+
 		clock.restart();
 
 		play.updateBackGround(elapsed);
@@ -133,7 +139,6 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 				hostiles.push_back(enemy);
 				enemyTimer.restart();
 			}
-	/*	}*/
 
 		ene_it = hostiles.begin();
 
@@ -141,18 +146,19 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 		{   // poistaa enemyn jos siihen osuu tai se on liikkunut ulos ruudusta
 			
 
-			std::vector<Bullet*>::iterator it = play.getVector().begin();
+			std::list<Bullet*>::iterator it = play.getVector().begin();
 			bool hitEnemy = false;
 			bool hitPlayer = false;
 
 			while (it != play.getVector().end())
 			{
 				if ((*it)->getSprite().getGlobalBounds().
-					intersects(ene_it->getSprite().getGlobalBounds()) || (*it)->getSprite().getPosition().y > 1000 ||
-					(*it)->getSprite().getPosition().y < 0 || (*it)->getSprite().getPosition().x > 1900 || 
+					intersects(ene_it->getSprite().getGlobalBounds()) || 
+					(*it)->getSprite().getPosition().y > 1000 ||
+					(*it)->getSprite().getPosition().y < 0 || 
+					(*it)->getSprite().getPosition().x > 1900 || 
 					(*it)->getSprite().getPosition().x < 0)
 				{
-					std::cout << "Collision!" << std::endl;
 					it = play.getVector().erase(it);
 					hitEnemy = true;
 				}
@@ -170,7 +176,7 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 				hitPlayer = true;
 			}
 
-			if (/*hitEnemy || */hitPlayer || ene_it->getSprite().getPosition().y > 1000 ||
+			if (hitPlayer || ene_it->getSprite().getPosition().y > 1000 ||
 				ene_it->getSprite().getPosition().y < 0 || ene_it->getSprite().getPosition().x > 1900 || 
 				ene_it->getSprite().getPosition().x < 0)
 			{
@@ -179,7 +185,7 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 
 				ene_it = hostiles.erase(ene_it);
 			}
-			if (hitEnemy)
+			else if (hitEnemy)
 			{
 
 				if (ene_it->onHit() < 1)
@@ -190,32 +196,22 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 					ene_it = hostiles.erase(ene_it);
 					play.scoreCounter();
 				}
-
 			}
-
-			
 			else
 			{
 				ene_it->update(elapsedTime);
+				ene_it->draw(&window);
 
 				++ene_it;
 			}
 		}
 
 
-		ene_it = hostiles.begin();
-
-		window.clear(Color::Black);
-
-		play.render(&window);
-		
-		play.draw(&window);
 
 		
-		for (ene_it = hostiles.begin(); ene_it != hostiles.end(); ene_it++)
-		{
-			ene_it->draw(&window);
-		}
+		//for (ene_it = hostiles.begin(); ene_it != hostiles.end(); ene_it++)
+		//{
+		//}
 
 		for (int i = 0; i < explosions.size(); i++)
 		{
@@ -227,7 +223,7 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 				explosions.pop_back();
 			}
 		}
-
+		
 		window.display();
 
 	}

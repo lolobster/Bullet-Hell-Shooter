@@ -4,6 +4,7 @@
 #include "Menu.h"
 #include "GameObject.h"
 #include "TextureManager.h"
+#include "Explosion.h"
 #include <sstream>
 
 using namespace sf;
@@ -13,6 +14,7 @@ Player::Player(Vector2f pos, TextureManager& tM)
 {
 	texMgr = tM;
 	positionPlayer = pos;
+
 
 	pl_sprite.setTexture(texMgr.getRef("player"));
 
@@ -37,14 +39,23 @@ void Player::updatePlayer(const Time& elapsedTime)
 
 	updateBullet(elapsedTime);
 	playerController(elapsed);
+
+	if (dead == true)
+	{
+		delay = deathclock.getElapsedTime();
+		respawn_timer = delay.asSeconds();
+
+		if (respawn_timer > 3)
+		{
+			dead = false;
+			positionPlayer = Vector2f(950, 800);
+		}
+	}
 }
 
 
 void Player::playerController(const float elapsedTime)
 {
-	Mouse mouse;
-	Bullet bullet;
-
 
 	if (Mouse::isButtonPressed(btn_shoot))
 	{
@@ -93,7 +104,6 @@ void Player::shoot(const float elapsedTime)
 	fireTimer -= elapsedTime;
 	Vector2f sijainti = position();
 	sijainti.x = position().x + 30.0f;
-	sijainti.y = position().y -10.0f;
 	if (fireTimer <= 0.0f)
 	{
 		Bullet *shot = new Bullet(sijainti, direction, texMgr);
@@ -114,10 +124,13 @@ void Player::onHit()
 		deaths += 1;
 		health = 3;
 
-		// räjähdys
-
-		positionPlayer.x = 950;
-		positionPlayer.y = 800;
+		
+		deathclock.restart();
+		dead = true;
+		Explosion *explo = new Explosion(texMgr, positionPlayer);
+		positionPlayer = Vector2f(3000, 3000);
+		//positionPlayer.x = 950;
+		//positionPlayer.y = 800;
 	}
 }
 
