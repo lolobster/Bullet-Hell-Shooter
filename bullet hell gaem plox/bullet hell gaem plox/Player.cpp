@@ -23,6 +23,7 @@ Player::Player(Vector2f pos, TextureManager& tM)
 		std::cout << "FILE NOT FOUND: sfx_shoot" << std::endl;
 	}
 	sfx_shoot.setBuffer(buffer);
+	sfx_shoot.setVolume(70);
 	font.loadFromFile("arial.ttf");
 
 }

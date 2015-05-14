@@ -235,11 +235,10 @@ void menu(RenderWindow& window)
 	Event event;
 
 	Music sfx_menu;
-
-	SoundBuffer buff_select;
-	Sound sfx_select;
-	SoundBuffer buff_move;
-	Sound sfx_move;
+	sf::SoundBuffer buff_select;
+	sf::Sound sfx_select;
+	sf::SoundBuffer buff_move;
+	sf::Sound sfx_move;
 
 	if (!sfx_menu.openFromFile("sfx/menu_music.flac"))
 	{
