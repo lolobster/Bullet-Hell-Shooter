@@ -31,7 +31,7 @@ Bullet::Bullet(Vector2f pos_origin, Vector2f pos_target)
 
 	bullet_sprite.setPosition(position);
 	bullet_sprite.setRotation(angle);
-	bullet_sprite.setScale(Vector2f(0.15f, 0.1f));
+	bullet_sprite.setScale(Vector2f(0.15f, 0.07f));
 
 	distance = sqrt((pos_target.x - position.x)*(pos_target.x - position.x) +
 		(pos_target.y - position.y)*(pos_target.y - position.y));
@@ -41,9 +41,8 @@ Bullet::Bullet(Vector2f pos_origin, Vector2f pos_target)
 
 void Bullet::draw(RenderWindow& window)
 {
-	std::cout << bullet_sprite.getPosition().x << ", " << bullet_sprite.getPosition().y << std::endl;
 
-	window.draw(bullet_sprite); // ei saa oikeeta sijaintai eikä päivitä :((((( niin paljon leukoja
+	window.draw(bullet_sprite); 
 }
 
 void Bullet::updateBullet()
@@ -51,8 +50,3 @@ void Bullet::updateBullet()
 	position += velocity;
 	bullet_sprite.setPosition(position);
 }
-
-//void Bullet::onHit(Bullet *bullet)
-//{
-//	delete bullet;
-//}

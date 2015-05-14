@@ -52,19 +52,19 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 	/*SoundBuffer bg_buffer;*/
 	Music sfx_bg;
 	/*sfx_bg.setBuffer(bg_buffer);*/
-	if (!sfx_bg.openFromFile("sfx/bg_music.flac"))
+	if (!sfx_bg.openFromFile("sfx/bg_music.wav"))
 	{
 		std::cout << "FILE NOT FOUND: background_music" << std::endl;
 	}
-	sfx_bg.setVolume(80);
+	sfx_bg.setVolume(83);
 	sfx_bg.setLoop(true);
 	sfx_bg.play();
 	SoundBuffer exp_buffer;
 	Sound sfx_exp;
 	sfx_exp.setBuffer(exp_buffer);
-	if (!exp_buffer.loadFromFile("sfx/explosion4.wav"))
+	if (!exp_buffer.loadFromFile("sfx/explosion.wav"))
 	{
-		std::cout << "FILE NOT FOUND: sfx_shoot" << std::endl;
+		std::cout << "FILE NOT FOUND: sfx_explosion" << std::endl;
 	}
 	//Time current = clock.getElapsedTime();
 	//Time last_time = current;

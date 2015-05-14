@@ -109,10 +109,15 @@ void Player::onHit()
 {
 	health -= 1;
 
-	if (health == 0)
+	if (health == 0)  // plussaa death countteria ja resettaa playerin alkusijaintiin
 	{
 		deaths += 1;
 		health = 3;
+
+		// räjähdys
+
+		positionPlayer.x = 950;
+		positionPlayer.y = 800;
 	}
 }
 
@@ -156,7 +161,7 @@ void Player::updateBullet(const Time& elapsedTime)
 
 		bulletPos = (*it)->getSprite().getPosition();
 
-		if (bulletPos.y > 1000 || bulletPos.y < 0)
+		if (bulletPos.y > 1000 || bulletPos.y < 0 || bulletPos.x > 1900 || bulletPos.x < 0)
 		{
 			it = bullet_vec.erase(it);
 		}
