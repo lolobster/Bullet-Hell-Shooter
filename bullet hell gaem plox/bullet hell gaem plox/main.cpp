@@ -10,6 +10,7 @@
 #include "Bullet.h"
 #include "Enemy.h"
 #include "TextureManager.h"
+#include "Explosion.h"
 
 using namespace sf;
 TextureManager texMgr;
@@ -18,9 +19,8 @@ void menu(RenderWindow& window);
 std::vector<Enemy> hostiles;
 std::vector<Enemy>::iterator ene_it;
 int size = hostiles.size();
-
-void explosions(const Vector2f&, const Time& elapsedTime, RenderWindow& w);
-
+std::vector<Explosion> explosions;
+std::vector<Explosion>::iterator explo_it;
 
 int main()
 {
@@ -178,12 +178,11 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 				ene_it->getSprite().getPosition().y < 0 || ene_it->getSprite().getPosition().x > 1900 || 
 				ene_it->getSprite().getPosition().x < 0)
 			{
-				//explosions(ene_it->getSprite().getPosition(), elapsedTime, window);
-
+				Explosion *explo = new Explosion(texMgr, ene_it->getSprite().getPosition());
+				explosions.push_back(*explo);
 				ene_it = hostiles.erase(ene_it);
 			}
 
-			
 			else
 			{
 				ene_it->update(elapsedTime);
@@ -205,7 +204,11 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 			ene_it->draw(&window);
 		}
 
-		explosions(Vector2f(500, 500), elapsedTime, window);
+		for (explo_it = explosions.begin(); explo_it != explosions.end(); explo_it++)
+		{
+			explo_it->draw(&window);
+			explo_it->update(elapsedTime);
+		}
 
 		window.display();
 	}
@@ -280,44 +283,3 @@ void menu(RenderWindow& window)
 		}
 	}
 }
-
-void explosions(const sf::Vector2f& pos_explo, const Time& elapsedTime, RenderWindow& window)
-{
-	const sf::Vector2i _frameCount(2, 1);
-	const sf::Vector2i _frameSize(256, 256);
-	sf::Vector2i _currentFrame(0, 0);
-	float _animationTime(6.0f);
-	float _frameDuration(1.0f / 15.0f);
-
-	sf::Sprite spr_explo;
-	spr_explo.setPosition(pos_explo);
-	//spr_explo.setOrigin(0.5f * _frameSize.x, 0.5f * _frameSize.y);
-	spr_explo.setScale(0.5f, 0.5f);
-	spr_explo.setTexture(texMgr.getRef("explosion"));
-
-	//sf::Clock clock;
-	//
-
-	//const float interval = 250.f;
-	//float timer = 0;
-
-	//do{
-	//	sf::Time elapsed = clock.getElapsedTime();
-
-	//	timer -= elapsed.asSeconds();
-
-	//	if (timer <= 0.0f)
-	//	{
-	//			spr_explo.setTextureRect(sf::IntRect(_currentFrame.x * _frameSize.x,
-	//				_currentFrame.y*_frameSize.y, _frameSize.x, _frameSize.y));
-	//			window.draw(spr_explo);
-
-	//			_currentFrame.x++;
-
-	//		timer = interval;
-	//	}
-
-	//} while (_currentFrame != Vector2i(2, 0));
-
-}
-
