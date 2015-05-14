@@ -174,6 +174,8 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 				intersects(ene_it->getSprite().getGlobalBounds()))
 			{
 				play.onHit();
+				sfx_exp.play();
+
 				hitPlayer = true;
 			}
 
@@ -183,7 +185,6 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 			{
 				Explosion explo(texMgr, ene_it->getSprite().getPosition());
 				explosions.push_back(explo);
-
 				ene_it = hostiles.erase(ene_it);
 			}
 			else if (hitEnemy)
