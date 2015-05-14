@@ -24,6 +24,7 @@ std::list<Enemy>::iterator ene_it;
 std::vector<Explosion> explosions;
 std::vector<Explosion>::iterator explo_it;
 
+
 int main()
 {
 	int x = 1900; // original 600u / best 1920

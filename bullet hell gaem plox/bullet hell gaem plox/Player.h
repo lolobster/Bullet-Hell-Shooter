@@ -40,14 +40,9 @@ public:
 	std::list<Bullet*> bullet_vec;
 	std::list<Bullet*>::iterator it;
 
-	//void resizeVec()
-	//{
-	//	bullet_vec.resize(40, new Bullet());
-	//}
-
 	Sprite& getSprite() { return pl_sprite; }
 	std::list<Bullet*> &getVector(){ return bullet_vec; }
-	std::list<Bullet*>::iterator getIter(){ return it; }
+	std::list<Bullet*>::iterator getIter(){return it ; }
 
 private:
 	int health = 5;
