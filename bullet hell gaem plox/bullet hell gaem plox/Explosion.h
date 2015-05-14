@@ -11,6 +11,8 @@ public:
 	~Explosion();
 	void update(const sf::Time& elapsedTime);
 	void draw(sf::RenderWindow* w);
+
+	sf::Vector2i getFrame(){ return _currentFrame; }
 private:
 	const sf::Vector2i _frameCount;
 	const sf::Vector2i _frameSize;

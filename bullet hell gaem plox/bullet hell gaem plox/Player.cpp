@@ -8,10 +8,10 @@
 
 using namespace sf;
 
-Player::Player(Vector2f pos, TextureManager& texMgr)
+Player::Player(Vector2f pos, TextureManager& tM)
 	: GameObject(health)
 {
-
+	texMgr = tM;
 	positionPlayer = pos;
 
 	pl_sprite.setTexture(texMgr.getRef("player"));
@@ -96,7 +96,7 @@ void Player::shoot(const float elapsedTime)
 	//sijainti.y = -20.0f;
 	if (fireTimer <= 0.0f)
 	{
-		Bullet *shot = new Bullet(sijainti, direction);
+		Bullet *shot = new Bullet(sijainti, direction, texMgr);
 
 		sfx_shoot.play();
 
@@ -156,7 +156,7 @@ void Player::updateBullet(const Time& elapsedTime)
 
 		bulletPos = (*it)->getSprite().getPosition();
 
-		if (bulletPos.y > 1000 || bulletPos.y < 0)
+		if (bulletPos.y > 1000 || bulletPos.y < 0 || bulletPos.x > 1900 || bulletPos.x < 0)
 		{
 			it = bullet_vec.erase(it);
 		}

@@ -66,5 +66,5 @@ private:
 	Keyboard::Key kb_reverse = Keyboard::S;
 	Keyboard::Key kb_left = Keyboard::A;
 	Keyboard::Key kb_right = Keyboard::D;
-
+	TextureManager texMgr;
 };

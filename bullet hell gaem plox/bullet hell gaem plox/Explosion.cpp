@@ -3,14 +3,14 @@
 
 Explosion::Explosion(TextureManager& texMgr, sf::Vector2f pos_explo)
 	: _frameSize(256, 256),
-	_frameCount(2, 1),
+	_frameCount(8, 6),
 	_currentFrame(0, 0),
-	_frameDuration(1.0f / 1500.0f),
+	_frameDuration(0.0005f / 15.0f),
 	_animationTime(0.0f)
 {
 	spr_explo.setPosition(pos_explo);
 	//spr_explo.setOrigin(0.5f * _frameSize.x, 0.5f * _frameSize.y);
-	spr_explo.setScale(0.5f, 0.5f);
+	spr_explo.setScale(0.3f, 0.3f);
 	spr_explo.setTexture(texMgr.getRef("explosion"));
 	spr_explo.setTextureRect(sf::IntRect(_currentFrame.x * _frameSize.x, 
 		_currentFrame.y*_frameSize.y, _frameSize.x, _frameSize.y));

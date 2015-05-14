@@ -37,7 +37,7 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 	texMgr.loadTexture("enemy", "textures/base_enemy.png");
 	texMgr.loadTexture("player", "textures/player.png");
 	texMgr.loadTexture("bullet", "textures/bullet.png");
-	texMgr.loadTexture("explosion", "textures/sheet_explosion.png");
+	texMgr.loadTexture("explosion", "textures/explosion_sheet.png");
 
 
 	bool paused = 0;
@@ -208,6 +208,12 @@ static void loop(RenderWindow& window) // aliohjelma pyörittää ikkunaa
 		{
 			explo_it->draw(&window);
 			explo_it->update(elapsedTime);
+
+			if (explo_it->getFrame() == Vector2i(8, 6))
+			{
+
+				std::cout << "Räjähti!" << std::endl;
+			}
 		}
 
 		window.display();
